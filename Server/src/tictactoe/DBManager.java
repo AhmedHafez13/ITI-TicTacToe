@@ -19,11 +19,11 @@ public class DBManager {
 
     private final String DB_NAME = "tictactoe";
     private final String DB_USER = "root";
-    private final String DB_PASSWORD = "password";
+    private final String DB_PASSWORD = ""; //empty password edited by "amr"!
 
     DBManager() {
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + DB_NAME, DB_USER, DB_PASSWORD);
             isConnected = true;
@@ -84,24 +84,43 @@ public class DBManager {
     }
 
     /**
-     * @author Amr TODO add description
+     * @author Amr 
+     * Register new player function
+     * insert new row in the database when a new player register
      */
     public static void registerNewPlayer(String name, String password, String avatar) {
-
-        // TODO: insert new player, When the user signs up
+        try{
+            PreparedStatement pst = connection.prepareStatement("insert into player(name,password,avatar) values(?,?,?)");
+            pst.setString(1, name);
+            pst.setString(2, password);
+            pst.setString(3, avatar);
+            pst.executeUpdate();
+            pst.close();
+            }
+            catch(Exception e){e.printStackTrace();}
     }
 
     /**
      * @author Amr
-     * @return ... TODO add description
+     * @return the playerId if the input data matches a record in the database
+     * else it returns -1 if no record found or can't sign in
      */
     public static int signInPlayer(String name, String password) {
         int playerId = -1;
-
-        // TODO: validate name and password...
-        // check if the name and password matches any record in the databaes
-        // set playerId to the player id from the database or return -1
-        // if can't signin
+        try{
+            PreparedStatement pst = con.prepareStatement("select * from player where name = ? and password = ?");
+            pst.setString(1, name);
+            pst.setString(2, password);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) //if the data is found
+            {
+                playerId = rs.getInt(1); // playerId is set to db playerId
+            }else{
+                playerId = -1; //data is not found
+            }
+            pst.close();
+            }
+            catch(Exception e){e.printStackTrace();}
         return playerId;
     }
 }
