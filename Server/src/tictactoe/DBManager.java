@@ -6,7 +6,9 @@ package tictactoe;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import models.Player;
 
@@ -63,6 +65,22 @@ public class DBManager {
     public static void insertNewGame(int playerXId, int playerOId, char winner, String moves) {
 
         // TODO: insert new game into `game` table
+     // -----------------------Strat of the code--------------------------------------------//
+        try { 
+            Statement st = connection.createStatement(); 
+            PreparedStatement pst = connection.prepareStatement("INSERT INTO game (player_x_id, player_o_id, winner, moves) VALUES (?, ?, ?, ?)");
+            pst.setString (1,String.valueOf(playerXId) );
+            pst.setString (2, String.valueOf(playerOId));
+            pst.setString (3, String.valueOf(winner));
+            pst.setString (4, moves);
+            pst.executeUpdate(); 
+
+            connection.close(); 
+        } catch (Exception e) { 
+            System.err.println("Got an exception! "); 
+            System.err.println(e.getMessage()); 
+        }  
+     // ------------------------- End Of the code----------------------------------------------//      
     }
 
     /**
