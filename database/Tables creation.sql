@@ -14,8 +14,8 @@ CREATE TABLE game
   player_x_id INT NOT NULL,
   player_o_id INT NOT NULL,
   winner ENUM('x', 'o') NOT NULL,
-  time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   moves TEXT NOT NULL,
+  time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (player_x_id) REFERENCES player(id),
   FOREIGN KEY (player_o_id) REFERENCES player(id)
 );
