@@ -6,6 +6,7 @@ package tictactoe;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import models.Player;
@@ -17,11 +18,11 @@ public class DBManager {
 
     private final String DB_NAME = "tictactoe";
     private final String DB_USER = "root";
-    private final String DB_PASSWORD = "password";
+    private final String DB_PASSWORD = ""; //empty password edited by "amr"!
 
     DBManager() {
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + DB_NAME, DB_USER, DB_PASSWORD);
             isConnected = true;
@@ -66,11 +67,20 @@ public class DBManager {
     }
 
     /**
-     * @author Amr TODO add description
+     * @author Amr 
+     * Register new player function
+     * insert new row in the database when a new player register
      */
     public static void registerNewPlayer(String name, String password, String avatar) {
-
-        // TODO: insert new player, When the user signs up
+        try{
+            PreparedStatement pst = connection.prepareStatement("insert into player(name,password,avatar) values(?,?,?)");
+            pst.setString(1, name);
+            pst.setString(2, password);
+            pst.setString(3, avatar);
+            pst.executeUpdate();
+            pst.close();
+            }
+            catch(Exception e){e.printStackTrace();}
     }
 
     /**
