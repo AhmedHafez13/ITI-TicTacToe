@@ -85,15 +85,25 @@ public class DBManager {
 
     /**
      * @author Amr
-     * @return ... TODO add description
+     * @return the playerId if the input data matches a record in the database
+     * else it returns -1 if no record found or can't sign in
      */
     public static int signInPlayer(String name, String password) {
         int playerId = -1;
-
-        // TODO: validate name and password...
-        // check if the name and password matches any record in the databaes
-        // set playerId to the player id from the database or return -1
-        // if can't signin
+        try{
+            PreparedStatement pst = con.prepareStatement("select * from player where name = ? and password = ?");
+            pst.setString(1, name);
+            pst.setString(2, password);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) //if the data is found
+            {
+                playerId = rs.getInt(1); // playerId is set to db playerId
+            }else{
+                playerId = -1; //data is not found
+            }
+            pst.close();
+            }
+            catch(Exception e){e.printStackTrace();}
         return playerId;
     }
 }
