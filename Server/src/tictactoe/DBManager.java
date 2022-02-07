@@ -7,6 +7,7 @@ package tictactoe;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
@@ -21,7 +22,7 @@ public class DBManager {
     private final String DB_USER = "root";
     private final String DB_PASSWORD = ""; //empty password edited by "amr"!
 
-    DBManager() {
+    DBManager() throws ClassNotFoundException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
@@ -108,7 +109,7 @@ public class DBManager {
     public static int signInPlayer(String name, String password) {
         int playerId = -1;
         try{
-            PreparedStatement pst = con.prepareStatement("select * from player where name = ? and password = ?");
+            PreparedStatement pst = connection.prepareStatement("select * from player where name = ? and password = ?");
             pst.setString(1, name);
             pst.setString(2, password);
             ResultSet rs = pst.executeQuery();
