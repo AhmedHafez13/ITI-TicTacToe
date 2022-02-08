@@ -41,6 +41,22 @@ public class DBManager {
      */
     public static LinkedList<Player> getPlayersSortedByStatus() {
         LinkedList<Player> players = new LinkedList<>();
+        try { 
+            Statement stmt = connection.createStatement(); 
+            ResultSet rs = stmt.executeQuery("select * from player ORDER BY is_online DESC "); //true=1 false=0
+             while (rs.next()) {
+               String name=rs.getString("name");
+               int score=rs.getInt("total_score");
+               boolean online=rs.getBoolean("is_online");
+               String avatar=rs.getString("avatar");   
+               Player p=new Player(name,score,online,avatar);
+               players.add(p);
+                //stmt.close();
+                //connection.close(); 
+             }
+            }catch (Exception e) { 
+              System.err.println(e.getMessage()); 
+            }  
 
         // TODO: select players from `player` table, sorted by status
         // (is_online = true) first then (is_online = false)
@@ -53,7 +69,22 @@ public class DBManager {
      */
     public static LinkedList<Player> getPlayersSortedByScore() {
         LinkedList<Player> players = new LinkedList<>();
-
+        try { 
+            Statement stmt = connection.createStatement(); 
+            ResultSet rs = stmt.executeQuery("select * from player ORDER BY total_score DESC ");
+             while (rs.next()) {
+               String name=rs.getString("name");
+               int score=rs.getInt("total_score");
+               boolean online=rs.getBoolean("is_online");
+               String avatar=rs.getString("avatar");   
+               Player p=new Player(name,score,online,avatar);
+               players.add(p);
+               // stmt.close();
+                //connection.close(); 
+             }
+            }catch (Exception e) { 
+              System.err.println(e.getMessage()); 
+            }  
         // TODO: select players from `player` table, sorted by score
         // higher score first
         return players;

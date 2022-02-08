@@ -14,7 +14,7 @@ public class Player {
     private boolean isOnline;
     private String avatar;
 
-    Player(String name, int totalScore, boolean isOnline, String avatar) {
+  public Player(String name, int totalScore, boolean isOnline, String avatar) {
         this.name = name;
         this.totalScore = totalScore;
         this.isOnline = isOnline;
