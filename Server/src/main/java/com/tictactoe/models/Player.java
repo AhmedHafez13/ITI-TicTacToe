@@ -11,26 +11,16 @@ package com.tictactoe.models;
 public class Player {
     private String name;
     private int totalScore;
-    private boolean isOnline;
     private String avatar;
 
-    public Player(String name, int totalScore, boolean isOnline, String avatar) {
+    public Player(String name, int totalScore, String avatar) {
         this.name = name;
         this.totalScore = totalScore;
-        this.isOnline = isOnline;
         this.avatar = avatar;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setOnline(boolean isOnline) {
-        this.isOnline = isOnline;
-    }
-
-    public boolean isOnline() {
-        return isOnline;
     }
 
     public int getTotalScore() {

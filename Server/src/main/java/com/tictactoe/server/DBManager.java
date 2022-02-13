@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.tictactoe.server;
 
+import com.mysql.cj.jdbc.Driver;
 import com.tictactoe.models.Player;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,9 +19,9 @@ public class DBManager {
     private final String DB_USER = "root";
     private final String DB_PASSWORD = ""; //empty password edited by "amr"!
 
-    DBManager() throws ClassNotFoundException {
+    DBManager() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + DB_NAME, DB_USER, DB_PASSWORD);
             isConnected = true;
@@ -49,7 +46,7 @@ public class DBManager {
                 int score = rs.getInt("total_score");
                 boolean online = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                Player p = new Player(name, score, online, avatar);
+                Player p = new Player(name, score, avatar);
                 players.add(p);
                 //stmt.close();
                 //connection.close(); 
@@ -75,9 +72,9 @@ public class DBManager {
             while (rs.next()) {
                 String name = rs.getString("name");
                 int score = rs.getInt("total_score");
-                boolean online = rs.getBoolean("is_online");
+                //boolean online = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                Player p = new Player(name, score, online, avatar);
+                Player p = new Player(name, score, avatar);
                 players.add(p);
                 // stmt.close();
                 //connection.close(); 
