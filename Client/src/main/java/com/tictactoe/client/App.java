@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,7 +18,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 606);
+        scene = new Scene(loadFXML("LoginScene"));
+        stage.setTitle("Tic Tac Toe!");
+        stage.getIcons().add(new Image("https://files.softicons.com/download/game-icons/brain-games-icons-by-quizanswers/png/128x128/Tic-Tac-Toe-Game.png"));
         stage.setScene(scene);
         stage.show();
     }
