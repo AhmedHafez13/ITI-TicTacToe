@@ -51,7 +51,7 @@ public class DBManager {
                 //stmt.close();
                 //connection.close(); 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
 
@@ -79,7 +79,7 @@ public class DBManager {
                 // stmt.close();
                 //connection.close(); 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         // TODO: select players from `player` table, sorted by score
@@ -89,6 +89,10 @@ public class DBManager {
 
     /**
      * @author Khloud TODO add description
+     * @param playerXId
+     * @param playerOId
+     * @param winner
+     * @param moves
      */
     public static void insertNewGame(int playerXId, int playerOId, char winner, String moves) {
 
@@ -103,7 +107,7 @@ public class DBManager {
             pst.setString(4, moves);
             pst.executeUpdate();
 
-            connection.close();
+            st.close();
         } catch (Exception e) {
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
@@ -114,6 +118,9 @@ public class DBManager {
     /**
      * @author Amr Register new player function insert new row in the database
      * when a new player register
+     * @param name
+     * @param password
+     * @param avatar
      */
     public static void registerNewPlayer(String name, String password, String avatar) {
         try {
@@ -130,6 +137,8 @@ public class DBManager {
 
     /**
      * @author Amr
+     * @param name
+     * @param password
      * @return the playerId if the input data matches a record in the database
      * else it returns -1 if no record found or can't sign in
      */
@@ -147,7 +156,7 @@ public class DBManager {
                 playerId = -1; //data is not found
             }
             pst.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return playerId;

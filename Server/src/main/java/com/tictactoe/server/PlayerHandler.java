@@ -18,8 +18,8 @@ public class PlayerHandler extends Thread {
 
     private ServerManager serverManager;
 
-    String id;
     private Player player = null;
+    String id;
     String gameId = null;
 
     private boolean isConnected;
@@ -29,8 +29,12 @@ public class PlayerHandler extends Thread {
         id = UUID.randomUUID().toString();
 
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(serverManager.getSocket().getInputStream()));
-            printStream = new PrintStream(serverManager.getSocket().getOutputStream());
+            bufferedReader = new BufferedReader(new InputStreamReader(
+                    serverManager.getSocket().getInputStream())
+            );
+            printStream = new PrintStream(
+                    serverManager.getSocket().getOutputStream()
+            );
             serverManager.addPlayerHandler(this);
             isConnected = true;
             start();

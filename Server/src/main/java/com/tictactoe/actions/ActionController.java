@@ -14,9 +14,10 @@ import org.json.simple.parser.ParseException;
  */
 public class ActionController {
 
-    private final JSONParser parser = new JSONParser();
     ServerManager serverManager;
     ActionHandler actionHandler;
+
+    private final JSONParser parser = new JSONParser();
 
     public ActionController(ServerManager serverManager) {
         this.serverManager = serverManager;

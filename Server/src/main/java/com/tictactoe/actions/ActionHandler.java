@@ -15,6 +15,11 @@ public class ActionHandler {
         this.actionController = actionController;
     }
 
+    /**
+     *
+     * @param data
+     * @param playerHandler
+     */
     public void handleLogin(HashMap<String, String> data, PlayerHandler playerHandler) {
         /*TODO:
          * if can login =>
@@ -25,6 +30,11 @@ public class ActionHandler {
          */
     }
 
+    /**
+     *
+     * @param data
+     * @param playerHandler
+     */
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
         /*TODO:
          * if can register =>
@@ -35,6 +45,11 @@ public class ActionHandler {
          */
     }
 
+    /**
+     *
+     * @param data
+     * @param playerHandler
+     */
     public void handleMove(HashMap<String, String> data, PlayerHandler playerHandler) {
         /*TODO:
          * • Add the received move to the moves array
@@ -42,6 +57,11 @@ public class ActionHandler {
          */
     }
 
+    /**
+     *
+     * @param data
+     * @param playerHandler
+     */
     public void handleGameInvitation(HashMap<String, String> data, PlayerHandler playerHandler) {
         /*TODO:
          * • Add the received move to the moves array
