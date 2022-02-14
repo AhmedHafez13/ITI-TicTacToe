@@ -5,8 +5,16 @@ import com.tictactoe.actions.ActionHandler;
 import com.tictactoe.actions.MessageCreator;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class LoginController {
+
+    @FXML
+    private TextField usernameField;
 
     @FXML
     private void switchToSignup() throws IOException {
@@ -24,12 +32,24 @@ public class LoginController {
     }
 
     @FXML
+    private AnchorPane root;
+
+    @FXML
     private void login() throws IOException {
         System.out.println("@LoginController.login is called!");
-        AppManager appManager = App.appManager;
-        ActionController actionController = appManager.actionController;
-        MessageCreator messageCreator = actionController.getMessageCreator();
+        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
 
-        messageCreator.sendLogin("user1", "pass1");
+        String username = usernameField.getText();
+        messageCreator.sendLogin(username, "pass1");
     }
+
+
+    @FXML
+    private void register() throws IOException {
+        System.out.println("@LoginController.register is called!");
+        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+
+        messageCreator.sendRegister("user1", "pass1", "confirmPass1");
+    }
+
 }

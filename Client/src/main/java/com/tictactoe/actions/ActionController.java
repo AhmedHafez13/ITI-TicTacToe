@@ -32,16 +32,16 @@ public class ActionController {
 
         System.out.println("Handling Action: " + action);
 
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase(Message.LOGIN)) {
             actionHandler.handleLogin(data);
 
-        } else if (action.equalsIgnoreCase("register")) {
+        } else if (action.equalsIgnoreCase(Message.REGISTER)) {
             actionHandler.handleRegister(data);
 
-        } else if (action.equalsIgnoreCase("gameInvitation")) {
+        } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
             actionHandler.handleGameInvitation(data);
 
-        } else if (action.equalsIgnoreCase("move")) {
+        } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
             actionHandler.handleMove(data);
         }
     }

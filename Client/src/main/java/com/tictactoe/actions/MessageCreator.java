@@ -36,7 +36,7 @@ public class MessageCreator {
      * @param confirmPassword
      */
     public void sendRegister(String username, String password, String confirmPassword) {
-        actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
+        actionController.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("username", username);
                 put("password", password);
@@ -45,15 +45,26 @@ public class MessageCreator {
         });
     }
 
-    /**
-     *
-     * @param moveIndex
-     */
-    public void sendMove(String moveIndex) {
-        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
+    public void sendInvitationResponse(String response) {// accept | refuse
+        actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
-                put("moveIndex", moveIndex);
+                put("response", response);
             }
         });
     }
+
+    /**
+     *
+     * @param index
+     */
+    public void sendGameMove(String index) {
+        String gameId = actionController.appManager.getGameId();
+        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
+            {
+                put("gameId", gameId);
+                put("index", index);
+            }
+        });
+    }
+
 }

@@ -19,6 +19,8 @@ public class AppManager {
 
     ActionController actionController;
 
+    String gameId = null;
+
     private boolean isConnected;
 
     public AppManager() {
@@ -55,6 +57,10 @@ public class AppManager {
         } else {
             System.out.println("@sendMessage, trying to send messag... No Connection!");
         }
+    }
+
+    public String getGameId() {
+        return gameId;
     }
 
 }

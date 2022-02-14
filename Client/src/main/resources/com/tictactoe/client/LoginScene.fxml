@@ -34,7 +34,7 @@
       </AnchorPane>
       <Pane layoutX="460.0" layoutY="81.0" prefHeight="376.0" prefWidth="333.0" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="81.0">
          <children>
-            <TextField layoutX="7.0" layoutY="37.0" prefHeight="43.0" prefWidth="320.0" promptText="username">
+            <TextField fx:id="usernameField" layoutX="7.0" layoutY="37.0" prefHeight="43.0" prefWidth="320.0" promptText="username">
                <font>
                   <Font size="13.0" />
                </font>

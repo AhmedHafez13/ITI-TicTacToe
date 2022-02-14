@@ -58,8 +58,22 @@ public class ActionHandler {
      * @param data
      */
     public void handleGameInvitation(HashMap<String, String> data) {
+        String playerId = data.get("playerId");
+        String playerName = data.get("playerName");
+
         /*TODO:
-         * • Show invitation message
+         * • Show invitation message with (playerName)
+         */
+    }
+
+    public void handleGameStart(HashMap<String, String> data) {
+        String gameId = data.get("gameId");
+        String opponentName = data.get("opponentName");
+
+
+        /*TODO:
+         * • Set game id
+         * • show game scene and set opponentName
          */
     }
 }
