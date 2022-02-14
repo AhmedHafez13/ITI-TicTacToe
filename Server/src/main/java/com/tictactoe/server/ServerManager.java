@@ -25,24 +25,31 @@ public class ServerManager {
     // [END] DEV
 
     public ServerManager() {
+        System.out.println("Starting ServerManager...");
         actionController = new ActionController(this);
-        try {
-            serverSocket = new ServerSocket(5005);
-            while (true) {
-                socket = serverSocket.accept();
 
-                addPlayerHandler(new PlayerHandler(this));
-            }
-        } catch (IOException ex) {
-            // TODO: Show error message to the user
-            ex.printStackTrace();
-        } finally {
+        System.out.println("ServerManager is down!");
+    }
+
+    void startServer() {
+        new Thread(() -> {
             try {
-                serverSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                serverSocket = new ServerSocket(5005);
+                while (true) {
+                    socket = serverSocket.accept();
+                    addPlayerHandler(new PlayerHandler(this));
+                }
+            } catch (IOException ex) {
+                // TODO: Show error message to the user
+                ex.printStackTrace();
+            } finally {
+                try {
+                    serverSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        }).start();
     }
 
     public Socket getSocket() {

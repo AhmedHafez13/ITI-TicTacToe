@@ -16,12 +16,14 @@ public class ActionController {
 
     ServerManager serverManager;
     ActionHandler actionHandler;
+    MessageCreator messageCreator;
 
-    private final JSONParser parser = new JSONParser();
+    private final static JSONParser parser = new JSONParser();
 
     public ActionController(ServerManager serverManager) {
         this.serverManager = serverManager;
         actionHandler = new ActionHandler(this);
+        messageCreator = new MessageCreator(this);
     }
 
     public void handleAction(String jsonMessage, PlayerHandler playerHandler) {
@@ -29,7 +31,7 @@ public class ActionController {
         String action = message.action;
         HashMap<String, String> data = message.data;
 
-        System.out.println("Handling Action: " + action);
+        System.out.println("@ActionController->handleAction, action: " + action);
 
         if (action.equalsIgnoreCase("login")) {
             actionHandler.handleLogin(data, playerHandler);
@@ -49,7 +51,7 @@ public class ActionController {
         }
     }
 
-    public String createActionJson(String action, HashMap<String, String> data) {
+    public static String createActionJson(String action, HashMap<String, String> data) {
         JSONObject actionJson = new JSONObject();
 
         actionJson.put("action", action);
@@ -60,8 +62,8 @@ public class ActionController {
         return actionJson.toJSONString();
     }
 
-    public Message getActionData(String jsonMsg) {
-        System.out.println("@getActionData, jsonMsg: " + jsonMsg);
+    public static Message getActionData(String jsonMsg) {
+        System.out.println("@ActionController->getActionData, jsonMsg: " + jsonMsg);
         try {
             JSONObject jsonObj = (JSONObject) parser.parse(jsonMsg);
             String action = (String) jsonObj.get("action");
