@@ -15,11 +15,14 @@ public class ActionController {
 
     AppManager appManager;
     ActionHandler actionHandler;
+    MessageCreator messageCreator;
 
     private final JSONParser parser = new JSONParser();
 
     public ActionController(AppManager appManager) {
         this.appManager = appManager;
+        actionHandler = new ActionHandler(this);
+        messageCreator = new MessageCreator(this);
     }
 
     public void handleAction(String jsonMessage) {
@@ -84,5 +87,9 @@ public class ActionController {
 
     public ActionHandler getActionHandler() {
         return actionHandler;
+    }
+
+    public MessageCreator getMessageCreator() {
+        return messageCreator;
     }
 }

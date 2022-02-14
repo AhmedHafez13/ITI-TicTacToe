@@ -25,6 +25,9 @@ public class ActionHandler {
          * if can't login =>
          * • Show error message
          */
+        for (String value : data.values()) {
+            System.out.println(value);
+        }
     }
 
     /**
@@ -58,51 +61,5 @@ public class ActionHandler {
         /*TODO:
          * • Show invitation message
          */
-    }
-
-    /* ----- * ----- * ----- * ----- * ----- */
-    /* ----- * - * Send Messages * - * ----- */
-    /* ----- * ----- * ----- * ----- * ----- */
-
-    /**
-     *
-     * @param username
-     * @param password
-     */
-    public void sendLogin(String username, String password) {
-        actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
-            {
-                put("username", username);
-                put("password", password);
-            }
-        });
-    }
-
-    /**
-     *
-     * @param username
-     * @param password
-     * @param confirmPassword
-     */
-    public void sendRegister(String username, String password, String confirmPassword) {
-        actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
-            {
-                put("username", username);
-                put("password", password);
-                put("confirmPassword", confirmPassword);
-            }
-        });
-    }
-
-    /**
-     *
-     * @param moveIndex
-     */
-    public void sendMove(String moveIndex) {
-        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
-            {
-                put("moveIndex", moveIndex);
-            }
-        });
     }
 }

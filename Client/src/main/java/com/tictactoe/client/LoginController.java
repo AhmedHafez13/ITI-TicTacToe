@@ -1,6 +1,8 @@
 package com.tictactoe.client;
 
+import com.tictactoe.actions.ActionController;
 import com.tictactoe.actions.ActionHandler;
+import com.tictactoe.actions.MessageCreator;
 import java.io.IOException;
 import javafx.fxml.FXML;
 
@@ -24,7 +26,10 @@ public class LoginController {
     @FXML
     private void login() throws IOException {
         System.out.println("@LoginController.login is called!");
-        //ActionHandler actionHandler = App.appManager.actionController.getActionHandler();
-        //actionHandler.sendLogin("user1", "pass1");
+        AppManager appManager = App.appManager;
+        ActionController actionController = appManager.actionController;
+        MessageCreator messageCreator = actionController.getMessageCreator();
+
+        messageCreator.sendLogin("user1", "pass1");
     }
 }
