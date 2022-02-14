@@ -21,7 +21,7 @@ public class PlayerHandler extends Thread {
     private ServerManager serverManager;
 
     private Player player = null;
-    String id;
+    public String id;
     String gameId = null;
 
     private boolean isConnected;

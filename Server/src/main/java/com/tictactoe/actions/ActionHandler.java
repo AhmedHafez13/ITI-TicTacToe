@@ -28,9 +28,7 @@ public class ActionHandler {
 
         actionController.messageCreator.sendLoginFailed(
                 "No username, please try again!", playerHandler);
-        //playerHandler.sendAction(action, data);
 
-        //actionController.messageCreator.
         /*
          * TODO:
          * if can login =>
@@ -55,6 +53,8 @@ public class ActionHandler {
          * if can't regisgter =>
          * • send back a message with (register) action (failed)
          */
+        System.out.println("@ActionHandler->handleRegister, Data: "
+                + Arrays.toString(data.values().toArray()));
     }
 
     /**

@@ -38,6 +38,7 @@ public class ServerManager {
                 while (true) {
                     socket = serverSocket.accept();
                     addPlayerHandler(new PlayerHandler(this));
+                    // TODO:
                 }
             } catch (IOException ex) {
                 // TODO: Show error message to the user
