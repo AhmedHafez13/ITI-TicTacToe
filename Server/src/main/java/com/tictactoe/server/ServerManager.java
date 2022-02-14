@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.tictactoe.server;
 
 import com.tictactoe.actions.ActionController;
@@ -10,8 +6,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.UUID;
 
 /**
  *
@@ -31,24 +25,32 @@ public class ServerManager {
     // [END] DEV
 
     public ServerManager() {
+        System.out.println("Starting ServerManager...");
         actionController = new ActionController(this);
-        try {
-            serverSocket = new ServerSocket(5005);
-            while (true) {
-                socket = serverSocket.accept();
 
-                addPlayerHandler(new PlayerHandler(this));
-            }
-        } catch (IOException ex) {
-            // TODO: Show error message to the user
-            ex.printStackTrace();
-        } finally {
+        System.out.println("ServerManager is down!");
+    }
+
+    void startServer() {
+        new Thread(() -> {
             try {
-                serverSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                serverSocket = new ServerSocket(5005);
+                while (true) {
+                    socket = serverSocket.accept();
+                    addPlayerHandler(new PlayerHandler(this));
+                    // TODO:
+                }
+            } catch (IOException ex) {
+                // TODO: Show error message to the user
+                ex.printStackTrace();
+            } finally {
+                try {
+                    serverSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        }).start();
     }
 
     public Socket getSocket() {

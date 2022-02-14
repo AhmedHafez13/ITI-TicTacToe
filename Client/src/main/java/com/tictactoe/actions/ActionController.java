@@ -1,7 +1,6 @@
 package com.tictactoe.actions;
 
-import com.tictactoe.server.PlayerHandler;
-import com.tictactoe.server.ServerManager;
+import com.tictactoe.client.AppManager;
 import java.util.HashMap;
 import java.util.Iterator;
 import org.json.simple.JSONObject;
@@ -14,55 +13,56 @@ import org.json.simple.parser.ParseException;
  */
 public class ActionController {
 
-    ServerManager serverManager;
+    AppManager appManager;
     ActionHandler actionHandler;
     MessageCreator messageCreator;
 
-    private final static JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
 
-    public ActionController(ServerManager serverManager) {
-        this.serverManager = serverManager;
+    public ActionController(AppManager appManager) {
+        this.appManager = appManager;
         actionHandler = new ActionHandler(this);
         messageCreator = new MessageCreator(this);
     }
 
-    public void handleAction(String jsonMessage, PlayerHandler playerHandler) {
+    public void handleAction(String jsonMessage) {
         Message message = getActionData(jsonMessage);
         String action = message.action;
         HashMap<String, String> data = message.data;
 
-        System.out.println("@ActionController->handleAction, action: " + action);
+        System.out.println("Handling Action: " + action);
 
         if (action.equalsIgnoreCase(Message.LOGIN)) {
-            actionHandler.handleLogin(data, playerHandler);
+            actionHandler.handleLogin(data);
 
         } else if (action.equalsIgnoreCase(Message.REGISTER)) {
-            actionHandler.handleRegister(data, playerHandler);
+            actionHandler.handleRegister(data);
 
         } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
-            actionHandler.handleGameInvitation(data, playerHandler);
+            actionHandler.handleGameInvitation(data);
 
         } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
-            String gameId = playerHandler.getGameId();
-            // Check if the player is in game
-            if (gameId != null) {
-                actionHandler.handleMove(data, playerHandler);
-            }
+            actionHandler.handleMove(data);
         }
     }
 
-    public static String createActionJson(String action, HashMap<String, String> data) {
+    public void sendAction(String action, HashMap<String, String> data) {
+        appManager.sendMessage(createActionJson(action, data));
+    }
+
+    public String createActionJson(String action, HashMap<String, String> data) {
         JSONObject actionJson = new JSONObject();
 
         actionJson.put("action", action);
 
-        JSONObject actionData = new JSONObject();
+        JSONObject actionData = new JSONObject(data);
         actionJson.put("data", actionData);
 
         return actionJson.toJSONString();
     }
 
-    public static Message getActionData(String jsonMsg) {
+    public Message getActionData(String jsonMsg) {
+        System.out.println("@ActionContoller->getActionData, jsonMsg: " + jsonMsg);
         try {
             JSONObject jsonObj = (JSONObject) parser.parse(jsonMsg);
             String action = (String) jsonObj.get("action");
@@ -85,4 +85,11 @@ public class ActionController {
         return null;
     }
 
+    public ActionHandler getActionHandler() {
+        return actionHandler;
+    }
+
+    public MessageCreator getMessageCreator() {
+        return messageCreator;
+    }
 }

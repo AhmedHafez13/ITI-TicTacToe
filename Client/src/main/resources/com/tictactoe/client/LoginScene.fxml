@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.PrimaryController">
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.LoginController">
    <children>
       <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-color: #0024ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -34,7 +34,7 @@
       </AnchorPane>
       <Pane layoutX="460.0" layoutY="81.0" prefHeight="376.0" prefWidth="333.0" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="81.0">
          <children>
-            <TextField layoutX="7.0" layoutY="37.0" prefHeight="43.0" prefWidth="320.0" promptText="username">
+            <TextField fx:id="usernameField" layoutX="7.0" layoutY="37.0" prefHeight="43.0" prefWidth="320.0" promptText="username">
                <font>
                   <Font size="13.0" />
                </font>
@@ -44,7 +44,7 @@
                   <Font size="13.0" />
                </font>
             </PasswordField>
-            <Button fx:id="btnSignin" layoutX="88.0" layoutY="177.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" stylesheets="@../../../styles/fullpackstyling.css" text="Login" />
+            <Button fx:id="btnSignin" layoutX="88.0" layoutY="177.0" mnemonicParsing="false" onAction="#login" prefHeight="43.0" prefWidth="145.0" stylesheets="@../../../styles/fullpackstyling.css" text="Login" />
             <Button fx:id="btnSignup" layoutX="4.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchToSignup" prefHeight="34.0" prefWidth="320.0" stylesheets="@../../../styles/fullpackstyling.css" text="Sign up" />
             <Separator layoutX="7.0" layoutY="252.0" prefHeight="6.0" prefWidth="320.0" />
             <Label alignment="CENTER" layoutX="145.0" layoutY="243.0" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #fff;" text="Or" textFill="#5b5a5a">
