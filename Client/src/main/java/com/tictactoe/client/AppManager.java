@@ -28,26 +28,24 @@ public class AppManager {
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             printStream = new PrintStream(socket.getOutputStream());
             isConnected = true;
-            new Thread(() -> {
-
-            }).start();
         } catch (IOException ex) {
             isConnected = false;
             ex.printStackTrace();
         }
     }
 
-    private void onReceiveMessage() {
-        while (isConnected) {
-            try {
-                String message = bufferedReader.readLine();
-                System.out.println(message);
-                actionController.handleAction(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-                isConnected = false;
+    void listenToMessages() {
+        new Thread(() -> {
+            while (isConnected) {
+                try {
+                    String message = bufferedReader.readLine();
+                    actionController.handleAction(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    isConnected = false;
+                }
             }
-        }
+        }).start();
         // TODO: try to reconnect
     }
 

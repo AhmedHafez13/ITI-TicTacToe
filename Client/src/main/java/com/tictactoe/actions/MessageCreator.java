@@ -20,7 +20,7 @@ public class MessageCreator {
      * @param password
      */
     public void sendLogin(String username, String password) {
-        System.out.println("MessageCreator@sendLogin, username:" + username + ", password:" + password);
+        System.out.println("@MessageCreator->sendLogin, username:" + username + ", password:" + password);
         actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {
                 put("username", username);

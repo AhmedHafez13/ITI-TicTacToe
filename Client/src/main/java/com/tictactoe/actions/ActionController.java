@@ -62,7 +62,7 @@ public class ActionController {
     }
 
     public Message getActionData(String jsonMsg) {
-        System.out.println("@getActionData, jsonMsg: " + jsonMsg);
+        System.out.println("@ActionContoller->getActionData, jsonMsg: " + jsonMsg);
         try {
             JSONObject jsonObj = (JSONObject) parser.parse(jsonMsg);
             String action = (String) jsonObj.get("action");

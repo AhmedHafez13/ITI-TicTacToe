@@ -1,5 +1,6 @@
 package com.tictactoe.actions;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -25,9 +26,8 @@ public class ActionHandler {
          * if can't login =>
          * • Show error message
          */
-        for (String value : data.values()) {
-            System.out.println(value);
-        }
+        System.out.println("@ActionHandler->handleLogin, Data:"
+                + Arrays.toString(data.values().toArray()));
     }
 
     /**
