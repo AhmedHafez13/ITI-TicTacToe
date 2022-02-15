@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(to bottom right , #C33764,#1D2671);" stylesheets="@myStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.server.GameController">
+<AnchorPane id="AnchorPane" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(to bottom right , #C33764,#1D2671);" stylesheets="@myStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.GameController">
    <children>
       <AnchorPane layoutX="444.0" layoutY="150.0" prefHeight="310.0" prefWidth="237.0" style="-fx-background-color: #00000025; -fx-border-radius: 30; -fx-border-color: white; -fx-background-radius: 30;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="18.399999999999977" AnchorPane.topAnchor="150.0">
          <children>
