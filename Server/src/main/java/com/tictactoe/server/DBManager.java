@@ -46,7 +46,9 @@ public class DBManager {
                 int score = rs.getInt("total_score");
                 boolean online = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                Player p = new Player(name, score, avatar);
+                int id = rs.getInt("id");
+
+                Player p = new Player(id, name, score, avatar);
                 players.add(p);
                 //stmt.close();
                 //connection.close(); 
@@ -72,9 +74,10 @@ public class DBManager {
             while (rs.next()) {
                 String name = rs.getString("name");
                 int score = rs.getInt("total_score");
+                int id = rs.getInt("id");
                 //boolean online = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                Player p = new Player(name, score, avatar);
+                Player p = new Player(id, name, score, avatar);
                 players.add(p);
                 // stmt.close();
                 //connection.close(); 
@@ -145,8 +148,8 @@ public class DBManager {
      * @return the playerId if the input data matches a record in the database
      * else it returns -1 if no record found or can't sign in
      */
-    public static int signInPlayer(String name, String password) {
-        int playerId = -1;
+    public static Player signInPlayer(String name, String password) {
+        Player player = null;
         try {
             PreparedStatement pst = connection.prepareStatement("select * from player where name = ? and password = ?");
             pst.setString(1, name);
@@ -154,14 +157,18 @@ public class DBManager {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) //if the data is found
             {
-                playerId = rs.getInt(1); // playerId is set to db playerId
-            } else {
-                playerId = -1; //data is not found
+                int playerId = rs.getInt("id"); // playerId is set to db playerId
+                String playerName = rs.getString("name");
+                int score = rs.getInt("total_score");
+                int id = rs.getInt("id");
+                //boolean online = rs.getBoolean("is_online");
+                String avatar = rs.getString("avatar");
+                player = new Player(id, playerName, score, avatar);
             }
             pst.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return playerId;
+        return player;
     }
 }

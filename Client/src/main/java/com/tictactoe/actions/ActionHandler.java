@@ -31,6 +31,15 @@ public class ActionHandler {
          * if can't login =>
          * • Show error message
          */
+        System.out.println("@ActionHandler->handleLogin, Data:"
+                + Arrays.toString(data.values().toArray()));
+        String loginResult = data.get("loginResult");
+        if (loginResult.equalsIgnoreCase("success")) {
+            System.out.println("Login success");
+        } else {
+            System.out.println("Login failed");
+        }
+
     }
 
     /**
@@ -52,6 +61,12 @@ public class ActionHandler {
      *
      * @param data
      */
+    public void handleMove(HashMap<String, String> data) {
+        /*TODO:
+         * • Apply the new move
+         */
+    }
+
     public void handleGameInvitation(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"
                 + Arrays.toString(data.values().toArray()));
@@ -107,4 +122,21 @@ public class ActionHandler {
          */
         // data -> winner, ...
     }
+
+    /**
+     *
+     * @param username
+     * @param password
+     */
+    public void sendLogin(String username, String password) {
+
+        actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
+            {
+                put("username", username);
+                put("password", password);
+            }
+        });
+        //System.out.println(username+":"+password);
+    }
+
 }

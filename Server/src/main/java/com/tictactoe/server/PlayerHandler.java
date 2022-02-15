@@ -74,6 +74,7 @@ public class PlayerHandler extends Thread {
                 + jsonMessage);
         if (isConnected) {
             printStream.println(jsonMessage);
+
         } else {
             System.out.println("@PlayerHandler->sendMessage, trying to send messag... No Connection!");
         }

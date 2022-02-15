@@ -5,16 +5,23 @@ import com.tictactoe.actions.ActionHandler;
 import com.tictactoe.actions.MessageCreator;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class LoginController {
 
     @FXML
-    private TextField usernameField;
+    private TextField userNameField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private Label nameError;
+    @FXML
+    private Label passwordError;
 
     @FXML
     private void switchToSignup() throws IOException {
@@ -31,16 +38,28 @@ public class LoginController {
         App.setRoot("leaderBoard");
     }
 
+
+
     @FXML
     private AnchorPane root;
 
     @FXML
     private void login() throws IOException {
-        System.out.println("@LoginController.login is called!");
-        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+        //System.out.println("@LoginController.login is called!");
+        if(userNameField.getText().isEmpty()){
+            nameError.setText("Username is required!");
+        }else if(passwordField.getText().isEmpty()){
+            passwordError.setText("Password is required!");
+        }else{
+            System.out.println(userNameField.getText().trim()+":"+passwordField.getText());
+            MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+            messageCreator.sendLogin(userNameField.getText().trim(),passwordField.getText());
+        }
+        // System.out.println("@LoginController.login is called!");
+        // MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
 
-        String username = usernameField.getText();
-        messageCreator.sendLogin(username, "pass1");
+        // String username = usernameField.getText();
+        // messageCreator.sendLogin(username, "pass1");
     }
 
 
