@@ -51,11 +51,9 @@ public class LoginController {
         }else if(passwordField.getText().isEmpty()){
             passwordError.setText("Password is required!");
         }else{
-            //System.out.println(userNameField.getText().trim()+":"+passwordField.getText());
-//            MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
-//            messageCreator.sendLogin(...);
-//            ActionHandler actionHandler = App.appManager.actionController.getActionHandler();
-//            actionHandler.sendLogin(userNameField.getText().trim(),passwordField.getText() );
+            System.out.println(userNameField.getText().trim()+":"+passwordField.getText());
+            MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+            messageCreator.sendLogin(userNameField.getText().trim(),passwordField.getText());
         }
         // System.out.println("@LoginController.login is called!");
         // MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();

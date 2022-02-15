@@ -8,11 +8,14 @@ public class Player {
     private String name;
     private int totalScore;
     private String avatar;
+    private int id;
 
-    public Player(String name, int totalScore, String avatar) {
+
+    public Player(int id,String name, int totalScore, String avatar) {
         this.name = name;
         this.totalScore = totalScore;
         this.avatar = avatar;
+        this.id = id;
     }
 
     public String getName() {
@@ -26,4 +29,5 @@ public class Player {
     public String getAvatar() {
         return avatar;
     }
+
 }

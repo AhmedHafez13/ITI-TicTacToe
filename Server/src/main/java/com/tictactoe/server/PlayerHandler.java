@@ -67,6 +67,7 @@ public class PlayerHandler extends Thread {
         String jsonMessage = ActionController.createActionJson(action, data);
         if (isConnected) {
             printStream.println(jsonMessage);
+
         } else {
             System.out.println("@PlayerHandler->sendMessage, trying to send messag... No Connection!");
         }

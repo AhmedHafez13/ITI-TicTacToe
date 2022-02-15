@@ -1,6 +1,9 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.models.Player;
+import com.tictactoe.server.DBManager;
 import com.tictactoe.server.PlayerHandler;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -25,9 +28,20 @@ public class ActionHandler {
         System.out.println("@ActionHandler->handleLogin, player:"
                 + playerHandler.getId() + ", Data:");
         System.out.println(Arrays.toString(data.values().toArray()));
-
+        String username = data.get("username");
+        String password = data.get("password");
+        Player player = DBManager.signInPlayer(username, password);
+        if(player == null){
         actionController.messageCreator.sendLoginFailed(
                 "No username, please try again!", playerHandler);
+        }else{
+            ArrayList<String> arraylist = new ArrayList<>();
+            playerHandler.setPlayer(player);
+            arraylist.add("player1");
+            arraylist.add("player2");
+            actionController.messageCreator.sendLoginSuccess(arraylist, playerHandler);
+        }
+
 
         /*
          * TODO:
