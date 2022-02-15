@@ -16,12 +16,14 @@ public class ActionController {
 
     ServerManager serverManager;
     ActionHandler actionHandler;
+    MessageCreator messageCreator;
 
-    private final JSONParser parser = new JSONParser();
+    private final static JSONParser parser = new JSONParser();
 
     public ActionController(ServerManager serverManager) {
         this.serverManager = serverManager;
         actionHandler = new ActionHandler(this);
+        messageCreator = new MessageCreator(this);
     }
 
     public void handleAction(String jsonMessage, PlayerHandler playerHandler) {
@@ -29,18 +31,18 @@ public class ActionController {
         String action = message.action;
         HashMap<String, String> data = message.data;
 
-        System.out.println("Handling Action: " + action);
+        System.out.println("@ActionController->handleAction, action: " + action);
 
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase(Message.LOGIN)) {
             actionHandler.handleLogin(data, playerHandler);
 
-        } else if (action.equalsIgnoreCase("register")) {
+        } else if (action.equalsIgnoreCase(Message.REGISTER)) {
             actionHandler.handleRegister(data, playerHandler);
 
-        } else if (action.equalsIgnoreCase("gameInvitation")) {
+        } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
             actionHandler.handleGameInvitation(data, playerHandler);
 
-        } else if (action.equalsIgnoreCase("move")) {
+        } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
             String gameId = playerHandler.getGameId();
             // Check if the player is in game
             if (gameId != null) {
@@ -49,19 +51,18 @@ public class ActionController {
         }
     }
 
-    public String createActionJson(String action, HashMap<String, String> data) {
+    public static String createActionJson(String action, HashMap<String, String> data) {
         JSONObject actionJson = new JSONObject();
 
         actionJson.put("action", action);
 
-        JSONObject actionData = new JSONObject(data);
+        JSONObject actionData = new JSONObject();
         actionJson.put("data", actionData);
 
         return actionJson.toJSONString();
     }
 
-    public Message getActionData(String jsonMsg) {
-        System.out.println("@getActionData, jsonMsg: " + jsonMsg);
+    public static Message getActionData(String jsonMsg) {
         try {
             JSONObject jsonObj = (JSONObject) parser.parse(jsonMsg);
             String action = (String) jsonObj.get("action");

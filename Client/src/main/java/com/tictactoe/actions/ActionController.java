@@ -15,11 +15,14 @@ public class ActionController {
 
     AppManager appManager;
     ActionHandler actionHandler;
+    MessageCreator messageCreator;
 
     private final JSONParser parser = new JSONParser();
 
     public ActionController(AppManager appManager) {
         this.appManager = appManager;
+        actionHandler = new ActionHandler(this);
+        messageCreator = new MessageCreator(this);
     }
 
     public void handleAction(String jsonMessage) {
@@ -29,16 +32,16 @@ public class ActionController {
 
         System.out.println("Handling Action: " + action);
 
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase(Message.LOGIN)) {
             actionHandler.handleLogin(data);
 
-        } else if (action.equalsIgnoreCase("register")) {
+        } else if (action.equalsIgnoreCase(Message.REGISTER)) {
             actionHandler.handleRegister(data);
 
-        } else if (action.equalsIgnoreCase("gameInvitation")) {
+        } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
             actionHandler.handleGameInvitation(data);
 
-        } else if (action.equalsIgnoreCase("move")) {
+        } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
             actionHandler.handleMove(data);
         }
     }
@@ -59,7 +62,7 @@ public class ActionController {
     }
 
     public Message getActionData(String jsonMsg) {
-        System.out.println("@getActionData, jsonMsg: " + jsonMsg);
+        System.out.println("@ActionContoller->getActionData, jsonMsg: " + jsonMsg);
         try {
             JSONObject jsonObj = (JSONObject) parser.parse(jsonMsg);
             String action = (String) jsonObj.get("action");
@@ -86,7 +89,7 @@ public class ActionController {
         return actionHandler;
     }
 
-//  public ActionHandler getMessageCreator(){
-//    return MessageCreator;
-//  }
+    public MessageCreator getMessageCreator() {
+        return messageCreator;
+    }
 }

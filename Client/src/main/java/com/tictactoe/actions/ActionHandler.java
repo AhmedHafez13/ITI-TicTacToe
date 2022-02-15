@@ -1,5 +1,6 @@
 package com.tictactoe.actions;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -25,6 +26,8 @@ public class ActionHandler {
          * if can't login =>
          * • Show error message
          */
+        System.out.println("@ActionHandler->handleLogin, Data:"
+                + Arrays.toString(data.values().toArray()));
     }
 
     /**
@@ -52,14 +55,23 @@ public class ActionHandler {
 
 
     public void handleGameInvitation(HashMap<String, String> data) {
+        String playerId = data.get("playerId");
+        String playerName = data.get("playerName");
+
         /*TODO:
-         * • Show invitation message
+         * • Show invitation message with (playerName)
          */
     }
 
-    /* ----- * ----- * ----- * ----- * ----- */
-    /* ----- * - * Send Messages * - * ----- */
-    /* ----- * ----- * ----- * ----- * ----- */
+    public void handleGameStart(HashMap<String, String> data) {
+        String gameId = data.get("gameId");
+        String opponentName = data.get("opponentName");
+        
+        /*TODO:
+         * • Set game id
+         * • show game scene and set opponentName
+         */
+    }
 
     /**
      *
@@ -76,32 +88,5 @@ public class ActionHandler {
         });
             //System.out.println(username+":"+password);
     }
-
-    /**
-     *
-     * @param username
-     * @param password
-     * @param confirmPassword
-     */
-    public void sendRegister(String username, String password, String confirmPassword) {
-        actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
-            {
-                put("username", username);
-                put("password", password);
-                put("confirmPassword", confirmPassword);
-            }
-        });
-    }
-
-    /**
-     *
-     * @param moveIndex
-     */
-    public void sendMove(String moveIndex) {
-        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
-            {
-                put("moveIndex", moveIndex);
-            }
-        });
-    }
+    
 }

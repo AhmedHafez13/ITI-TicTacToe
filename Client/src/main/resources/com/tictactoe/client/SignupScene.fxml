@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="853.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="853.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.LoginController">
    <children>
       <Pane layoutX="57.0" layoutY="31.0" prefHeight="536.0" prefWidth="431.0" style="-fx-background-color: #0000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +30,8 @@
                </font>
             </Label>
             <TextField fx:id="txtFirstname" layoutX="43.0" layoutY="143.0" prefHeight="38.0" prefWidth="357.0" promptText="username" />
-            <Button fx:id="btnSave" layoutX="43.0" layoutY="339.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="357.0" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Signup" />
+            <Button fx:id="btnSave" layoutX="43.0" layoutY="339.0" mnemonicParsing="false" onAction="#register" prefHeight="38.0" prefWidth="357.0" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Signup" />
+            <Button fx:id="btnSave1" layoutX="239.0" layoutY="339.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="357.0" style="-fx-background-color: red;" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Upppppp" visible="false" />
             <Label layoutX="44.0" layoutY="121.0" prefHeight="23.0" prefWidth="114.0" text="Username:" textFill="#6b3197">
                <font>
                   <Font name="Segoe UI" size="12.0" />
