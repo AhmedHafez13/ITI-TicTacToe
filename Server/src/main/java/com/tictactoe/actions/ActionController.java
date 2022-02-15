@@ -56,7 +56,7 @@ public class ActionController {
 
         actionJson.put("action", action);
 
-        JSONObject actionData = new JSONObject();
+        JSONObject actionData = new JSONObject(data);
         actionJson.put("data", actionData);
 
         return actionJson.toJSONString();

@@ -20,12 +20,14 @@ public class MessageCreator {
 
     public void sendLoginFailed(String message, PlayerHandler playerHandler) {
         System.out.println("@MessageCreator->sendLoginFailed, message:" + message);
-        playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
+
+        HashMap data = new HashMap<String, String>() {
             {
                 put("loginResult", "failed");
                 put("userMessage", message);
             }
-        });
+        };
+        playerHandler.sendAction(Message.LOGIN, data);
     }
 
     public void sendLoginSuccess(ArrayList<String> playerNames, PlayerHandler playerHandler) {

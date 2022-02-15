@@ -27,8 +27,6 @@ public class ServerManager {
     public ServerManager() {
         System.out.println("Starting ServerManager...");
         actionController = new ActionController(this);
-
-        System.out.println("ServerManager is down!");
     }
 
     void startServer() {
