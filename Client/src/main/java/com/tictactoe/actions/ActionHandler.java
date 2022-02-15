@@ -50,10 +50,7 @@ public class ActionHandler {
          */
     }
 
-    /**
-     *
-     * @param data
-     */
+
     public void handleGameInvitation(HashMap<String, String> data) {
         /*TODO:
          * • Show invitation message
@@ -70,12 +67,14 @@ public class ActionHandler {
      * @param password
      */
     public void sendLogin(String username, String password) {
+            
         actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {
                 put("username", username);
                 put("password", password);
             }
         });
+            //System.out.println(username+":"+password);
     }
 
     /**

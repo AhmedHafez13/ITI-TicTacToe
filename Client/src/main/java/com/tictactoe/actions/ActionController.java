@@ -85,4 +85,8 @@ public class ActionController {
     public ActionHandler getActionHandler() {
         return actionHandler;
     }
+
+//  public ActionHandler getMessageCreator(){
+//    return MessageCreator;
+//  }
 }
