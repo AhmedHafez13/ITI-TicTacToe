@@ -122,7 +122,8 @@ public class DBManager {
      * @param password
      * @param avatar
      */
-    public static void registerNewPlayer(String name, String password, String avatar) {
+    public static boolean registerNewPlayer(String name, String password, String avatar) {
+        boolean flag = false;
         try {
             PreparedStatement pst = connection.prepareStatement("insert into player(name,password,avatar) values(?,?,?)");
             pst.setString(1, name);
@@ -130,9 +131,11 @@ public class DBManager {
             pst.setString(3, avatar);
             pst.executeUpdate();
             pst.close();
+            flag = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return flag;
     }
 
     /**
