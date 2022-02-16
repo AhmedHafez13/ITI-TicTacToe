@@ -2,6 +2,8 @@ package com.tictactoe.actions;
 
 import com.tictactoe.client.App;
 import com.tictactoe.client.AppManager;
+import com.tictactoe.models.Player;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -42,6 +44,9 @@ public class ActionHandler {
             //App.getSceneManager().showMainMenu(/*players*/);
             // TEST
             App.getSceneManager().showMainMenu("Login success");
+            ArrayList<Player> players = new ArrayList<>();
+            players.add(new Player("123", "name", 123, "avatar1.png"));
+            appManager.setPlayersList(players);
         } else {
             System.out.println("-----\n@ActionHandler->handleLogin, Login failed");
             App.getSceneManager().showMainMenu("Login failed");

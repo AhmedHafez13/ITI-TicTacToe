@@ -1,4 +1,4 @@
-package com.tictactoe.server;
+package com.tictactoe.client;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
