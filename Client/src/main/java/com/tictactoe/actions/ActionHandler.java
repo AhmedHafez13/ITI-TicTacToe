@@ -68,28 +68,6 @@ public class ActionHandler {
          */
     }
 
-<<<<<<< HEAD
-    /**
-     *
-     * @param data
-     */
-    public void handleMove(HashMap<String, String> data) {
-        
-        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
-            {
-                put("gameId", data.get("gameId"));
-                put("index", data.get("index"));
-            }
-            ////////////////////can use one HashMap?///// 
-        });
-        
-        /*TODO:
-         * • Apply the new move
-         */
-    }
-
-=======
->>>>>>> 7dd442ca259d02a9d08fd1af46d55095753d414f
     public void handleGameInvitation(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"
                 + Arrays.toString(data.values().toArray()));
