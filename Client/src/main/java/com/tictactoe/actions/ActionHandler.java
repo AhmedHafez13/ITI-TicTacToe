@@ -1,5 +1,6 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.client.App;
 import com.tictactoe.client.AppManager;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,15 +32,20 @@ public class ActionHandler {
          * if can't login =>
          * • Show error message
          */
-        System.out.println("@ActionHandler->handleLogin, Data:"
-                + Arrays.toString(data.values().toArray()));
         String loginResult = data.get("loginResult");
         if (loginResult.equalsIgnoreCase("success")) {
-            System.out.println("Login success");
-        } else {
-            System.out.println("Login failed");
-        }
+            System.out.println("-----\n@ActionHandler->handleLogin, Login success");
 
+            // Data
+            // TODO: store user data and players list
+            // UI
+            //App.getSceneManager().showMainMenu(/*players*/);
+            // TEST
+            App.getSceneManager().showMainMenu("Login success");
+        } else {
+            System.out.println("-----\n@ActionHandler->handleLogin, Login failed");
+            App.getSceneManager().showMainMenu("Login failed");
+        }
     }
 
     /**
@@ -112,21 +118,4 @@ public class ActionHandler {
          */
         // data -> winner, ...
     }
-
-    /**
-     *
-     * @param username
-     * @param password
-     */
-    public void sendLogin(String username, String password) {
-
-        actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
-            {
-                put("username", username);
-                put("password", password);
-            }
-        });
-        //System.out.println(username+":"+password);
-    }
-
 }
