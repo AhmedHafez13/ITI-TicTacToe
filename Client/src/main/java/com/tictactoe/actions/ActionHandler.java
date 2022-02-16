@@ -57,16 +57,6 @@ public class ActionHandler {
          */
     }
 
-    /**
-     *
-     * @param data
-     */
-    public void handleMove(HashMap<String, String> data) {
-        /*TODO:
-         * • Apply the new move
-         */
-    }
-
     public void handleGameInvitation(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"
                 + Arrays.toString(data.values().toArray()));
