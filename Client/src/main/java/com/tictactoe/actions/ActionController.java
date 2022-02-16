@@ -41,8 +41,15 @@ public class ActionController {
         } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
             actionHandler.handleGameInvitation(data);
 
+        } else if (action.equalsIgnoreCase(Message.GAME_START)) {
+            actionHandler.handleGameStart(data);
+
         } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
-            actionHandler.handleMove(data);
+            actionHandler.handleGameMove(data);
+
+        } else if (action.equalsIgnoreCase(Message.GAME_END)) {
+            actionHandler.handleGameEnd(data);
+
         }
     }
 

@@ -9,7 +9,7 @@ import java.net.Socket;
 
 /**
  *
- *
+ * AppManager class manages whole the client's data
  */
 public class AppManager {
 
@@ -63,4 +63,7 @@ public class AppManager {
         return gameId;
     }
 
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
 }

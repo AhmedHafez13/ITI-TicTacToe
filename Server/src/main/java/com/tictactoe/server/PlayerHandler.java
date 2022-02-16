@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -64,7 +65,13 @@ public class PlayerHandler extends Thread {
     }
 
     public void sendAction(String action, HashMap<String, String> data) {
+        System.out.println("@PlayerHandler->sendAction, data: "
+                + Arrays.toString(data.values().toArray()));
+
         String jsonMessage = ActionController.createActionJson(action, data);
+
+        System.out.println("@PlayerHandler->sendAction, jsonMessage: "
+                + jsonMessage);
         if (isConnected) {
             printStream.println(jsonMessage);
 
