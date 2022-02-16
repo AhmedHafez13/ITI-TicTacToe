@@ -55,6 +55,7 @@ public class AppManager {
     }
 
     public void sendMessage(String jsonMessage) {
+        System.out.println("Message before leaving the client:"+jsonMessage);
         if (isConnected) {
             printStream.println(jsonMessage);
         } else {

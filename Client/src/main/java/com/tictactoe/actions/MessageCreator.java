@@ -36,6 +36,7 @@ public class MessageCreator {
      * @param confirmPassword
      */
     public void sendRegister(String username, String password, String confirmPassword) {
+        System.out.println("@ClientMessageCreator->sendRegister, username:" + username + ", passwordx2:" + password);
         actionController.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("username", username);
