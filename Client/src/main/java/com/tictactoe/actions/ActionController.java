@@ -38,7 +38,7 @@ public class ActionController {
         } else if (action.equalsIgnoreCase(Message.REGISTER)) {
             actionHandler.handleRegister(data);
 
-        } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
+        } else if (action.equalsIgnoreCase(Message.GAME_INVITATION_RESPONSE)) {
             actionHandler.handleGameInvitation(data);
 
         } else if (action.equalsIgnoreCase(Message.GAME_START)) {

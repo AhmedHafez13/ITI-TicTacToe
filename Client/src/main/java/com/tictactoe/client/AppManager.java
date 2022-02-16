@@ -1,11 +1,13 @@
 package com.tictactoe.client;
 
 import com.tictactoe.actions.ActionController;
+import com.tictactoe.models.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +21,7 @@ public class AppManager {
 
     ActionController actionController;
 
+    ArrayList<Player> players = null;
     String gameId = null;
 
     private boolean isConnected;
@@ -65,5 +68,13 @@ public class AppManager {
 
     public void setGameId(String gameId) {
         this.gameId = gameId;
+    }
+
+    public void setPlayersList(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public ArrayList<Player> getPlayersList() {
+        return players;
     }
 }
