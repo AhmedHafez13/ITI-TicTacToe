@@ -18,6 +18,7 @@ public class DBManager {
     private final String DB_NAME = "tictactoe";
     private final String DB_USER = "root";
     private final String DB_PASSWORD = ""; //empty password edited by "amr"!
+    //private final String DB_PASSWORD = "password"; //password edited by "hafez"!
 
     DBManager() {
         try {

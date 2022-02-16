@@ -77,8 +77,11 @@ public class ActionHandler {
      * @param playerHandler
      */
     public void handleMove(HashMap<String, String> data, PlayerHandler playerHandler) {
+        String username = data.get("gameId");
+        String moves = data.get("index");
+//        Player player = DBManager.insertNewGame(int playerXId, int playerOId, char winner, moves);
         /*
-         * TODO:
+         * TODO
          * • Add the received move to the moves array
          * • send the new move to the opponent
          */

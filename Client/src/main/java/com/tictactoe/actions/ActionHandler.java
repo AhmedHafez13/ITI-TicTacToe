@@ -55,6 +55,15 @@ public class ActionHandler {
      * @param data
      */
     public void handleMove(HashMap<String, String> data) {
+        
+        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
+            {
+                put("gameId", data.get("gameId"));
+                put("index", data.get("index"));
+            }
+            ////////////////////can use one HashMap?///// 
+        });
+        
         /*TODO:
          * • Apply the new move
          */

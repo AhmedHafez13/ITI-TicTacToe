@@ -62,7 +62,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="O" textAlignment="CENTER" textFill="#dcd9d9">
+            <Button fx:id="btn2" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn2" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="O" textAlignment="CENTER" textFill="#dcd9d9">
                <font>
                   <Font size="36.0" />
                </font>
@@ -73,7 +73,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1">
+            <Button fx:id="btn1" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="-Infinity" mnemonicParsing="false" onAction="#clickbtn1" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1">
                <font>
                   <Font size="36.0" />
                </font>
@@ -84,7 +84,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.rowIndex="1">
+            <Button fx:id="btn5" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn5" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.rowIndex="1">
                <font>
                   <Font size="36.0" />
                </font>
@@ -95,7 +95,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2">
+            <Button fx:id="btn0" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn0" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2">
                <font>
                   <Font size="36.0" />
                </font>
@@ -106,7 +106,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Button fx:id="btn6" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn6" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="36.0" />
                </font>
@@ -117,7 +117,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text=" X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="btn7" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn7" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text=" X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="36.0" />
                </font>
@@ -128,7 +128,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="O" textAlignment="CENTER" textFill="#dcd9d9" GridPane.rowIndex="2">
+            <Button fx:id="btn8" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn8" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text="O" textAlignment="CENTER" textFill="#dcd9d9" GridPane.rowIndex="2">
                <font>
                   <Font size="36.0" />
                </font>
@@ -139,7 +139,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text=" O" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btn3" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn3" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text=" O" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="36.0" />
                </font>
@@ -150,7 +150,7 @@
                   <Insets left="3.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text=" X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btn4" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickbtn4" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" stylesheets="@myStyle.css" text=" X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="36.0" />
                </font>
