@@ -33,9 +33,19 @@ public class MessageCreator {
     public void sendLoginSuccess(ArrayList<String> playerNames, PlayerHandler playerHandler) {
         System.out.println("@MessageCreator->sendLoginSuccess");
         playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
-                    {
-                        put("loginResult", "success");
-                    }
-                });
+            {
+                put("loginResult", "success");
             }
+        });
+    }
+
+    public void sendInvitation(String playerName, String handlerId, PlayerHandler playerHandler) {
+        System.out.println("@MessageCreator->sendInvitation");
+        playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
+            {
+                put("playerName", playerName);
+                put("handlerId", handlerId);
+            }
+        });
+    }
 }

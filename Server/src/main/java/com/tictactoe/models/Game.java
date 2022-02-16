@@ -1,5 +1,6 @@
 package com.tictactoe.models;
 
+import com.tictactoe.server.PlayerHandler;
 import java.util.ArrayList;
 
 /**
@@ -11,13 +12,13 @@ public class Game {
     final char PLAYER_X = 'X';
     final char PLAYER_O = 'O';
 
-    private int playerXId;
-    private int playerOId;
+    private PlayerHandler playerXId;
+    private PlayerHandler playerOId;
     private ArrayList<Integer> moves = new ArrayList<>();
     char started = PLAYER_X;
     char winner;
 
-    public Game(int playerXId, int playerOId) {
+    public Game(PlayerHandler playerXId, PlayerHandler playerOId) {
         this.playerXId = playerXId;
         this.playerOId = playerOId;
     }
@@ -40,11 +41,11 @@ public class Game {
         return movesJsonStr;
     }
 
-    public int getPlayerXId() {
+    public PlayerHandler getPlayerXId() {
         return playerXId;
     }
 
-    public int getPlayerOId() {
+    public PlayerHandler getPlayerOId() {
         return playerOId;
     }
 
