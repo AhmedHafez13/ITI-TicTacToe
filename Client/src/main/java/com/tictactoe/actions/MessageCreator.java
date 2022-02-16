@@ -46,7 +46,7 @@ public class MessageCreator {
     }
 
     public void sendInvitationResponse(String response) {// accept | refuse
-        actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
+        actionController.sendAction(Message.GAME_INVITATION_RESPONSE, new HashMap<String, String>() {
             {
                 put("response", response);
             }

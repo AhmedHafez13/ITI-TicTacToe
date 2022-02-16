@@ -1,6 +1,7 @@
 package com.tictactoe.server;
 
 import com.tictactoe.actions.ActionController;
+import com.tictactoe.models.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -19,10 +20,7 @@ public class ServerManager {
     ActionController actionController;
 
     HashMap<String, PlayerHandler> onlinePlayers = new HashMap<>();
-
-    // [START] DEV
-    int idCounter = -1;
-    // [END] DEV
+    HashMap<String, Game> currentGames = new HashMap<>();
 
     public ServerManager() {
         new DBManager();
@@ -57,18 +55,18 @@ public class ServerManager {
     }
 
     public void addPlayerHandler(PlayerHandler playerHander) {
-        onlinePlayers.put(playerHander.id, playerHander);
+        onlinePlayers.put(playerHander.getHandlerId(), playerHander);
     }
 
     public void removePlayerHandler(PlayerHandler playerHandler) {
-        onlinePlayers.remove(playerHandler.id);
+        onlinePlayers.remove(playerHandler.getHandlerId());
     }
 
     public void removePlayerHandler(String playerHandlerId) {
         onlinePlayers.remove(playerHandlerId);
     }
 
-    public PlayerHandler getPlayerHandler(int playerHandlerId) {
+    public PlayerHandler getPlayerHandler(String playerHandlerId) {
         return onlinePlayers.getOrDefault(playerHandlerId, null);
     }
 }

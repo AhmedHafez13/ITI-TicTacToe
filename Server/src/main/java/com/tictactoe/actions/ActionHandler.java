@@ -1,5 +1,6 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.models.Game;
 import com.tictactoe.models.Player;
 import com.tictactoe.server.DBManager;
 import com.tictactoe.server.PlayerHandler;
@@ -31,10 +32,10 @@ public class ActionHandler {
         String username = data.get("username");
         String password = data.get("password");
         Player player = DBManager.signInPlayer(username, password);
-        if(player == null){
-        actionController.messageCreator.sendLoginFailed(
-                "No username, please try again!", playerHandler);
-        }else{
+        if (player == null) {
+            actionController.messageCreator.sendLoginFailed(
+                    "No username, please try again!", playerHandler);
+        } else {
             ArrayList<String> arraylist = new ArrayList<>();
             playerHandler.setPlayer(player);
             arraylist.add("player1");
@@ -95,8 +96,36 @@ public class ActionHandler {
     public void handleGameInvitation(HashMap<String, String> data, PlayerHandler playerHandler) {
         /*
          * TODO:
-         * • Add the received move to the moves array
-         * • send the new move to the opponent
+         * • send the invitation to the opponent
          */
+        String opponentHandlerId = data.get("playerId");
+
+        PlayerHandler opponentHandler = actionController.serverManager.getPlayerHandler(opponentHandlerId);
+
+        String playerName = playerHandler.getPlayer().getName();
+        String handlerId = playerHandler.getHandlerId();
+
+        playerHandler.invitationTo = opponentHandlerId;
+        opponentHandler.invitationFrom = handlerId;
+
+        actionController.messageCreator.sendInvitation(playerName, handlerId, opponentHandler);
+    }
+
+    /**
+     *
+     * @param data
+     * @param playerHandler
+     */
+    public void handleGameInvitationResponse(HashMap<String, String> data, PlayerHandler playerHandler) {
+        /*
+         * TODO:
+         * • if accept: add new game into currentGames
+         * • send game id to both players
+         */
+        //new Game();
+        // response: accept | refuse
+        // gameId
+        // playerName
+        // playerScore
     }
 }

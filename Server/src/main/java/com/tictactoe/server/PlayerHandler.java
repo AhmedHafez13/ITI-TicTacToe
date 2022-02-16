@@ -22,14 +22,17 @@ public class PlayerHandler extends Thread {
     private ServerManager serverManager;
 
     private Player player = null;
-    public String id;
+    public String handlerId;
     String gameId = null;
+
+    public String invitationTo = null;
+    public String invitationFrom = null;
 
     private boolean isConnected;
 
     public PlayerHandler(ServerManager serverManager) {
         this.serverManager = serverManager;
-        id = UUID.randomUUID().toString();
+        handlerId = UUID.randomUUID().toString();
 
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(
@@ -80,7 +83,15 @@ public class PlayerHandler extends Thread {
         }
     }
 
+    public String getHandlerId() {
+        return handlerId;
+    }
+
     public String getGameId() {
         return gameId;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
