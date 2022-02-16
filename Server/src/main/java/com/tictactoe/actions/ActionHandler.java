@@ -82,7 +82,9 @@ public class ActionHandler {
          * • Add the received move to the moves array
          * • send the new move to the opponent
          */
-    }
+        String gameId=data.get("gameId");
+        String index=data.get("index");
+   }
 
     /**
      *
