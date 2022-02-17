@@ -60,6 +60,9 @@ public class ActionHandler {
     public void handleRegister(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleRegister, Data:"
                 + Arrays.toString(data.values().toArray()));
+
+        String registerResult = data.get("registerResult");
+        App.getSceneManager().registerMessageToUI(registerResult);
         /*TODO:
          * if can register =>
          * • (the same as handleLogin)
@@ -109,8 +112,6 @@ public class ActionHandler {
         /*TODO:
          * • Apply the new move
          */
-        
-        
     }
 
     /**

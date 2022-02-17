@@ -34,6 +34,8 @@ public class LoginController {
     private Label usernameErrorRegister;
     @FXML
     private Label passwordErrorRegister;
+    @FXML
+    private Label serverMsg;
 //===============================================
 
     @FXML
@@ -76,12 +78,12 @@ public class LoginController {
     @FXML
     private void register() throws IOException {
         System.out.println("@LoginController.register is called!");
-        System.out.println(usernameRegister.getText() + ":" + passwordRegister.getText()+":"+passwordConfirmRegister.getText());
+        System.out.println(usernameRegister.getText() + ":" + passwordRegister.getText() + ":" + passwordConfirmRegister.getText());
 
         if (usernameRegister.getText().trim().isEmpty() || usernameRegister.getText().trim().length() < 3) {
             usernameErrorRegister.setText("Username is required and must be more than 3 characters!");
 
-        } else if (!passwordRegister.getText().equals(passwordConfirmRegister.getText()) ) {
+        } else if (!passwordRegister.getText().equals(passwordConfirmRegister.getText())) {
             passwordErrorRegister.setText("Incorrect Password!");
 
         } else {
