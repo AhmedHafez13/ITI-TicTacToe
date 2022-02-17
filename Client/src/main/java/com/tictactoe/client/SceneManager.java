@@ -43,4 +43,14 @@ public class SceneManager {
         
     }
     
+        public void showInvitationPopUp(String PlayerName ,String PlayerId) {
+        Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
+        if (playerName != null) {
+            playerName.setText(PlayerName);
+            
+        }
+      
+    }
+    
+    
 }

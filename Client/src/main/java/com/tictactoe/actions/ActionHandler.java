@@ -71,16 +71,38 @@ public class ActionHandler {
          */
     }
 
+    /**
+     *
+     * @param data
+     */
+    public void handleMove(HashMap<String, String> data) {
+        
+        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
+            {
+                put("gameId", data.get("gameId"));
+                put("index", data.get("index"));
+            }
+            ////////////////////can use one HashMap?///// 
+        });
+        
+        /*TODO:
+         * • Apply the new move
+         */
+    }
+
     public void handleGameInvitation(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"
                 + Arrays.toString(data.values().toArray()));
-
         String playerId = data.get("playerId");
         String playerName = data.get("playerName");
+        App.getSceneManager().showInvitationPopUp(playerName,playerId); 
+       
+    }
+    
+       public void handleGameInvitationResponse(HashMap<String, String> data) {
+        System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
+                + Arrays.toString(data.values().toArray()));
 
-        /*TODO:
-         * • Show invitation message with (playerName)
-         */
     }
 
     /**

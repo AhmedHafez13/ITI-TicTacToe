@@ -3,6 +3,7 @@ package com.tictactoe.client;
 import com.tictactoe.actions.MessageCreator;
 import com.tictactoe.models.Player;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -27,12 +28,24 @@ import javafx.scene.text.Text;
  */
 public class MainPageController implements Initializable {
 
+     @FXML
+    private void switchToLogin() throws IOException {
+        App.setRoot("LoginScene");
+    }
+
+    @FXML
+    private void switchToLeaderBoard() throws IOException {
+        App.setRoot("leaderBoard");
+    }
+    
+    @FXML
+    private void Refresh() throws IOException {
+      
+    }
+   
     @FXML
     private VBox playersVBox;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -79,9 +92,8 @@ public class MainPageController implements Initializable {
 
     void handleInvite(String playerId) {
         System.out.println("-----\n@MainPageController->handleInivte, playerId:" + playerId);
-        // TODO: use MassageCreator to send the invitation
         MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
-        //messageCreator.sendInvitaion()...
+        messageCreator.sendInvitation(playerId);
     }
 
 }
