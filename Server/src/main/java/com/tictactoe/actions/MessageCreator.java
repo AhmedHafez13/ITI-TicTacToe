@@ -38,6 +38,7 @@ public class MessageCreator {
             }
         });
     }
+<<<<<<< HEAD
 
     public void sendRegisterSuccess(PlayerHandler playerHandler) {
         System.out.println("@ServerMessageCreator->sendRegisterSuccess");
@@ -57,9 +58,11 @@ public class MessageCreator {
         });
     }
 
+=======
+>>>>>>> 7f211ab (invitationhandle)
     public void sendInvitation(String playerName, String handlerId, PlayerHandler playerHandler) {
         System.out.println("@MessageCreator->sendInvitation");
-        playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
+        playerHandler.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
                 put("playerName", playerName);
                 put("handlerId", handlerId);

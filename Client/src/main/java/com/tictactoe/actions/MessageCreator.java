@@ -45,7 +45,14 @@ public class MessageCreator {
             }
         });
     }
-
+    public void sendInvitation(String opponentId){
+          actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
+            {
+                put("opponentId",opponentId );
+            }
+        });
+    }
+    
     public void sendInvitationResponse(String response) {// accept | refuse
         actionController.sendAction(Message.GAME_INVITATION_RESPONSE, new HashMap<String, String>() {
             {
