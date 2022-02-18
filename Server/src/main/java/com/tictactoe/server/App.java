@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  *
@@ -25,6 +27,14 @@ public class App extends Application {
         stage.show();
 
         serverManager.initializePlayersTables();
+
+        // [START] DEV
+        App.serverManager.toggleServer();
+        Label serverStatusLabel = (Label) scene.lookup("#serverStatusLabel");
+        Button startStopButton = (Button) scene.lookup("#startStopButton");
+        serverStatusLabel.setText("The server is running");
+        startStopButton.setText("STOP");
+        // [END] DEV
     }
 
     static void setRoot(String fxml) throws IOException {
