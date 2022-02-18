@@ -130,7 +130,7 @@ public class ActionHandler {
         System.out.println("-----\n@ActionHandler->handleGameMove, Data:"
                 + Arrays.toString(data.values().toArray()));
 
-        // "5,6,4,8,7" -> gameMoves  
+        // "5,6,4,8,7" -> data.get("gameMoves")
         /*TODO:
          * • Apply the new move
          */
