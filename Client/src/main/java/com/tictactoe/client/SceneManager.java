@@ -1,5 +1,9 @@
 package com.tictactoe.client;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,46 +17,79 @@ import javafx.scene.paint.Color;
  *
  */
 public class SceneManager {
-    
-    public void showMainMenu(String test/*ArrayList<Player> players*/) {
+
+    public void showMainMenu() {
+        System.out.println("-----\n@SceneManager->showMainMenu, "
+                + "switching to the main menu scene");
+        /* TODO:
+         * Switch to the Main Menu Scene
+         */
         Platform.runLater(() -> {
-            TextField userNameField = (TextField) App.getScene().lookup("#userNameField");
-            if (userNameField != null) {
-                userNameField.setText(test);
+            try {
+                App.setRoot("mainPage");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
-        /* TODO:
-         * Show the Main Menu Scene and list all players with their status
-         */
     }
-    
+
+    public void showLoginFailed(String userMessage) {
+        Platform.runLater(() -> {
+            TextField messageLabel = (TextField) App.getScene().lookup("#registerMsgLogin");
+            if (messageLabel != null) {
+                messageLabel.setText(userMessage);
+            }
+        });
+    }
+
     public void registerMessageToUI(String uimessage) {
         System.out.println("@registerMessageToUI> msg recieved is > " + uimessage);
         Platform.runLater(() -> {
             Label serverMsg = (Label) App.getScene().lookup("#serverMsg");
-            PasswordField passwordRegister = (PasswordField) App.getScene().lookup("#passwordRegister");
-            PasswordField passwordConfirmRegister = (PasswordField) App.getScene().lookup("#passwordConfirmRegister");
+//            PasswordField passwordRegister = (PasswordField) App.getScene().lookup("#passwordRegister");
+//            PasswordField passwordConfirmRegister = (PasswordField) App.getScene().lookup("#passwordConfirmRegister");
             TextField usernameRegister = (TextField) App.getScene().lookup("#usernameRegister");
             if (uimessage.equals("success")) {
-                serverMsg.setText("Data registered successfully, you can login now!");
-                passwordRegister.setText("");
-                passwordConfirmRegister.setText("");
-                usernameRegister.setText("");
-            } else if (uimessage.equalsIgnoreCase("failed")) {
+//                serverMsg.setText("Data registered successfully, you can login now!");
+//                passwordRegister.setText("");
+//                passwordConfirmRegister.setText("");
+//                usernameRegister.setText("");
+                try {
+                    App.setRoot("LoginScene");
+                    Label registerMsgLogin = (Label) App.getScene().lookup("#registerMsgLogin");
+                    registerMsgLogin.setText("Data registered successfully, you can login now!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (uimessage.equalsIgnoreCase("duplicated")) {
                 serverMsg.setTextFill(Color.RED);
-                serverMsg.setText("Error while registering your data, please try again!");
+                serverMsg.setText("Username already exists!");
             }
         });
-        
+
+    }
+
+    public void showInvitationPopUp(String PlayerName, String PlayerId) {
+        Platform.runLater(() -> {
+            try {
+                App.setRoot("invitation");
+                Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
+                if (playerName != null) {
+                    playerName.setText(PlayerName);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
     
-        public void showInvitationPopUp(String PlayerName ,String PlayerId) {
-        Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
-        if (playerName != null) {
-            playerName.setText(PlayerName);
-            
-        }
-    }
+//        public void showInvitationPopUp(String PlayerName ,String PlayerId) {
+//        Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
+//        if (playerName != null) {
+//            playerName.setText(PlayerName);
+//            
+//        }
+//    }
         
     public void gameMovesToUI(int[] moves) {
             
@@ -118,6 +155,10 @@ public class SceneManager {
                 btn8.setText(text+"");
                 break;
         }
+    }
+
+    public void showMainMenu(String login_success) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

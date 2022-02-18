@@ -35,24 +35,26 @@ public class MessageCreator {
      * @param password
      * @param confirmPassword
      */
-    public void sendRegister(String username, String password, String confirmPassword) {
+    public void sendRegister(String username, String password, String confirmPassword, String avatarNumber) {
         System.out.println("@ClientMessageCreator->sendRegister, username:" + username + ", passwordx2:" + password);
         actionController.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("username", username);
                 put("password", password);
                 put("confirmPassword", confirmPassword);
+                put("avatar", avatarNumber);
             }
         });
     }
-    public void sendInvitation(String opponentId){
-          actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
+
+    public void sendInvitation(String opponentId) {
+        actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
-                put("opponentId",opponentId );
+                put("opponentId", opponentId);
             }
         });
     }
-    
+
     public void sendInvitationResponse(String response) {// accept | refuse
         actionController.sendAction(Message.GAME_INVITATION_RESPONSE, new HashMap<String, String>() {
             {

@@ -49,9 +49,10 @@ public class MessageCreator {
 
     public void sendRegisterFailed(String message, PlayerHandler playerHandler) {
         System.out.println("@ServerMessageCreator->sendRegisterFailed");
+
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
-                put("registerResult", "failed");
+                put("registerResult", "duplicated");
             }
         });
     }

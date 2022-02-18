@@ -74,7 +74,7 @@ public class MainPageController implements Initializable {
 
         Label playerName = new Label(player.getName());
         HBox.setHgrow(playerName, Priority.ALWAYS);
-
+//************************************invite button********************************************************
         Button inviteButton = new Button("Invite");
 
         inviteButton.setOnAction((event) -> {

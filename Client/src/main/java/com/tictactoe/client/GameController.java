@@ -1,9 +1,6 @@
 package com.tictactoe.client;
 
-import com.tictactoe.actions.ActionController;
-import com.tictactoe.actions.ActionHandler;
 import com.tictactoe.actions.MessageCreator;
-import com.tictactoe.client.App;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
@@ -35,8 +32,8 @@ public class GameController {
         MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
         messageCreator.sendGameMove(index+"");
     }
-   /*-------------------------------------------------*/
-    
+
+    /*-------------------------------------------------*/
     @FXML
     private void clickBtn0() throws IOException {
          gameMove(0); 
@@ -46,47 +43,40 @@ public class GameController {
     private void clickBtn1() throws IOException {
        gameMove(1); 
     }
-    
+
     @FXML
     private void clickBtn2() throws IOException {
        gameMove(2);
     }
-    
-   
+
     @FXML
     private void clickBtn3() throws IOException {
        gameMove(3); 
     }
-    
-   
+
     @FXML
     private void clickBtn4() throws IOException {
        gameMove(4); 
     }
-    
-  
+
     @FXML
     private void clickBtn5() throws IOException {
        gameMove(5); 
     }
-    
-    
+
     @FXML
     private void clickBtn6() throws IOException {
        gameMove(6); 
     }
-    
-   
+
     @FXML
     private void clickBtn7() throws IOException {
        gameMove(7); 
     }
-    
-  
+
     @FXML
     private void clickBtn8() throws IOException {
       gameMove(8);    
     }
-    
-   
+
 }
