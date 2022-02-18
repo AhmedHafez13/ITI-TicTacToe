@@ -17,8 +17,8 @@ public class DBManager {
 
     private final static String DB_NAME = "tictactoe";
     private final static String DB_USER = "root";
-    //private final static String DB_PASSWORD = ""; //empty password edited by "amr"!
-    private final static String DB_PASSWORD = "password"; //password edited by "hafez"!
+    private final static String DB_PASSWORD = ""; //empty password edited by "amr"!
+    //private final static String DB_PASSWORD = "password"; //password edited by "hafez"!
 
     public static void initializeDB() {
         try {
@@ -173,7 +173,12 @@ public class DBManager {
                 int id = rs.getInt("id");
                 boolean isOnline = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
+                //===================================
                 player = new Player(id, playerName, score, avatar, isOnline);
+                //===================================
+                System.out.println("before query"+id);
+                PreparedStatement updateStatus = connection.prepareStatement("update player set is_online = 1 where id =" + id);
+                updateStatus.executeUpdate();
             }
             pst.close();
         } catch (SQLException e) {
