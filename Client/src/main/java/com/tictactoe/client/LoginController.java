@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -36,6 +38,22 @@ public class LoginController {
     private Label passwordErrorRegister;
     @FXML
     private Label serverMsg;
+    @FXML
+    ToggleGroup pic;
+//    @FXML
+//    private RadioButton av1;
+//    @FXML
+//    private RadioButton av2;
+//    @FXML
+//    private RadioButton av3;
+//    @FXML
+//    private RadioButton av4;
+//    @FXML
+//    private RadioButton av5;
+//    @FXML
+//    private RadioButton av6;
+//    @FXML
+//    private RadioButton av7;
 //===============================================
 
     @FXML
@@ -79,6 +97,9 @@ public class LoginController {
     private void register() throws IOException {
         System.out.println("@LoginController.register is called!");
         System.out.println(usernameRegister.getText() + ":" + passwordRegister.getText() + ":" + passwordConfirmRegister.getText());
+        RadioButton selectedRadioButton = (RadioButton) pic.getSelectedToggle();
+        String toogleGroupValue = selectedRadioButton.getText();
+//        System.out.println(toogleGroupValue);
 
         if (usernameRegister.getText().trim().isEmpty() || usernameRegister.getText().trim().length() < 3) {
             usernameErrorRegister.setText("Username is required and must be more than 3 characters!");
@@ -88,7 +109,7 @@ public class LoginController {
 
         } else {
             MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
-            messageCreator.sendRegister(usernameRegister.getText(), passwordRegister.getText(), passwordConfirmRegister.getText());
+            messageCreator.sendRegister(usernameRegister.getText(), passwordRegister.getText(), passwordConfirmRegister.getText(),toogleGroupValue);
         }
     }
 

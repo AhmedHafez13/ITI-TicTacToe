@@ -62,7 +62,7 @@ public class ActionHandler {
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("@ServerActionHandler->handleRegister, Data: "+ Arrays.toString(data.values().toArray()));
 
-        boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), null);
+        boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), data.get("avatar"));
         if(player){
             //System.out.println("Player inserted successfully!");
             actionController.messageCreator.sendRegisterSuccess(playerHandler);
