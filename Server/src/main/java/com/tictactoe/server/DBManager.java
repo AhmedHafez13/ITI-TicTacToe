@@ -15,16 +15,12 @@ public class DBManager {
     private static Connection connection;
     private static boolean isConnected = false;
 
-    private final static String DB_NAME = "tictactoe";
-    private final static String DB_USER = "root";
-    private final static String DB_PASSWORD = ""; //empty password edited by "amr"!
-    //private final static String DB_PASSWORD = "password"; //password edited by "hafez"!
-
     public static void initializeDB() {
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/" + DB_NAME, DB_USER, DB_PASSWORD);
+                    "jdbc:mysql://localhost:3306/"
+                    + DBConfig.DB_NAME, DBConfig.DB_USER, DBConfig.DB_PASSWORD);
             isConnected = true;
 
         } catch (SQLException ex) {
@@ -176,7 +172,7 @@ public class DBManager {
                 //===================================
                 player = new Player(id, playerName, score, avatar, isOnline);
                 //===================================
-                System.out.println("before query"+id);
+                System.out.println("before query" + id);
                 PreparedStatement updateStatus = connection.prepareStatement("update player set is_online = 1 where id =" + id);
                 updateStatus.executeUpdate();
             }

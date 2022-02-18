@@ -56,4 +56,6 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+/Server/src/main/java/com/tictactoe/server/DBConfig.java
+
 # End of https://www.toptal.com/developers/gitignore/api/java,netbeans
