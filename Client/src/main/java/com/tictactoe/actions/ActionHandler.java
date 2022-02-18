@@ -58,7 +58,7 @@ public class ActionHandler {
      * @param data
      */
     public void handleRegister(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleRegister, Data:"
+        System.out.println("-----\n@ActionHandler->handleRegister, Data: "
                 + Arrays.toString(data.values().toArray()));
 
         String registerResult = data.get("registerResult");
