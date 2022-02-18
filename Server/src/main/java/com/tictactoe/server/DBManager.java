@@ -17,8 +17,8 @@ public class DBManager {
 
     private final static String DB_NAME = "tictactoe";
     private final static String DB_USER = "root";
-    //private final static String DB_PASSWORD = ""; //empty password edited by "amr"!
-    private final static String DB_PASSWORD = "password"; //password edited by "hafez"!
+    private final static String DB_PASSWORD = ""; //empty password edited by "amr"!
+    //private final static String DB_PASSWORD = "password"; //password edited by "hafez"!
 
     public static void initializeDB() {
         try {
