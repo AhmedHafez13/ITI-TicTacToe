@@ -27,7 +27,7 @@ public class SceneManager {
          */
         Platform.runLater(() -> {
             try {
-                App.setRoot("game");
+                App.setRoot("mainPage");
             } catch (IOException e) {
                 e.printStackTrace();
             }

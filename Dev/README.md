@@ -70,7 +70,7 @@
 
 #### Server Side
 
-- `registerNewPlayer` insert new player, When the user signs up
+- `registerNewPlayer` validate data on the client side and send to the server to insert it to the database (username is unique) then the server send the result to take and action the client side
 - `signInPlayer` validate name and password... check if the name and password matches any record in the databaes... set playerId to the player id from the database or return -1 if can't signin
 
 #### Client Side
