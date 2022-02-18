@@ -83,6 +83,10 @@ public class PlayerHandler extends Thread {
         }
     }
 
+    public void closeConnection() {
+        isConnected = false;
+    }
+
     public String getHandlerId() {
         return handlerId;
     }

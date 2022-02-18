@@ -13,14 +13,14 @@ import java.util.LinkedList;
 public class DBManager {
 
     private static Connection connection;
-    private boolean isConnected = false;
+    private static boolean isConnected = false;
 
-    private final String DB_NAME = "tictactoe";
-    private final String DB_USER = "root";
-    private final String DB_PASSWORD = ""; //empty password edited by "amr"!
-    //private final String DB_PASSWORD = "password"; //password edited by "hafez"!
+    private final static String DB_NAME = "tictactoe";
+    private final static String DB_USER = "root";
+    //private final String DB_PASSWORD = ""; //empty password edited by "amr"!
+    private final static String DB_PASSWORD = "password"; //password edited by "hafez"!
 
-    DBManager() {
+    public static void initializeDB() {
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             connection = DriverManager.getConnection(
@@ -43,13 +43,13 @@ public class DBManager {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("select * from player ORDER BY is_online DESC "); //true=1 false=0
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int score = rs.getInt("total_score");
-                boolean online = rs.getBoolean("is_online");
+                boolean isOnline = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                int id = rs.getInt("id");
 
-                Player p = new Player(id, name, score, avatar);
+                Player p = new Player(id, name, score, avatar, isOnline);
                 players.add(p);
                 //stmt.close();
                 //connection.close(); 
@@ -73,12 +73,12 @@ public class DBManager {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("select * from player ORDER BY total_score DESC ");
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int score = rs.getInt("total_score");
-                int id = rs.getInt("id");
-                //boolean online = rs.getBoolean("is_online");
+                boolean isOnline = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                Player p = new Player(id, name, score, avatar);
+                Player p = new Player(id, name, score, avatar, isOnline);
                 players.add(p);
                 // stmt.close();
                 //connection.close(); 
@@ -171,9 +171,9 @@ public class DBManager {
                 String playerName = rs.getString("name");
                 int score = rs.getInt("total_score");
                 int id = rs.getInt("id");
-                //boolean online = rs.getBoolean("is_online");
+                boolean isOnline = rs.getBoolean("is_online");
                 String avatar = rs.getString("avatar");
-                player = new Player(id, playerName, score, avatar);
+                player = new Player(id, playerName, score, avatar, isOnline);
             }
             pst.close();
         } catch (SQLException e) {
