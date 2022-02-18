@@ -4,6 +4,8 @@
 
 ### `2022.02.07`
 
+#### Server Project
+
 - `DBManager` classes added to the main package
 - `models` package is created to include the `Game` and the `Player` models
 - `Game` object represents a current playing game between two players
@@ -12,29 +14,65 @@
 
 ## Notes
 
-- At the begining of every game, `Game` object is created and pushed to the current games array `currentPlayingGames`
-- At the end of every game, `Game` object is removed from the current games array `currentPlayingGames` and is recored in the database
+- At the begining of every game, `Game` object is created and pushed to the current games map `currentGames`
+- At the end of every game, `Game` object is removed from the current games map `currentGames` and is recored in the database
 
 ---
 
 ### Mohamed Ahmed Mohamed Ali Shehata
 
-...
+- Game logic
+  - Game end
+  - Play with computer
+
+#### Server Side
+
+- Degsin the `leaderboard` scene with all `controller` functionality
+
+---
 
 ### Ahmed Mohamed Hafez Abdelhamid
 
-...
+- Client/Server communication
+
+#### Server Side
+
+- Degsin the `server manager` scene with all `controller` functionality
+
+---
 
 ### Khloud elsaid abbas mohamed
 
+#### Server Side
+
 - `insertNewGame` insert new game into the `game` table
 
+#### Client Side
+
+- Degsin the `game` scene with all `controller` functionality
+
+---
+
 ### Yara Mohammed Samir
+
+#### Server Side
 
 - `getPlayersSortedByStatus` select players from the `player` table, sorted by status... (is_online = true) first then (is_online = false)
 - `getPlayersSortedByScore` select players from the `player` table, sorted by score... higher score first
 
+#### Client Side
+
+- Degsin the `main menu` and `invitation window` scenes with all `controllers` functionality
+
+---
+
 ### Amr Abdalaziz Abdallah
+
+#### Server Side
 
 - `registerNewPlayer` insert new player, When the user signs up
 - `signInPlayer` validate name and password... check if the name and password matches any record in the databaes... set playerId to the player id from the database or return -1 if can't signin
+
+#### Client Side
+
+- Degsin the `sign in` and `register` scenes with all `controllers` functionality

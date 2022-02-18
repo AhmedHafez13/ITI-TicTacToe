@@ -40,16 +40,13 @@ public class ActionHandler {
 
             // Data
             // TODO: store user data and players list
-            // UI
-            //App.getSceneManager().showMainMenu(/*players*/);
-            // TEST
-            App.getSceneManager().showMainMenu("Login success");
+            App.getSceneManager().showMainMenu();
             ArrayList<Player> players = new ArrayList<>();
             players.add(new Player("123", "name", 123, "avatar1.png"));
             appManager.setPlayersList(players);
         } else {
             System.out.println("-----\n@ActionHandler->handleLogin, Login failed");
-            App.getSceneManager().showMainMenu("Login failed");
+            App.getSceneManager().showLoginFailed("Login failed");
         }
     }
 
@@ -76,7 +73,7 @@ public class ActionHandler {
      * @param data
      */
     public void handleMove(HashMap<String, String> data) {
-        
+
         actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
             {
                 put("gameId", data.get("gameId"));
@@ -84,7 +81,7 @@ public class ActionHandler {
             }
             ////////////////////can use one HashMap?///// 
         });
-        
+
         /*TODO:
          * • Apply the new move
          */
@@ -95,13 +92,21 @@ public class ActionHandler {
                 + Arrays.toString(data.values().toArray()));
         String playerId = data.get("playerId");
         String playerName = data.get("playerName");
-        App.getSceneManager().showInvitationPopUp(playerName,playerId); 
-       
+        App.getSceneManager().showInvitationPopUp(playerName, playerId);
+
     }
-    
-       public void handleGameInvitationResponse(HashMap<String, String> data) {
+
+    public void handleGameInvitationResponse(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
                 + Arrays.toString(data.values().toArray()));
+        String Response = data.get("response");
+        if (Response.equalsIgnoreCase("Accepted")) {
+            App.getSceneManager().InvitationMessageToUI("Accepted");
+
+        } else {
+            App.getSceneManager().InvitationMessageToUI("Refused");
+
+        }
 
     }
 
