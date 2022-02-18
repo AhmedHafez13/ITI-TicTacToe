@@ -1,8 +1,15 @@
 package com.tictactoe.client;
 
 import java.io.IOException;
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -52,14 +59,61 @@ public class SceneManager {
         });
 
     }
-
-    public void showInvitationPopUp(String PlayerName, String PlayerId) {
-        Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
-        if (playerName != null) {
-            playerName.setText(PlayerName);
-
-        }
-
+    
+    public void showInvitationPopUp(String PlayerName ,String PlayerId) {
+            Platform.runLater(() -> {
+                    try {   
+                         App.setRoot("invitation");
+                         Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
+                         if (playerName != null) {
+                          playerName.setText(PlayerName);
+                         }
+                     } catch (IOException e) {
+                        e.printStackTrace();
+                     }
+      });
     }
+    
+    public void InvitationMessageToUI(String message) {
+        System.out.println("@invitaionMessage> invitation response is > " + message);
+        Platform.runLater(() -> {
+                try{
+                    App.setRoot("mainPage");
+                        //ButtonType OK= new ButtonType("OK"); 
+                        //Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+                        //dialog.setTitle("Invitation Response");
+                        //dialog.getDialogPane().getButtonTypes().add(OK);
+                        //Optional<ButtonType> result = dialog.showAndWait();
+                        //dialog.setVisible(false);
+                        // if(!result.isPresent()){
+                        // }
+                        //else if(result.get() == OK){
+                        //        dialog.close();   
+                         //  } 
+                    Label invitationmsg = (Label) App.getScene().lookup("#invitationLabel");
+                    if (message.equalsIgnoreCase("Accepted"))
+                     {
+                        // dialog.setContentText("Your invitation is accepted :) ");
+                        //dialog.setVisible(true);
+                        invitationmsg.setTextFill(Color.WHITE);
+                        invitationmsg.setText("Your invitation accepted :)");
+                     }
+                    else if(message.equalsIgnoreCase("Rejected"))
+                    {
+                        // dialog.setContentText("Your invitation is refused :( ");
+                        //dialog.setVisible(true);
+                        invitationmsg.setTextFill(Color.RED);
+                        invitationmsg.setText("Your invitation rejected :(");
+                    }
+                    
+                   }catch(IOException e){
+                    e.printStackTrace();
+                   }     
+        });
 
 }
+        
+}           
+
+
+      

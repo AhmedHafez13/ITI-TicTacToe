@@ -102,6 +102,17 @@ public class ActionHandler {
        public void handleGameInvitationResponse(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
                 + Arrays.toString(data.values().toArray()));
+        String Response=data.get("response");
+        if(Response.equalsIgnoreCase("Accepted"))
+        {
+          App.getSceneManager().InvitationMessageToUI("Accepted"); 
+
+        }
+        else
+        {
+           App.getSceneManager().InvitationMessageToUI("Refused"); 
+
+        }
 
     }
 

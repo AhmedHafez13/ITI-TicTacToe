@@ -18,7 +18,7 @@
             <Font name="Segoe UI Italic" size="16.0" />
          </font>
       </Button>
-      <Label fx:id="playerNameLabel" layoutX="29.0" layoutY="63.0" prefHeight="44.0" prefWidth="111.0" text="PlayerName" textFill="WHITE">
+      <Label fx:id="playerNameLabel" layoutX="29.0" layoutY="63.0" prefHeight="44.0" prefWidth="111.0" textFill="WHITE">
          <font>
             <Font name="Pristina" size="25.0" />
          </font>

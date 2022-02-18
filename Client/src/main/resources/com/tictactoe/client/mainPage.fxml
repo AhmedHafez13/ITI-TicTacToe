@@ -97,6 +97,7 @@
             <InnerShadow choke="0.76" color="#070000" height="10.5" radius="2.125" width="0.0" />
          </effect>
       </ImageView>
-      <Label layoutX="255.0" layoutY="45.0" style="-fx-text-fill: white; -fx-font-size: 30;" text="Player Name" />
+      <Label fx:id="userNameField" layoutX="255.0" layoutY="45.0" style="-fx-text-fill: white; -fx-font-size: 30;" text="Player Name" />
+      <Label fx:id="invitationLabel" layoutX="442.0" layoutY="83.0" prefHeight="25.0" prefWidth="236.0" style="-fx-text-fill: red; -fx-font-size: 20;" text="Your invitation rejected :(" />
    </children>
 </Pane>
