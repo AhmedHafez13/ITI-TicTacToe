@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class LoginController {
+//=============Login Scene Elements=============
 
     @FXML
     private TextField userNameField;
@@ -22,6 +23,20 @@ public class LoginController {
     private Label nameError;
     @FXML
     private Label passwordError;
+//=============Register Scene Elements===========
+    @FXML
+    private TextField usernameRegister;
+    @FXML
+    private TextField passwordRegister;
+    @FXML
+    private TextField passwordConfirmRegister;
+    @FXML
+    private Label usernameErrorRegister;
+    @FXML
+    private Label passwordErrorRegister;
+    @FXML
+    private Label serverMsg;
+//===============================================
 
     @FXML
     private void switchToSignup() throws IOException {
@@ -38,22 +53,20 @@ public class LoginController {
         App.setRoot("leaderBoard");
     }
 
-
-
     @FXML
     private AnchorPane root;
 
     @FXML
     private void login() throws IOException {
         //System.out.println("@LoginController.login is called!");
-        if(userNameField.getText().isEmpty()){
+        if (userNameField.getText().isEmpty()) {
             nameError.setText("Username is required!");
-        }else if(passwordField.getText().isEmpty()){
+        } else if (passwordField.getText().isEmpty()) {
             passwordError.setText("Password is required!");
-        }else{
-            System.out.println(userNameField.getText().trim()+":"+passwordField.getText());
+        } else {
+            System.out.println(userNameField.getText().trim() + ":" + passwordField.getText());
             MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
-            messageCreator.sendLogin(userNameField.getText().trim(),passwordField.getText());
+            messageCreator.sendLogin(userNameField.getText().trim(), passwordField.getText());
         }
         // System.out.println("@LoginController.login is called!");
         // MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
@@ -62,13 +75,21 @@ public class LoginController {
         // messageCreator.sendLogin(username, "pass1");
     }
 
-
     @FXML
     private void register() throws IOException {
         System.out.println("@LoginController.register is called!");
-        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+        System.out.println(usernameRegister.getText() + ":" + passwordRegister.getText() + ":" + passwordConfirmRegister.getText());
 
-        messageCreator.sendRegister("user1", "pass1", "confirmPass1");
+        if (usernameRegister.getText().trim().isEmpty() || usernameRegister.getText().trim().length() < 3) {
+            usernameErrorRegister.setText("Username is required and must be more than 3 characters!");
+
+        } else if (!passwordRegister.getText().equals(passwordConfirmRegister.getText())) {
+            passwordErrorRegister.setText("Incorrect Password!");
+
+        } else {
+            MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+            messageCreator.sendRegister(usernameRegister.getText(), passwordRegister.getText(), passwordConfirmRegister.getText());
+        }
     }
 
 }

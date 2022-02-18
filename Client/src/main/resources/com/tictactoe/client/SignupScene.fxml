@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="853.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="853.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.LoginController">
    <children>
       <Pane layoutX="57.0" layoutY="31.0" prefHeight="536.0" prefWidth="431.0" style="-fx-background-color: #0000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -19,39 +19,53 @@
                   <Image url="@../../../images/logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="112.0" layoutY="44.0" prefHeight="38.0" prefWidth="204.0" text="Tic Tac Toe!" textFill="#6b3197">
+            <Label layoutX="112.0" layoutY="44.0" prefHeight="38.0" prefWidth="204.0" text="Tic Tac Toe!">
                <font>
                   <Font name="Segoe UI" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="114.0" layoutY="77.0" prefHeight="23.0" prefWidth="114.0" text="Register Now!" textFill="#6b3197">
+            <Label layoutX="114.0" layoutY="77.0" prefHeight="23.0" prefWidth="114.0" text="Register Now!">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtFirstname" layoutX="43.0" layoutY="143.0" prefHeight="38.0" prefWidth="357.0" promptText="username" />
-            <Button fx:id="btnSave" layoutX="43.0" layoutY="339.0" mnemonicParsing="false" onAction="#register" prefHeight="38.0" prefWidth="357.0" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Signup" />
-            <Button fx:id="btnSave1" layoutX="239.0" layoutY="339.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="357.0" style="-fx-background-color: red;" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Upppppp" visible="false" />
-            <Label layoutX="44.0" layoutY="121.0" prefHeight="23.0" prefWidth="114.0" text="Username:" textFill="#6b3197">
+            <TextField fx:id="usernameRegister" layoutX="44.0" layoutY="143.0" prefHeight="38.0" prefWidth="357.0" promptText="username" />
+            <Button fx:id="btnRegister" layoutX="43.0" layoutY="358.0" mnemonicParsing="false" onAction="#register" prefHeight="38.0" prefWidth="357.0" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Signup" />
+            <Label layoutX="44.0" layoutY="121.0" prefHeight="23.0" prefWidth="114.0" text="Username:">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="44.0" layoutY="187.0" prefHeight="23.0" prefWidth="114.0" text="Password:" textFill="#6b3197">
+            <Label layoutX="44.0" layoutY="195.0" prefHeight="23.0" prefWidth="114.0" text="Password:">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="44.0" layoutY="252.0" prefHeight="23.0" prefWidth="114.0" text="Retype Password:" textFill="#6b3197">
+            <Label layoutX="44.0" layoutY="260.0" prefHeight="23.0" prefWidth="114.0" text="Retype Password:">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <PasswordField layoutX="42.0" layoutY="273.0" prefHeight="38.0" prefWidth="357.0" promptText="Retype Password:" stylesheets="@../../../styles/fullpackstyling.css" />
-            <PasswordField layoutX="42.0" layoutY="208.0" prefHeight="38.0" prefWidth="357.0" promptText="Password" stylesheets="@../../../styles/fullpackstyling.css" />
-            <Button fx:id="btnbackLogin" layoutX="43.0" layoutY="403.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="38.0" prefWidth="357.0" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Back to Login" />
+            <PasswordField fx:id="passwordRegister" layoutX="44.0" layoutY="216.0" prefHeight="38.0" prefWidth="357.0" promptText="password" stylesheets="@../../../styles/fullpackstyling.css" />
+            <PasswordField fx:id="passwordConfirmRegister" layoutX="44.0" layoutY="281.0" prefHeight="38.0" prefWidth="357.0" promptText="retype password" stylesheets="@../../../styles/fullpackstyling.css" />
+            <Button fx:id="btnbackLogin" layoutX="43.0" layoutY="422.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="38.0" prefWidth="357.0" styleClass="button2" stylesheets="@../../../styles/fullpackstyling.css" text="Back to Login" />
+            <Label fx:id="usernameErrorRegister" layoutX="44.0" layoutY="177.0" prefHeight="23.0" prefWidth="357.0" textFill="#ff6354">
+               <font>
+                  <Font name="Segoe UI" size="11.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordErrorRegister" layoutX="43.0" layoutY="304.0" prefHeight="43.0" prefWidth="357.0" textFill="#ff6354">
+               <font>
+                  <Font name="Segoe UI" size="11.0" />
+               </font>
+            </Label>
+            <Label fx:id="serverMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="325.0" prefHeight="43.0" prefWidth="357.0" textFill="#2cba50">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <AnchorPane layoutX="431.0" prefHeight="503.0" prefWidth="422.0" style="-fx-background-color: #0C39FF;" />
+      <AnchorPane layoutX="422.0" prefHeight="504.0" prefWidth="431.0" style="-fx-background-color: #0C39FF;" />
    </children>
 </AnchorPane>

@@ -5,97 +5,87 @@ import com.tictactoe.actions.ActionHandler;
 import com.tictactoe.actions.MessageCreator;
 import com.tictactoe.client.App;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class GameController {
+    ArrayList<Button> boardButtons=new ArrayList<>(); //()constructor  <>templet
     
     @FXML
-    private Button btn0;
-    @FXML
-    private Button btn2;
-    @FXML
-    private Button btn1;
-    @FXML
-    private Button btn3;
-    @FXML
-    private Button btn4;
-    @FXML
-    private Button btn5;
-    @FXML
-    private Button btn6;
-    @FXML
-    private Button btn7;
-    @FXML
-    private Button btn8;
+    private Button btn0, btn2, btn1,btn3, btn4, btn5, btn6,btn7, btn8;
+    public void initialize(){
+        System.out.println("####################################");
+        boardButtons.add(btn0);
+        boardButtons.add(btn1);
+        boardButtons.add(btn2);
+        boardButtons.add(btn3);
+        boardButtons.add(btn4);
+        boardButtons.add(btn5);
+        boardButtons.add(btn6);
+        boardButtons.add(btn7);
+        boardButtons.add(btn8);
+    }
+    
     /*  ------------------Send Data-----------------*/
     @FXML
-    private void gameMove(String index , Button btn  ) throws IOException {
+    private void gameMove(int index  ) throws IOException {
         System.out.println("@GameController.gameMove is called!");
-        btn.setDisable(true); 
+        boardButtons.get(index).setDisable(true); 
         MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
-        messageCreator.sendGameMove(index);
+        messageCreator.sendGameMove(index+"");
     }
    /*-------------------------------------------------*/
     
     @FXML
     private void clickBtn0() throws IOException {
-        char index='0';
-        gameMove(""+index,btn0); 
+         gameMove(0); 
     }
 
     @FXML
     private void clickBtn1() throws IOException {
-       char index='1';
-       gameMove(""+index,btn1); 
+       gameMove(1); 
     }
     
     @FXML
     private void clickBtn2() throws IOException {
-       char index='2';
-       gameMove(""+index,btn2); 
+       gameMove(2);
     }
     
    
     @FXML
     private void clickBtn3() throws IOException {
-       char index='3';
-       gameMove(""+index,btn3); 
+       gameMove(3); 
     }
     
    
     @FXML
     private void clickBtn4() throws IOException {
-       char index='4';
-       gameMove(""+index,btn4); 
+       gameMove(4); 
     }
     
   
     @FXML
     private void clickBtn5() throws IOException {
-       char index='5';
-       gameMove(""+index,btn5); 
+       gameMove(5); 
     }
     
     
     @FXML
     private void clickBtn6() throws IOException {
-       char index='6';
-       gameMove(""+index,btn6); 
+       gameMove(6); 
     }
     
    
     @FXML
     private void clickBtn7() throws IOException {
-       char index='7';
-       gameMove(""+index,btn7); 
+       gameMove(7); 
     }
     
   
     @FXML
     private void clickBtn8() throws IOException {
-      char index='8';
-      gameMove(""+index,btn8);    
+      gameMove(8);    
     }
     
    

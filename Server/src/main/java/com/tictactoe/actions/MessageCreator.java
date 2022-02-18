@@ -38,10 +38,27 @@ public class MessageCreator {
             }
         });
     }
+    public void sendRegisterSuccess(PlayerHandler playerHandler) {
+        System.out.println("@ServerMessageCreator->sendRegisterSuccess");
+        playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
+            {
+                put("registerResult", "success");
+            }
+        });
+    }
+
+    public void sendRegisterFailed(String message, PlayerHandler playerHandler) {
+        System.out.println("@ServerMessageCreator->sendRegisterFailed");
+        playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
+            {
+                put("registerResult", "failed");
+            }
+        });
+    }
 
     public void sendInvitation(String playerName, String handlerId, PlayerHandler playerHandler) {
         System.out.println("@MessageCreator->sendInvitation");
-        playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
+        playerHandler.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
                 put("playerName", playerName);
                 put("handlerId", handlerId);

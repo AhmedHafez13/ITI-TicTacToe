@@ -60,6 +60,9 @@ public class ActionHandler {
     public void handleRegister(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleRegister, Data:"
                 + Arrays.toString(data.values().toArray()));
+
+        String registerResult = data.get("registerResult");
+        App.getSceneManager().registerMessageToUI(registerResult);
         /*TODO:
          * if can register =>
          * • (the same as handleLogin)
@@ -68,16 +71,37 @@ public class ActionHandler {
          */
     }
 
-    public void handleGameInvitation(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"
-                + Arrays.toString(data.values().toArray()));
+    /**
+     *
+     * @param data
+     */
+    public void handleMove(HashMap<String, String> data) {
+        
+        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
+            {
+                put("gameId", data.get("gameId"));
+                put("index", data.get("index"));
+            }
+            ////////////////////can use one HashMap?///// 
+        });
+        
+        /*TODO:
+         * • Apply the new move
+         */
+    }
 
+    public void handleGameInvitation(HashMap<String, String> data) {
+        System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"+ Arrays.toString(data.values().toArray()));
         String playerId = data.get("playerId");
         String playerName = data.get("playerName");
+        App.getSceneManager().showInvitationPopUp(playerName,playerId); 
+       
+    }
+    
+       public void handleGameInvitationResponse(HashMap<String, String> data) {
+        System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
+                + Arrays.toString(data.values().toArray()));
 
-        /*TODO:
-         * • Show invitation message with (playerName)
-         */
     }
 
     /**
@@ -110,14 +134,12 @@ public class ActionHandler {
          * • Apply the new move
          */
         String gameMoves[]=data.get("gameMoves").split(",");
-        
         int[] moves = new int[gameMoves.length];
         
          for (int i = 0; i < gameMoves.length; i++) {
-             
-            moves[i] = Integer.parseInt(gameMoves[i]);
-            
+             moves[i] = Integer.parseInt(gameMoves[i]); 
         }
+         App.getSceneManager().gameMovesToUI(moves);
     }
 
     /**

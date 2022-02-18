@@ -44,6 +44,8 @@ public class AppManager {
             while (isConnected) {
                 try {
                     String message = bufferedReader.readLine();
+                    System.out.println("Client just recieved this > "+message);
+                    //{"data":{"registerResult":"success"},"action":"REGISTER"}
                     actionController.handleAction(message);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -55,6 +57,7 @@ public class AppManager {
     }
 
     public void sendMessage(String jsonMessage) {
+        System.out.println("Message before leaving the client:" + jsonMessage);
         if (isConnected) {
             printStream.println(jsonMessage);
         } else {
