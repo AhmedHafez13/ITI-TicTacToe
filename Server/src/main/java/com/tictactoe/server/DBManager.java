@@ -129,13 +129,22 @@ public class DBManager {
     public static boolean registerNewPlayer(String name, String password, String avatar) {
         boolean flag = false;
         try {
-            PreparedStatement pst = connection.prepareStatement("insert into player(name,password,avatar) values(?,?,?)");
-            pst.setString(1, name);
-            pst.setString(2, password);
-            pst.setString(3, avatar);
-            pst.executeUpdate();
-            pst.close();
-            flag = true;
+            PreparedStatement pstSelect = connection.prepareStatement("select * from player where name = ? and password = ?");
+            pstSelect.setString(1, name);
+            pstSelect.setString(2, password);
+            ResultSet rs = pstSelect.executeQuery();
+            if (!rs.next()) //if the data is not found > insert it
+            {
+                PreparedStatement pst = connection.prepareStatement("insert into player(name,password,avatar) values(?,?,?)");
+                pst.setString(1, name);
+                pst.setString(2, password);
+                pst.setString(3, avatar);
+                pst.executeUpdate();
+                pst.close();
+                flag = true;
+            } else {//data is found and can't be inserted!
+                flag = false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
