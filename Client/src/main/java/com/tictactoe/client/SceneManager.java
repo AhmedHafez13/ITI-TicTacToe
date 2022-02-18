@@ -35,7 +35,7 @@ public class SceneManager {
 
     public void showLoginFailed(String userMessage) {
         Platform.runLater(() -> {
-            TextField messageLabel = (TextField) App.getScene().lookup("#registerMsgLogin");
+            Label messageLabel = (Label) App.getScene().lookup("#registerMsgLogin");
             if (messageLabel != null) {
                 messageLabel.setText(userMessage);
             }
@@ -82,83 +82,56 @@ public class SceneManager {
             }
         });
     }
-    
-//        public void showInvitationPopUp(String PlayerName ,String PlayerId) {
-//        Label playerName = (Label) App.getScene().lookup("#playerNameLabel");
-//        if (playerName != null) {
-//            playerName.setText(PlayerName);
-//            
-//        }
-//    }
-        
-    public void gameMovesToUI(int[] moves) {
-            
-          for(int i=0 ; i<moves.length ; i++){
-             selectBtn(i,moves[i]); 
-          }  
+
+    public void InvitationMessageToUI(String message) {
+        System.out.println("@invitaionMessage> invitation response is > " + message);
+        Platform.runLater(() -> {
+            try {
+                App.setRoot("mainPage");
+                //ButtonType OK= new ButtonType("OK"); 
+                //Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+                //dialog.setTitle("Invitation Response");
+                //dialog.getDialogPane().getButtonTypes().add(OK);
+                //Optional<ButtonType> result = dialog.showAndWait();
+                //dialog.setVisible(false);
+                // if(!result.isPresent()){
+                // }
+                //else if(result.get() == OK){
+                //        dialog.close();   
+                //  } 
+                Label invitationmsg = (Label) App.getScene().lookup("#invitationLabel");
+                if (message.equalsIgnoreCase("Accepted")) {
+                    // dialog.setContentText("Your invitation is accepted :) ");
+                    //dialog.setVisible(true);
+                    invitationmsg.setTextFill(Color.WHITE);
+                    invitationmsg.setText("Your invitation accepted :)");
+                } else if (message.equalsIgnoreCase("Rejected")) {
+                    // dialog.setContentText("Your invitation is refused :( ");
+                    //dialog.setVisible(true);
+                    invitationmsg.setTextFill(Color.RED);
+                    invitationmsg.setText("Your invitation rejected :(");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
-    
-    public char btnText(int index){
-        if(index==0 || index==2 || index==4 || index==6 || index==8)
-            return 'X';
-        return 'O';
-    } 
- 
-    public void selectBtn(int index,int value){
-        char text=btnText(index);
-        
-        Button btn0 = (Button) App.getScene().lookup("#btn0");             // catch btn0
-        Button btn1 = (Button) App.getScene().lookup("#btn1");             // catch btn1
-        Button btn2 = (Button) App.getScene().lookup("#btn2");             // catch btn2
-        Button btn3 = (Button) App.getScene().lookup("#btn3");             // catch btn3
-        Button btn4 = (Button) App.getScene().lookup("#btn4");             // catch btn4
-        Button btn5 = (Button) App.getScene().lookup("#btn5");             // catch btn5
-        Button btn6 = (Button) App.getScene().lookup("#btn6");             // catch btn6
-        Button btn7 = (Button) App.getScene().lookup("#btn7");             // catch btn7
-        Button btn8 = (Button) App.getScene().lookup("#btn8");             // catch btn8
-        
-        switch (value){
-            case (0):
-                btn0.setDisable(true);
-                btn0.setText(text+"");
-                break;
-            case (1):
-                btn1.setDisable(true);
-                btn1.setText(text+"");
-                break;
-            case (2):
-               btn2.setDisable(true);
-                btn2.setText(text+"");
-                break;
-            case (3):
-                btn3.setDisable(true);
-                btn3.setText(text+"");
-                break;
-            case (4):
-                btn4.setDisable(true);
-                btn4.setText(text+"");
-                break;
-            case (5):
-                btn5.setDisable(true);
-                btn5.setText(text+"");
-                break;
-            case (6):
-                btn6.setDisable(true);
-                btn6.setText(text+"");
-                break;
-            case (7):
-                btn7.setDisable(true);
-                btn7.setText(text+"");
-                break;
-            case (8):
-                btn8.setDisable(true);
-                btn8.setText(text+"");
-                break;
+
+    public void gameMovesToUI(int[] moves) {
+        for (int i = 0; i < moves.length; i++) {
+            char text = i % 2 == 0 ? 'X' : 'O';
+
+            String btnId = "#btn" + i;
+            Button targetBtn = (Button) App.getScene().lookup(btnId);
+
+            targetBtn.setDisable(true);
+            targetBtn.setText(text + "");
         }
     }
 
-    public void showMainMenu(String login_success) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void listPlayers(/*Players*/) {
+// UI
     }
-    
 }

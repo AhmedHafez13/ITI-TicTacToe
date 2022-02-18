@@ -28,28 +28,11 @@ public class ActionHandler {
     public void handleLogin(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleLogin, Data:"
                 + Arrays.toString(data.values().toArray()));
-        /*TODO:
-         * if can login =>
-         * • Show players list
-         * if can't login =>
-         * • Show error message
-         */
         String loginResult = data.get("loginResult");
         if (loginResult.equalsIgnoreCase("success")) {
-            System.out.println("-----\n@ActionHandler->handleLogin, Login success");
-
-            // Data
-            // TODO: store user data and players list
-            // UI
-            //App.getSceneManager().showMainMenu(/*players*/);
-            // TEST
-            App.getSceneManager().showMainMenu("Login success");
-            ArrayList<Player> players = new ArrayList<>();
-            players.add(new Player("123", "name", 123, "avatar1.png"));
-            appManager.setPlayersList(players);
+            App.getSceneManager().showMainMenu();
         } else {
-            System.out.println("-----\n@ActionHandler->handleLogin, Login failed");
-            App.getSceneManager().showMainMenu("Login failed");
+            App.getSceneManager().showLoginFailed("Login failed");
         }
     }
 
@@ -76,7 +59,7 @@ public class ActionHandler {
      * @param data
      */
     public void handleMove(HashMap<String, String> data) {
-        
+
         actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
             {
                 put("gameId", data.get("gameId"));
@@ -84,24 +67,31 @@ public class ActionHandler {
             }
             ////////////////////can use one HashMap?///// 
         });
-        
+
         /*TODO:
          * • Apply the new move
          */
     }
 
     public void handleGameInvitation(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:"+ Arrays.toString(data.values().toArray()));
+        System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:" + Arrays.toString(data.values().toArray()));
         String playerId = data.get("playerId");
         String playerName = data.get("playerName");
-        App.getSceneManager().showInvitationPopUp(playerName,playerId); 
-       
+        App.getSceneManager().showInvitationPopUp(playerName, playerId);
+
     }
-    
-       public void handleGameInvitationResponse(HashMap<String, String> data) {
+
+    public void handleGameInvitationResponse(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
                 + Arrays.toString(data.values().toArray()));
+        String Response = data.get("response");
+        if (Response.equalsIgnoreCase("Accepted")) {
+            App.getSceneManager().InvitationMessageToUI("Accepted");
 
+        } else {
+            App.getSceneManager().InvitationMessageToUI("Refused");
+
+        }
     }
 
     /**
@@ -133,13 +123,13 @@ public class ActionHandler {
         /*TODO:
          * • Apply the new move
          */
-        String gameMoves[]=data.get("gameMoves").split(",");
+        String gameMoves[] = data.get("gameMoves").split(",");
         int[] moves = new int[gameMoves.length];
-        
-         for (int i = 0; i < gameMoves.length; i++) {
-             moves[i] = Integer.parseInt(gameMoves[i]); 
+
+        for (int i = 0; i < gameMoves.length; i++) {
+            moves[i] = Integer.parseInt(gameMoves[i]);
         }
-         App.getSceneManager().gameMovesToUI(moves);
+        App.getSceneManager().gameMovesToUI(moves);
     }
 
     /**

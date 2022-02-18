@@ -36,11 +36,8 @@ public class ActionHandler {
         if (player == null) {
             actionController.messageCreator.sendLoginFailed("No username, please try again!", playerHandler);
         } else {
-            ArrayList<String> arraylist = new ArrayList<>();
-            playerHandler.setPlayer(player);
-            arraylist.add("player1");
-            arraylist.add("player2");
-            actionController.messageCreator.sendLoginSuccess(arraylist, playerHandler);
+            // Update the player status
+            actionController.messageCreator.sendLoginSuccess(playerHandler);
         }
 
 
@@ -60,18 +57,18 @@ public class ActionHandler {
      * @param playerHandler
      */
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
-        System.out.println("@ServerActionHandler->handleRegister, Data: "+ Arrays.toString(data.values().toArray()));
+        System.out.println("@ServerActionHandler->handleRegister, Data: " + Arrays.toString(data.values().toArray()));
 
         boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), data.get("avatar"));
-        if(player){
+        if (player) {
             //System.out.println("Player inserted successfully!");
             actionController.messageCreator.sendRegisterSuccess(playerHandler);
             //scene should be changed to login scene if the data were registered successfully!
-        }else{
+        } else {
             //System.out.println("Couldn't insert the player into the database!");
             actionController.messageCreator.sendRegisterFailed("Failed to Register your data!", playerHandler);
             //alert should be appear to the user!
-            }
+        }
         /*
          * TODO:
          * if can register =>
@@ -80,6 +77,10 @@ public class ActionHandler {
          * if can't regisgter =>
          * • send back a message with (register) action (failed)
          */
+    }
+
+    public void handlePlayersList(HashMap<String, String> data, PlayerHandler playerHandler) {
+        DBManager.getPlayersSortedByStatus();
     }
 
     /**
@@ -96,9 +97,9 @@ public class ActionHandler {
          * • Add the received move to the moves array
          * • send the new move to the opponent
          */
-        String gameId=data.get("gameId");
-        String index=data.get("index");
-   }
+        String gameId = data.get("gameId");
+        String index = data.get("index");
+    }
 
     /**
      *

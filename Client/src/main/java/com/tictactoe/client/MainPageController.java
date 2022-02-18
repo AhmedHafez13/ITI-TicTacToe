@@ -28,21 +28,6 @@ import javafx.scene.text.Text;
  */
 public class MainPageController implements Initializable {
 
-     @FXML
-    private void switchToLogin() throws IOException {
-        App.setRoot("LoginScene");
-    }
-
-    @FXML
-    private void switchToLeaderBoard() throws IOException {
-        App.setRoot("leaderBoard");
-    }
-    
-    @FXML
-    private void Refresh() throws IOException {
-      
-    }
-   
     @FXML
     private VBox playersVBox;
 
@@ -58,6 +43,23 @@ public class MainPageController implements Initializable {
         for (int i = 0; i < players.size(); i++) {
             createPlayerPane(players.get(i));
         }
+    }
+
+    @FXML
+    private void switchToLogin() throws IOException {
+        App.setRoot("LoginScene");
+    }
+
+    @FXML
+    private void switchToLeaderBoard() throws IOException {
+        App.setRoot("leaderBoard");
+    }
+
+    @FXML
+    private void Refresh() throws IOException {
+        /*
+         * Try to reconnect
+         */
     }
 
     void createPlayerPane(Player player) {

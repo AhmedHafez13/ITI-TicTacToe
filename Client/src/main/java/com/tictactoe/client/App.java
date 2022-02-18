@@ -23,14 +23,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("game"));
-//        scene = new Scene(loadFXML("LoginScene"));
+        scene = new Scene(loadFXML("LoginScene"));
         //scene = new Scene(loadFXML("mainPage"));
+        //scene = new Scene(loadFXML("game"));
 
         stage.setTitle("Tic Tac Toe!");
         stage.getIcons().add(new Image("https://files.softicons.com/download/game-icons/brain-games-icons-by-quizanswers/png/128x128/Tic-Tac-Toe-Game.png"));
         stage.setScene(scene);
         stage.show();
+
+        //
     }
 
     static void setRoot(String fxml) throws IOException {

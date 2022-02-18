@@ -47,6 +47,11 @@ public class MessageCreator {
         });
     }
 
+    public void requestPlayersList() {
+        System.out.println("@ClientMessageCreator->requestPlayersList");
+        actionController.sendAction(Message.PLAYERS_LIST, new HashMap<>());
+    }
+
     public void sendInvitation(String opponentId) {
         actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {

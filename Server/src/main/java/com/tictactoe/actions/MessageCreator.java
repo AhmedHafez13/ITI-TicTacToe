@@ -30,7 +30,7 @@ public class MessageCreator {
         playerHandler.sendAction(Message.LOGIN, data);
     }
 
-    public void sendLoginSuccess(ArrayList<String> playerNames, PlayerHandler playerHandler) {
+    public void sendLoginSuccess(PlayerHandler playerHandler) {
         System.out.println("@MessageCreator->sendLoginSuccess");
         playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {

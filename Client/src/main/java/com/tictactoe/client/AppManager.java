@@ -44,7 +44,7 @@ public class AppManager {
             while (isConnected) {
                 try {
                     String message = bufferedReader.readLine();
-                    System.out.println("Client just recieved this > "+message);
+                    System.out.println("Client just recieved this > " + message);
                     //{"data":{"registerResult":"success"},"action":"REGISTER"}
                     actionController.handleAction(message);
                 } catch (IOException e) {
@@ -79,5 +79,9 @@ public class AppManager {
 
     public ArrayList<Player> getPlayersList() {
         return players;
+    }
+
+    public void requestPlayersList() {
+
     }
 }
