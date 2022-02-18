@@ -25,7 +25,7 @@ public class GameController {
     }
     
     /*  ------------------Send Data-----------------*/
-    @FXML
+    
     private void gameMove(int index  ) throws IOException {
         System.out.println("@GameController.gameMove is called!");
         boardButtons.get(index).setDisable(true); 

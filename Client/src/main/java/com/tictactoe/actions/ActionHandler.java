@@ -6,6 +6,7 @@ import com.tictactoe.models.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  *
@@ -52,6 +53,34 @@ public class ActionHandler {
          * if can't regisgter =>
          * • Show error message
          */
+    }
+
+    public void handlePlayersList(HashMap<String, String> data) {
+        System.out.println("-----\n@ActionHandler->handlePlayersList, Data:"
+                + Arrays.toString(data.values().toArray()));
+        String allPlayersStr = data.get("players");
+        String separator = ":";
+
+        LinkedList<Player> players = new LinkedList<>();
+
+        //handlerId:name:totalScore:avatar:isOnline
+        String[] playersStr = allPlayersStr.split("\n");
+        for (String player : playersStr) {
+            String[] parts = player.split(separator);
+
+            String handlerId = parts[0];
+            String name = parts[1];
+            int totalScore = Integer.parseInt(parts[2]);
+            String avatar = parts[3];
+            //boolean isOnline = Boolean.valueOf(parts[4]);
+
+            players.add(new Player(handlerId, name, totalScore, avatar));
+        }
+
+        // DATA
+        appManager.setPlayersList(players);
+        // UI
+        App.getSceneManager().listPlayers(players);
     }
 
     /**

@@ -36,13 +36,14 @@ public class MainPageController implements Initializable {
         // TODO
         //playersVBox.getChildren().get(0).setVisible(false);
         //ArrayList<Player> players = App.appManager.getPlayersList();
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player("pppppp-oooooo", "name1", 123, "avatar1.png"));
-        players.add(new Player("aaaccc-rrrttt", "name2", 123, "avatar2.png"));
+        //ArrayList<Player> players = new ArrayList<>();
+        //players.add(new Player("pppppp-oooooo", "name1", 123, "avatar1.png"));
+        //players.add(new Player("aaaccc-rrrttt", "name2", 123, "avatar2.png"));
         //players
-        for (int i = 0; i < players.size(); i++) {
-            createPlayerPane(players.get(i));
-        }
+        //for (int i = 0; i < players.size(); i++) {
+        //    createPlayerPane(players.get(i));
+        //}
+        App.sceneManager.listPlayers(App.appManager.getPlayersList());
     }
 
     @FXML

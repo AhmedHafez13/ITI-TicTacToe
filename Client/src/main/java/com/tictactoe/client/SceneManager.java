@@ -1,15 +1,24 @@
 package com.tictactoe.client;
 
+import com.tictactoe.actions.MessageCreator;
+import com.tictactoe.models.Player;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -27,6 +36,7 @@ public class SceneManager {
         Platform.runLater(() -> {
             try {
                 App.setRoot("mainPage");
+                //App.appManager.actionController.getMessageCreator().requestPlayersList();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -131,7 +141,59 @@ public class SceneManager {
         }
     }
 
-    public void listPlayers(/*Players*/) {
-// UI
+    public void listPlayers(LinkedList<Player> players) {
+        Platform.runLater(() -> {
+            VBox playersVBox = (VBox) App.getScene().lookup("#playersVBox");
+            if (playersVBox != null) {
+                playersVBox.getChildren().clear();
+                for (int i = 0; i < players.size(); i++) {
+                    createPlayerPane(players.get(i), playersVBox);
+                }
+            } else {
+                System.out.println("-----\n@SceneManager->listPlayers, playersVBox is null");
+            }
+        });
+    }
+
+    void createPlayerPane(Player player, VBox playersVBox) {
+        HBox playerPane = new HBox();
+        playerPane.setAlignment(Pos.CENTER);
+        playerPane.setPrefWidth(150);
+
+        ImageView playerImage = new ImageView();
+        //playerImage.getLayoutParams().height = 20;
+        playerImage.setImage(new Image(getClass()
+                .getResource(createAvatarPath(player.getAvatar())).toExternalForm()));
+        playerImage.setFitHeight(40);
+        playerImage.setFitWidth(40);
+
+        Label playerName = new Label(player.getName());
+        HBox.setHgrow(playerName, Priority.ALWAYS);
+        playerName.setMaxWidth(Double.MAX_VALUE);
+//************************************invite button********************************************************
+        Button inviteButton = new Button("Invite");
+
+        inviteButton.setOnAction((event) -> {
+            handleInvite(player.getHandlerId());
+        });
+        inviteButton.setPrefHeight(34.0);
+        inviteButton.setPrefWidth(53.0);
+        inviteButton.setStyle("-fx-background-color: none; -fx-font-size: 12; -fx-text-fill: #dedc66; -fx-border-width: 2; -fx-border-color: #dedc66; -fx-border-radius: 15;");
+        inviteButton.setText("Invite");
+        inviteButton.setVisible(!player.getHandlerId().isEmpty());
+
+        playerPane.getChildren().addAll(playerImage, playerName, inviteButton);
+        playerPane.setPrefHeight(61);
+        playersVBox.getChildren().add(playerPane);
+    }
+
+    void handleInvite(String playerId) {
+        System.out.println("-----\n@SceneManager->handleInivte, playerId:" + playerId);
+        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+        messageCreator.sendInvitation(playerId);
+    }
+
+    String createAvatarPath(String avatarNo) {
+        return "../../../images/avatar" + avatarNo + ".png";
     }
 }

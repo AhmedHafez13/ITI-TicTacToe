@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -21,7 +22,7 @@ public class AppManager {
 
     ActionController actionController;
 
-    ArrayList<Player> players = null;
+    LinkedList<Player> players = new LinkedList<>();
     String gameId = null;
 
     private boolean isConnected;
@@ -73,15 +74,15 @@ public class AppManager {
         this.gameId = gameId;
     }
 
-    public void setPlayersList(ArrayList<Player> players) {
+    public void setPlayersList(LinkedList<Player> players) {
         this.players = players;
     }
 
-    public ArrayList<Player> getPlayersList() {
+    public LinkedList<Player> getPlayersList() {
         return players;
     }
 
     public void requestPlayersList() {
-
+        actionController.getMessageCreator().requestPlayersList();
     }
 }

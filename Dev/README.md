@@ -1,7 +1,6 @@
 # Tic Tac Toe Project
 
 ✔ Register
-
 ✔ Sign in
 
 ✔ List players

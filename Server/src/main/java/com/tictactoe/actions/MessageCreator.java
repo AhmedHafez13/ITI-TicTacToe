@@ -38,6 +38,7 @@ public class MessageCreator {
             }
         });
     }
+
     public void sendRegisterSuccess(PlayerHandler playerHandler) {
         System.out.println("@ServerMessageCreator->sendRegisterSuccess");
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
@@ -53,6 +54,17 @@ public class MessageCreator {
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("registerResult", "duplicated");
+            }
+        });
+    }
+
+    public void sendPlayersList(String players, PlayerHandler playerHandler) {
+        //
+        System.out.println("@ServerMessageCreator->sendPlayersListOrderedByStatus");
+
+        playerHandler.sendAction(Message.PLAYERS_LIST, new HashMap<String, String>() {
+            {
+                put("players", players);
             }
         });
     }

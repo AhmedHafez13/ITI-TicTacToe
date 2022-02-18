@@ -7,6 +7,8 @@ import com.tictactoe.server.PlayerHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  *
@@ -36,8 +38,10 @@ public class ActionHandler {
         if (player == null) {
             actionController.messageCreator.sendLoginFailed("No username, please try again!", playerHandler);
         } else {
-            // Update the player status
+            playerHandler.setPlayer(player);
+            // Notify all players
             actionController.messageCreator.sendLoginSuccess(playerHandler);
+            broadcastPlayersList();
         }
 
 
@@ -80,7 +84,60 @@ public class ActionHandler {
     }
 
     public void handlePlayersList(HashMap<String, String> data, PlayerHandler playerHandler) {
-        DBManager.getPlayersSortedByStatus();
+        LinkedList<Player> players = DBManager.getPlayersSortedByStatus();
+
+        //      id,   Handler id
+        HashMap<Integer, String> idsMap = getIdsMap();
+        String allPlayersStr = getPlayersStr(idsMap);
+        actionController.messageCreator.sendPlayersList(
+                allPlayersStr, playerHandler);
+    }
+
+    public void broadcastPlayersList() {
+        //      id,   Handler id
+        HashMap<Integer, String> idsMap = getIdsMap();
+        String allPlayersStr = getPlayersStr(idsMap);
+        HashMap<String, PlayerHandler> playersHandler = actionController.serverManager.getOnlinePlayersHandlers();
+        Iterator<PlayerHandler> iterator = playersHandler.values().iterator();
+        while (iterator.hasNext()) {
+            PlayerHandler playerHandler = iterator.next();
+            if (playerHandler.getPlayer() != null) {
+                actionController.messageCreator.sendPlayersList(
+                        allPlayersStr, playerHandler);
+            }
+        }
+    }
+
+    private HashMap<Integer, String> getIdsMap() {
+        HashMap<Integer, String> idsMap = new HashMap<>();
+        HashMap<String, PlayerHandler> onlinePlayers
+                = actionController.serverManager.getOnlinePlayersHandlers();
+        Iterator<String> iterator = onlinePlayers.keySet().iterator();
+        while (iterator.hasNext()) {
+            String currentHandlerId = iterator.next();
+            PlayerHandler currentHandler = onlinePlayers.get(currentHandlerId);
+            Player currentPlayer = currentHandler.getPlayer();
+            if (currentPlayer != null) {
+                idsMap.put(currentHandler.getPlayer().getId(), currentHandlerId);
+            }
+        }
+        return idsMap;
+    }
+
+    private String getPlayersStr(HashMap<Integer, String> idsMap) {
+        LinkedList<Player> players = DBManager.getPlayersSortedByStatus();
+        char separator = ':';
+        StringBuilder allPlayersStr = new StringBuilder();
+        for (int i = 0; i < players.size(); i++) {
+            //handlerId:name:totalScore:avatar:isOnline
+            Player player = players.get(i);
+            String handlerId = player.isOnline() ? idsMap.get(player.getId()) : "";
+            String playerStr = handlerId + separator + player.getName() + separator
+                    + player.getTotalScore() + separator + player.getAvatar()
+                    + separator + player.isOnline() + "\n";
+            allPlayersStr.append(playerStr);
+        }
+        return allPlayersStr.toString();
     }
 
     /**
@@ -111,7 +168,7 @@ public class ActionHandler {
          * TODO:
          * • send the invitation to the opponent
          */
-        String opponentHandlerId = data.get("playerId");
+        String opponentHandlerId = data.get("opponentId");
 
         PlayerHandler opponentHandler = actionController.serverManager.getPlayerHandler(opponentHandlerId);
 

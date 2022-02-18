@@ -61,6 +61,10 @@ public class ServerManager {
         return onlinePlayers.getOrDefault(playerHandlerId, null);
     }
 
+    public HashMap<String, PlayerHandler> getOnlinePlayersHandlers() {
+        return onlinePlayers;
+    }
+
     boolean toggleServer() {
         if (isServerRunning) {
             stopServer();
