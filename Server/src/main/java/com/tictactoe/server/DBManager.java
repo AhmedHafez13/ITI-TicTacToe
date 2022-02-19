@@ -193,6 +193,17 @@ public class DBManager {
         }
     }
 
+    public static void setPlayerOffline(int playerId) {
+        try {
+            PreparedStatement SetPlayerOffline = connection.prepareStatement("update player set is_online = 0 where id = ?");
+            SetPlayerOffline.setInt(1, playerId);
+            SetPlayerOffline.executeUpdate();
+            SetPlayerOffline.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+
     public static void updatePlayerScore(int winnerPlayerId, int newScore) {
         try {
             //this will appened the new score to the old score! be careful!
