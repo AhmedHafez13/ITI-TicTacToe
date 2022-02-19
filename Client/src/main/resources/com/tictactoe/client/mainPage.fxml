@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,97 +8,139 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a18c7e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.MainPageController">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right , #C33764,#1D2671);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.MainPageController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5ece600" height="370.0" layoutX="427.0" layoutY="117.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="252.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#21402b" height="71.0" layoutX="436.0" layoutY="124.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="236.0" />
-      <Button layoutX="592.0" layoutY="150.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="25.0" prefWidth="35.0" style="-fx-background-color: none;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/refresh.png" />
-               </image>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: none;" textFill="#895f99">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </ImageView>
-         </graphic>
-      </Button>
-      <ScrollPane layoutX="436.0" layoutY="200.0" prefHeight="279.0" prefWidth="236.0" style="-fx-background: #21402b; -fx-border-color: black;">
-         <content>
-            <VBox fx:id="playersVBox" />
-         </content>
-      </ScrollPane>
-      <Label layoutX="470.0" layoutY="151.0" style="-fx-font-size: 18; -fx-text-fill: white;" text="Online Players" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#21402b" height="98.0" layoutX="23.0" layoutY="13.0" smooth="false" stroke="BLACK" strokeDashOffset="10.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="OUTSIDE" strokeWidth="2.0" width="658.0" />
-      <Button layoutX="56.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: none;" textFill="#895f99">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="38.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/arrow.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#21402b" height="370.0" layoutX="25.0" layoutY="117.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="393.0" />
-      <ImageView fitHeight="132.0" fitWidth="132.0" layoutX="159.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/tic-tac-toe%20(1).png" />
-         </image>
-      </ImageView>
-      <Button layoutX="135.0" layoutY="340.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #8c522b; -fx-font-size: 15;" text="        Play With PC" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
-         <font>
-            <Font name="Aldhabi" size="27.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="27.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/playstation.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button defaultButton="true" layoutX="135.0" layoutY="397.0" mnemonicParsing="false" onAction="#switchToLeaderBoard" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #8c522b; -fx-font-size: 15;" text="    Leader Board" textFill="WHITE">
-         <font>
-            <Font name="Aldhabi" size="27.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/crown%20(1).png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <ImageView fitHeight="61.0" fitWidth="258.0" layoutX="92.0" layoutY="132.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../../images/9.png" />
-         </image>
-         <effect>
-            <InnerShadow choke="0.76" color="#070000" height="10.5" radius="2.125" width="0.0" />
-         </effect>
-      </ImageView>
-      <Label fx:id="userNameField" layoutX="255.0" layoutY="45.0" style="-fx-text-fill: white; -fx-font-size: 30;" text="Player Name" />
-      <Label fx:id="invitationLabel" layoutX="442.0" layoutY="83.0" prefHeight="25.0" prefWidth="236.0" style="-fx-text-fill: red; -fx-font-size: 20;" text="Your invitation rejected :(" />
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/arrow.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </HBox.margin>
+            </Button>
+            <Label fx:id="userNameField" style="-fx-text-fill: white; -fx-font-size: 30;" text="Player Name">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="61.0" fitWidth="258.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../images/9.png" />
+                     </image>
+                     <effect>
+                        <InnerShadow choke="0.76" color="#070000" height="10.5" radius="2.125" width="0.0" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="invitationLabel" prefHeight="25.0" prefWidth="236.0" style="-fx-text-fill: red; -fx-font-size: 20;" text="Your invitation rejected :(" visible="false" />
+                  <ImageView fitHeight="132.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/tic-tac-toe%20(1).png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #8c522b; -fx-font-size: 15;" text="        Play With PC" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                     <font>
+                        <Font name="Aldhabi" size="27.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="27.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/playstation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToLeaderBoard" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #8c522b; -fx-font-size: 15;" text="    Leader Board" textFill="WHITE">
+                     <font>
+                        <Font name="Aldhabi" size="27.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/crown%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#Refresh" prefHeight="25.0" prefWidth="35.0" style="-fx-background-color: none;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label style="-fx-font-size: 18; -fx-text-fill: white;" text="Online Players">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/refresh.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <ScrollPane prefHeight="279.0" prefWidth="236.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="playersVBox" />
+                     </content>
+                  </ScrollPane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>

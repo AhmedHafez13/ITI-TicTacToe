@@ -62,6 +62,7 @@ public class PlayerHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
                 serverManager.removePlayerHandler(this);
+                serverManager.actionController.onPlayerDisconnect(player.getId());
                 isConnected = false;
             }
         }

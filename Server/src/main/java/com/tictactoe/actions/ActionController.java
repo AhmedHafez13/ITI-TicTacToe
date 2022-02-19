@@ -1,5 +1,6 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.server.DBManager;
 import com.tictactoe.server.PlayerHandler;
 import com.tictactoe.server.ServerManager;
 import java.util.HashMap;
@@ -38,13 +39,13 @@ public class ActionController {
 
         } else if (action.equalsIgnoreCase(Message.REGISTER)) {
             actionHandler.handleRegister(data, playerHandler);
-            
+
         } else if (action.equalsIgnoreCase(Message.PLAYERS_LIST)) {
             actionHandler.handlePlayersList(data, playerHandler);
-            
+
         } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
             actionHandler.handleGameInvitation(data, playerHandler);
-            
+
         } else if (action.equalsIgnoreCase(Message.GAME_INVITATION_RESPONSE)) {
             actionHandler.handleGameInvitationResponse(data, playerHandler);
 
@@ -89,6 +90,11 @@ public class ActionController {
             System.out.println("Error parsing json message");
         }
         return null;
+    }
+
+    public void onPlayerDisconnect(int playerId) {
+        DBManager.setPlayerOffline(playerId);
+        actionHandler.broadcastPlayersList();
     }
 
 }
