@@ -182,4 +182,38 @@ public class DBManager {
         }
         return player;
     }
+
+    public static void setAllPlayersOffline() {
+        try {
+            PreparedStatement SetAllPlayersOffline = connection.prepareStatement("update player set is_online = 0");
+            SetAllPlayersOffline.executeUpdate();
+            SetAllPlayersOffline.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+
+    public static void setPlayerOffline(int playerId) {
+        try {
+            PreparedStatement SetPlayerOffline = connection.prepareStatement("update player set is_online = 0 where id = ?");
+            SetPlayerOffline.setInt(1, playerId);
+            SetPlayerOffline.executeUpdate();
+            SetPlayerOffline.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+
+    public static void updatePlayerScore(int winnerPlayerId, int newScore) {
+        try {
+            //this will appened the new score to the old score! be careful!
+            PreparedStatement updatePlayerScore = connection.prepareStatement("update player set total_score = total_score + ? where id = ?");
+            updatePlayerScore.setInt(1, newScore);
+            updatePlayerScore.setInt(2, winnerPlayerId);
+            updatePlayerScore.executeUpdate();
+            updatePlayerScore.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
 }
