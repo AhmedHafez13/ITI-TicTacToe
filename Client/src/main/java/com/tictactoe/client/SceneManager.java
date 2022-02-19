@@ -129,19 +129,33 @@ public class SceneManager {
     }
 
     public void showGameScene(String playerName, String opponentName, boolean startGame) {
-
+        Platform.runLater(() -> {
+            try {
+                App.setRoot("game");
+                for (int i = 0; i < 9; i++) {
+                    String btnId = "#btn" + i;
+                    Button targetBtn = (Button) App.getScene().lookup(btnId);
+                    targetBtn.setDisable(!startGame);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void gameMovesToUI(int[] moves) {
-        for (int i = 0; i < moves.length; i++) {
-            char text = i % 2 == 0 ? 'X' : 'O';
+        Platform.runLater(() -> {
+            for (int i = 0; i < moves.length; i++) {
+                char text = i % 2 == 0 ? 'X' : 'O';
 
-            String btnId = "#btn" + i;
-            Button targetBtn = (Button) App.getScene().lookup(btnId);
+                String btnId = "#btn" + i;
+                Button targetBtn = (Button) App.getScene().lookup(btnId);
 
-            targetBtn.setDisable(true);
-            targetBtn.setText(text + "");
-        }
+                targetBtn.setDisable(true);
+                targetBtn.setText(text + "");
+            }
+        });
+
     }
 
     public void listPlayers(LinkedList<Player> players) {
