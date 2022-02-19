@@ -11,10 +11,9 @@ import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.UUID;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -61,6 +60,21 @@ public class ServerManager {
         return onlinePlayers.getOrDefault(playerHandlerId, null);
     }
 
+    /**
+     * Find and return a current playing game by id
+     *
+     * @param gameId the id of the game need to be returned
+     * @return a game object from currentGames map, return null if the game was
+     * not found
+     */
+    public Game getGame(String gameId) {
+        return currentGames.get(gameId);
+    }
+
+    public void removeGame(String gameId) {
+        currentGames.remove(gameId);
+    }
+
     public HashMap<String, PlayerHandler> getOnlinePlayersHandlers() {
         return onlinePlayers;
     }
@@ -101,7 +115,7 @@ public class ServerManager {
         // Clean maps
         Iterator<PlayerHandler> iterator = onlinePlayers.values().iterator();
         while (iterator.hasNext()) {
-            iterator.next().closeConnection();;
+            iterator.next().closeConnection();
         }
         onlinePlayers = new HashMap<>();
         currentGames = new HashMap<>();
@@ -158,4 +172,17 @@ public class ServerManager {
         }
     }
 
+    /**
+     * Create a new Game and append it to currentGames
+     *
+     * @param player1 the first player who invited the second one
+     * @param player2 the second player who accepted the invitation
+     * @return the new game id
+     */
+    public String startNewGame(PlayerHandler player1, PlayerHandler player2) {
+        String gameId = UUID.randomUUID().toString();
+        Game newGame = new Game(player1, player2, gameId);
+        currentGames.put(gameId, newGame);
+        return gameId;
+    }
 }

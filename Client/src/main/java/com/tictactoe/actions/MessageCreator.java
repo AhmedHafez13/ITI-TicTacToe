@@ -34,6 +34,7 @@ public class MessageCreator {
      * @param username
      * @param password
      * @param confirmPassword
+     * @param avatarNumber
      */
     public void sendRegister(String username, String password, String confirmPassword, String avatarNumber) {
         System.out.println("@ClientMessageCreator->sendRegister, username:" + username + ", passwordx2:" + password);

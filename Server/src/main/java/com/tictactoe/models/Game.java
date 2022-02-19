@@ -12,15 +12,18 @@ public class Game {
     final char PLAYER_X = 'X';
     final char PLAYER_O = 'O';
 
-    private PlayerHandler playerXId;
-    private PlayerHandler playerOId;
+    private final PlayerHandler playerX;
+    private final PlayerHandler playerO;
+    private final String gameId;
     private ArrayList<Integer> moves = new ArrayList<>();
-    char started = PLAYER_X;
-    char winner;
+    private boolean isGameOver = false;
+    private String winnerId;
+    private char started = PLAYER_X;
 
-    public Game(PlayerHandler playerXId, PlayerHandler playerOId) {
-        this.playerXId = playerXId;
-        this.playerOId = playerOId;
+    public Game(PlayerHandler playerX, PlayerHandler playerO, String gameId) {
+        this.playerX = playerX;
+        this.playerO = playerO;
+        this.gameId = gameId;
     }
 
     public ArrayList getMoves() {
@@ -31,25 +34,38 @@ public class Game {
         this.moves = moves;
     }
 
-    public void setMoves(String jsonStr) {
-        // TODO: parse the jsonStr and set moves data to the moves ArrayList
-    }
-
     public String getMovesJsonStr() {
         String movesJsonStr = null;
         // TODO: convert moves to json string to insert moves into the database
         return movesJsonStr;
     }
 
-    public PlayerHandler getPlayerXId() {
-        return playerXId;
+    public PlayerHandler getPlayerX() {
+        return playerX;
     }
 
-    public PlayerHandler getPlayerOId() {
-        return playerOId;
+    public PlayerHandler getPlayerO() {
+        return playerO;
     }
 
-    public void setNextMove() {
-        // TODO: add the next move the moves ArrayList
+    public String getGameId() {
+        return gameId;
+    }
+
+    public ArrayList<Integer> setNextMove(String index) {
+        moves.add(Integer.parseInt(index));
+        /*
+         * TODO: Check if the game is over (isGameOver)
+         * set (winnerId) when the game is ended
+         */
+        return moves;
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public String getWinnerId() {
+        return winnerId;
     }
 }

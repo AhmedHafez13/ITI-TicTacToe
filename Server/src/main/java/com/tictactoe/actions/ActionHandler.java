@@ -23,9 +23,11 @@ public class ActionHandler {
     }
 
     /**
+     * Try to login a player with username and password, then sends the login
+     * result to the client (success or fail)
      *
-     * @param data
-     * @param playerHandler
+     * @param data received from the client (expects: username and password)
+     * @param playerHandler the handler that received the data
      */
     public void handleLogin(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("@ActionHandler->handleLogin, player:"
@@ -43,49 +45,27 @@ public class ActionHandler {
             actionController.messageCreator.sendLoginSuccess(playerHandler);
             broadcastPlayersList();
         }
-
-
-        /*
-         * TODO:
-         * if can login =>
-         * • create a new Player instance and put it in the playerHandler
-         * • send back a message with (login) action (success)
-         * if can't login =>
-         * • send back a message with (login) action (failed)
-         */
     }
 
     /**
+     * Register a new player
      *
-     * @param data
-     * @param playerHandler
+     * @param data received from the client (expects: username and password and
+     * password confirmation)
+     * @param playerHandler the handler that received the data
      */
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("@ServerActionHandler->handleRegister, Data: " + Arrays.toString(data.values().toArray()));
 
         boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), data.get("avatar"));
         if (player) {
-            //System.out.println("Player inserted successfully!");
             actionController.messageCreator.sendRegisterSuccess(playerHandler);
-            //scene should be changed to login scene if the data were registered successfully!
         } else {
-            //System.out.println("Couldn't insert the player into the database!");
             actionController.messageCreator.sendRegisterFailed("Failed to Register your data!", playerHandler);
-            //alert should be appear to the user!
         }
-        /*
-         * TODO:
-         * if can register =>
-         * • login the player (the same as handleLogin)
-         * • send back a message with (register) action (success)
-         * if can't regisgter =>
-         * • send back a message with (register) action (failed)
-         */
     }
 
     public void handlePlayersList(HashMap<String, String> data, PlayerHandler playerHandler) {
-        LinkedList<Player> players = DBManager.getPlayersSortedByStatus();
-
         //      id,   Handler id
         HashMap<Integer, String> idsMap = getIdsMap();
         String allPlayersStr = getPlayersStr(idsMap);
@@ -141,33 +121,50 @@ public class ActionHandler {
     }
 
     /**
+     * Add a new move to a current playing game, then send the new moves to the
+     * players
      *
-     * @param data
-     * @param playerHandler
+     * @param data received from the client (expects: gameId and move index)
+     * @param playerHandler the handler that received the data
      */
     public void handleMove(HashMap<String, String> data, PlayerHandler playerHandler) {
-        String username = data.get("gameId");
-        String moves = data.get("index");
-//        Player player = DBManager.insertNewGame(int playerXId, int playerOId, char winner, moves);
-        /*
-         * TODO
-         * • Add the received move to the moves array
-         * • send the new move to the opponent
-         */
         String gameId = data.get("gameId");
-        String index = data.get("index");
+        String movesIndex = data.get("index");
+        Game game = actionController.serverManager.getGame(gameId);
+        if (game != null) {
+            ArrayList<Integer> newMoves = game.setNextMove(movesIndex);
+            boolean gameOver = game.isGameOver();
+
+            if (gameOver) {
+                game.getPlayerX().resetInivitationData();
+                game.getPlayerO().resetInivitationData();
+                actionController.messageCreator.sendGameEnd(game.getWinnerId(),
+                        playerHandler, playerHandler);
+                actionController.serverManager.removeGame(gameId);
+                /*
+                 * TODO: give the winner bonus points
+                 * Record the game in the database
+                 */
+            } else {
+                String gameMovesStr = newMoves.toString()
+                        .replaceAll("[\\[\\]\\s]", "");
+                actionController.messageCreator.sendGameMoves(
+                        gameMovesStr, game.getPlayerX(), game.getPlayerO());
+            }
+
+        } else {
+            System.out.println("@ActionHandler->handleMove, "
+                    + "Try to get a non existing game");
+        }
     }
 
     /**
+     * Receive invitation from a player and send it to the opponent player
      *
-     * @param data
-     * @param playerHandler
+     * @param data received from the client (expects: opponent Id)
+     * @param playerHandler the handler that received the data
      */
     public void handleGameInvitation(HashMap<String, String> data, PlayerHandler playerHandler) {
-        /*
-         * TODO:
-         * • send the invitation to the opponent
-         */
         String opponentHandlerId = data.get("opponentId");
 
         PlayerHandler opponentHandler = actionController.serverManager.getPlayerHandler(opponentHandlerId);
@@ -182,20 +179,30 @@ public class ActionHandler {
     }
 
     /**
+     * Receive response from the invited player. If the player refuses, send
+     * refuse response to the other player. If the player accept, create a new
+     * Game and add it to the currentGames map then send the game id to both
+     * players
      *
-     * @param data
-     * @param playerHandler
+     * @param data received from the client (expects: response[accept|refuse])
+     * @param playerHandler the handler that received the data
      */
     public void handleGameInvitationResponse(HashMap<String, String> data, PlayerHandler playerHandler) {
-        /*
-         * TODO:
-         * • if accept: add new game into currentGames
-         * • send game id to both players
-         */
-        //new Game();
-        // response: accept | refuse
-        // gameId
-        // playerName
-        // playerScore
+        String response = data.get("response");
+        String opponentId = playerHandler.invitationFrom;
+
+        PlayerHandler opponentHandler
+                = actionController.serverManager.getPlayerHandler(opponentId);
+
+        if (response.equalsIgnoreCase("refuse")) {
+            playerHandler.resetInivitationData();
+            opponentHandler.resetInivitationData();
+            actionController.messageCreator.sendRefuseInvitation(opponentHandler);
+        } else if (response.equalsIgnoreCase("accept")) {
+            String gameId = actionController.serverManager
+                    .startNewGame(opponentHandler, playerHandler);
+            actionController.messageCreator.sendAcceptInvitation(
+                    gameId, playerHandler, opponentHandler);
+        }
     }
 }

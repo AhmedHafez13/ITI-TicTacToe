@@ -11,7 +11,7 @@
 players list after sign in.
     - 📌 Allow the player to play in single mode( i.e. play with the
     computer)
-    - 📌 Player can ask any online player to play with him.
+    - ✔ Player can ask any online player to play with him.
     - 📌 The application should give the user an option to record the game
     and store it at the server for replay later.
     - 📌 [GAME END] The application should give the player bonus points when the

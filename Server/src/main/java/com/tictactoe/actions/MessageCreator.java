@@ -78,4 +78,49 @@ public class MessageCreator {
             }
         });
     }
+
+    public void sendRefuseInvitation(PlayerHandler playerHandler) {
+        System.out.println("@MessageCreator->sendRefuseInvitation");
+        playerHandler.sendAction(Message.GAME_INVITATION_RESPONSE,
+                new HashMap<String, String>() {
+            {
+                put("response", "refuse");
+            }
+        });
+    }
+
+    public void sendAcceptInvitation(String gameId, PlayerHandler player1, PlayerHandler player2) {
+        System.out.println("@MessageCreator->sendAcceptInvitation");
+        HashMap<String, String> messageMap = new HashMap<String, String>() {
+            {
+                put("response", "accept");
+                put("gameId", gameId);
+            }
+        };
+        player1.sendAction(Message.GAME_START, messageMap);
+        player2.sendAction(Message.GAME_START, messageMap);
+    }
+
+    public void sendGameMoves(String moves, PlayerHandler player1, PlayerHandler player2) {
+        System.out.println("@MessageCreator->sendGameMoves");
+        HashMap<String, String> messageMap = new HashMap<String, String>() {
+            {
+                put("response", "accept");
+                put("gameMoves", moves);
+            }
+        };
+        player1.sendAction(Message.GAME_START, messageMap);
+        player2.sendAction(Message.GAME_START, messageMap);
+    }
+
+    public void sendGameEnd(String winnerId, PlayerHandler player1, PlayerHandler player2) {
+        System.out.println("@MessageCreator->sendGameEnd, winnerId: " + winnerId);
+        HashMap<String, String> messageMap = new HashMap<String, String>() {
+            {
+                put("winnerId", winnerId);
+            }
+        };
+        player1.sendAction(Message.GAME_END, messageMap);
+        player2.sendAction(Message.GAME_END, messageMap);
+    }
 }

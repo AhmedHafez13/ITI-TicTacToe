@@ -1,7 +1,5 @@
 package com.tictactoe.server;
 
-import com.tictactoe.models.Player;
-import com.tictactoe.server.DBManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,5 +59,4 @@ public class ServerSceneController implements Initializable {
             startStopButton.setText("START");
         }
     }
-
 }

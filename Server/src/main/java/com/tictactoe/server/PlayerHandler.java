@@ -98,4 +98,9 @@ public class PlayerHandler extends Thread {
     public Player getPlayer() {
         return player;
     }
+
+    public void resetInivitationData() {
+        invitationTo = null;
+        invitationFrom = null;
+    }
 }
