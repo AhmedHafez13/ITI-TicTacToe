@@ -30,7 +30,7 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleLogin(HashMap<String, String> data, PlayerHandler playerHandler) {
-        System.out.println("@ActionHandler->handleLogin, player:"
+        System.out.println("-----\n<<@ActionHandler->handleLogin, player:"
                 + playerHandler.getId() + ", Data:");
         System.out.println(Arrays.toString(data.values().toArray()));
 
@@ -55,7 +55,7 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
-        System.out.println("@ServerActionHandler->handleRegister, Data: " + Arrays.toString(data.values().toArray()));
+        System.out.println("-----\n<<@ServerActionHandler->handleRegister, Data: " + data.toString());
 
         boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), data.get("avatar"));
         if (player) {
@@ -77,7 +77,8 @@ public class ActionHandler {
         //      id,   Handler id
         HashMap<Integer, String> idsMap = getIdsMap();
         String allPlayersStr = getPlayersStr(idsMap);
-        HashMap<String, PlayerHandler> playersHandler = actionController.serverManager.getOnlinePlayersHandlers();
+        HashMap<String, PlayerHandler> playersHandler
+                = actionController.serverManager.getOnlinePlayersHandlers();
         Iterator<PlayerHandler> iterator = playersHandler.values().iterator();
         while (iterator.hasNext()) {
             PlayerHandler playerHandler = iterator.next();
@@ -128,6 +129,8 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleMove(HashMap<String, String> data, PlayerHandler playerHandler) {
+        System.out.println("-----\n<<@ServerActionHandler->handleMove, Data: " + data.toString());
+
         String gameId = data.get("gameId");
         String movesIndex = data.get("index");
         Game game = actionController.serverManager.getGame(gameId);
@@ -153,7 +156,7 @@ public class ActionHandler {
             }
 
         } else {
-            System.out.println("@ActionHandler->handleMove, "
+            System.out.println("-----\n@ActionHandler->handleMove, "
                     + "Try to get a non existing game");
         }
     }
@@ -165,6 +168,8 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleGameInvitation(HashMap<String, String> data, PlayerHandler playerHandler) {
+        System.out.println("-----\n<<@ActionHandler->handleGameInvitation, Data: " + data.toString());
+
         String opponentHandlerId = data.get("opponentId");
 
         PlayerHandler opponentHandler = actionController.serverManager.getPlayerHandler(opponentHandlerId);
@@ -188,6 +193,8 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleGameInvitationResponse(HashMap<String, String> data, PlayerHandler playerHandler) {
+        System.out.println("-----\n<<@ActionHandler->handleGameInvitationResponse, Data: " + data.toString());
+
         String response = data.get("response");
         String opponentId = playerHandler.invitationFrom;
 

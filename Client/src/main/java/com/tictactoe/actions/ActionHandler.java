@@ -3,7 +3,6 @@ package com.tictactoe.actions;
 import com.tictactoe.client.App;
 import com.tictactoe.client.AppManager;
 import com.tictactoe.models.Player;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,7 +27,7 @@ public class ActionHandler {
      */
     public void handleLogin(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleLogin, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
         String loginResult = data.get("loginResult");
         if (loginResult.equalsIgnoreCase("success")) {
             App.getSceneManager().showMainMenu();
@@ -43,7 +42,7 @@ public class ActionHandler {
      */
     public void handleRegister(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleRegister, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
 
         String registerResult = data.get("registerResult");
         App.getSceneManager().registerMessageToUI(registerResult);
@@ -57,7 +56,7 @@ public class ActionHandler {
 
     public void handlePlayersList(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handlePlayersList, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
         String allPlayersStr = data.get("players");
         String separator = ":";
 
@@ -112,9 +111,9 @@ public class ActionHandler {
 
     public void handleGameInvitationResponse(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
         String Response = data.get("response");
-        if (Response.equalsIgnoreCase("Accepted")) {
+        if (Response.equalsIgnoreCase("accept")) {
             App.getSceneManager().InvitationMessageToUI("Accepted");
 
         } else {
@@ -129,7 +128,7 @@ public class ActionHandler {
      */
     public void handleGameStart(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameStart, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
 
         String gameId = data.get("gameId");
         String opponentName = data.get("opponentName");
@@ -142,16 +141,13 @@ public class ActionHandler {
 
     /**
      *
-     * @param data
+     * @param data received from the client (expects: game moves in this format
+     * "5,6,4,8,7")
      */
     public void handleGameMove(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameMove, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
 
-        // "5,6,4,8,7" -> data.get("gameMoves")  
-        /*TODO:
-         * • Apply the new move
-         */
         String gameMoves[] = data.get("gameMoves").split(",");
         int[] moves = new int[gameMoves.length];
 
@@ -167,7 +163,7 @@ public class ActionHandler {
      */
     public void handleGameEnd(HashMap<String, String> data) {
         System.out.println("-----\n@ActionHandler->handleGameEnd, Data:"
-                + Arrays.toString(data.values().toArray()));
+                + data.toString());
 
         /*TODO:
          * • Show a message tells the winner, and (play again) button

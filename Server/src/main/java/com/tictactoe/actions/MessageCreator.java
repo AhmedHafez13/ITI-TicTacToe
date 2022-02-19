@@ -1,10 +1,7 @@
 package com.tictactoe.actions;
 
-import com.tictactoe.models.Player;
 import com.tictactoe.server.PlayerHandler;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  *
@@ -19,7 +16,7 @@ public class MessageCreator {
     }
 
     public void sendLoginFailed(String message, PlayerHandler playerHandler) {
-        System.out.println("@MessageCreator->sendLoginFailed, message:" + message);
+        System.out.println("-----\n>>@MessageCreator->sendLoginFailed, message:" + message);
 
         HashMap data = new HashMap<String, String>() {
             {
@@ -31,7 +28,7 @@ public class MessageCreator {
     }
 
     public void sendLoginSuccess(PlayerHandler playerHandler) {
-        System.out.println("@MessageCreator->sendLoginSuccess");
+        System.out.println("-----\n>>@MessageCreator->sendLoginSuccess");
         playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {
                 put("loginResult", "success");
@@ -40,7 +37,7 @@ public class MessageCreator {
     }
 
     public void sendRegisterSuccess(PlayerHandler playerHandler) {
-        System.out.println("@ServerMessageCreator->sendRegisterSuccess");
+        System.out.println("-----\n>>@MessageCreator->sendRegisterSuccess");
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("registerResult", "success");
@@ -49,7 +46,7 @@ public class MessageCreator {
     }
 
     public void sendRegisterFailed(String message, PlayerHandler playerHandler) {
-        System.out.println("@ServerMessageCreator->sendRegisterFailed");
+        System.out.println("-----\n>>@MessageCreator->sendRegisterFailed");
 
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
@@ -60,7 +57,7 @@ public class MessageCreator {
 
     public void sendPlayersList(String players, PlayerHandler playerHandler) {
         //
-        System.out.println("@ServerMessageCreator->sendPlayersListOrderedByStatus");
+        System.out.println("-----\n>>@MessageCreator->sendPlayersList");
 
         playerHandler.sendAction(Message.PLAYERS_LIST, new HashMap<String, String>() {
             {
@@ -70,7 +67,7 @@ public class MessageCreator {
     }
 
     public void sendInvitation(String playerName, String handlerId, PlayerHandler playerHandler) {
-        System.out.println("@MessageCreator->sendInvitation");
+        System.out.println("-----\n>>@MessageCreator->sendInvitation");
         playerHandler.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
                 put("playerName", playerName);
@@ -80,7 +77,7 @@ public class MessageCreator {
     }
 
     public void sendRefuseInvitation(PlayerHandler playerHandler) {
-        System.out.println("@MessageCreator->sendRefuseInvitation");
+        System.out.println("-----\n>>@MessageCreator->sendRefuseInvitation");
         playerHandler.sendAction(Message.GAME_INVITATION_RESPONSE,
                 new HashMap<String, String>() {
             {
@@ -90,19 +87,23 @@ public class MessageCreator {
     }
 
     public void sendAcceptInvitation(String gameId, PlayerHandler player1, PlayerHandler player2) {
-        System.out.println("@MessageCreator->sendAcceptInvitation");
-        HashMap<String, String> messageMap = new HashMap<String, String>() {
+        System.out.println("-----\n>>@MessageCreator->sendAcceptInvitation");
+        player1.sendAction(Message.GAME_START, new HashMap<String, String>() {
             {
-                put("response", "accept");
                 put("gameId", gameId);
+                put("opponentName", player2.getPlayer().getName());
             }
-        };
-        player1.sendAction(Message.GAME_START, messageMap);
-        player2.sendAction(Message.GAME_START, messageMap);
+        });
+        player2.sendAction(Message.GAME_START, new HashMap<String, String>() {
+            {
+                put("gameId", gameId);
+                put("opponentName", player1.getPlayer().getName());
+            }
+        });
     }
 
     public void sendGameMoves(String moves, PlayerHandler player1, PlayerHandler player2) {
-        System.out.println("@MessageCreator->sendGameMoves");
+        System.out.println("-----\n>>@MessageCreator->sendGameMoves");
         HashMap<String, String> messageMap = new HashMap<String, String>() {
             {
                 put("response", "accept");
@@ -114,7 +115,7 @@ public class MessageCreator {
     }
 
     public void sendGameEnd(String winnerId, PlayerHandler player1, PlayerHandler player2) {
-        System.out.println("@MessageCreator->sendGameEnd, winnerId: " + winnerId);
+        System.out.println("-----\n>>@MessageCreator->sendGameEnd, winnerId: " + winnerId);
         HashMap<String, String> messageMap = new HashMap<String, String>() {
             {
                 put("winnerId", winnerId);
