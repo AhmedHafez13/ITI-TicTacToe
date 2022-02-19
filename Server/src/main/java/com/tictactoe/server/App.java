@@ -26,6 +26,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
+        DBManager.setAllPlayersOffline();
+
         serverManager.initializePlayersTables();
 
         // [START] DEV

@@ -20,7 +20,7 @@ public class MessageCreator {
      * @param password
      */
     public void sendLogin(String username, String password) {
-        System.out.println("@MessageCreator->sendLogin, username:" + username + ", password:" + password);
+        System.out.println("-----\n>>@MessageCreator->sendLogin, username:" + username + ", password:" + password);
         actionController.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {
                 put("username", username);
@@ -37,7 +37,7 @@ public class MessageCreator {
      * @param avatarNumber
      */
     public void sendRegister(String username, String password, String confirmPassword, String avatarNumber) {
-        System.out.println("@ClientMessageCreator->sendRegister, username:" + username + ", passwordx2:" + password);
+        System.out.println("-----\n>>@ClientMessageCreator->sendRegister, username:" + username + ", passwordx2:" + password);
         actionController.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("username", username);
@@ -49,11 +49,12 @@ public class MessageCreator {
     }
 
     public void requestPlayersList() {
-        System.out.println("@ClientMessageCreator->requestPlayersList");
+        System.out.println("-----\n>>@MessageCreator->requestPlayersList");
         actionController.sendAction(Message.PLAYERS_LIST, new HashMap<>());
     }
 
     public void sendInvitation(String opponentId) {
+        System.out.println("-----\n>>@MessageCreator->sendInvitation, opponentId: " + opponentId);
         actionController.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
                 put("opponentId", opponentId);
@@ -62,6 +63,7 @@ public class MessageCreator {
     }
 
     public void sendInvitationResponse(String response) {// accept | refuse
+        System.out.println("-----\n>>@MessageCreator->sendInvitationResponse, response: " + response);
         actionController.sendAction(Message.GAME_INVITATION_RESPONSE, new HashMap<String, String>() {
             {
                 put("response", response);
@@ -74,6 +76,7 @@ public class MessageCreator {
      * @param index
      */
     public void sendGameMove(String index) {
+        System.out.println("-----\n>>@MessageCreator->sendGameMove, index: " + index);
         String gameId = actionController.appManager.getGameId();
         actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
             {

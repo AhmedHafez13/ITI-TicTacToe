@@ -30,7 +30,7 @@ public class ActionController {
         String action = message.action;
         HashMap<String, String> data = message.data;
 
-        System.out.println("Handling Action: " + action);
+        System.out.println("-----\nHandling Action: " + action);
 
         if (action.equalsIgnoreCase(Message.LOGIN)) {
             actionHandler.handleLogin(data);
@@ -75,7 +75,7 @@ public class ActionController {
     }
 
     public Message getActionData(String jsonMsg) {
-        System.out.println("@ActionContoller->getActionData, jsonMsg: " + jsonMsg);
+        System.out.println("-----\n@ActionContoller->getActionData, jsonMsg: " + jsonMsg);
         try {
             JSONObject jsonObj = (JSONObject) parser.parse(jsonMsg);
             String action = (String) jsonObj.get("action");

@@ -42,7 +42,8 @@ public class ActionHandler {
         } else {
             playerHandler.setPlayer(player);
             // Notify all players
-            actionController.messageCreator.sendLoginSuccess(playerHandler);
+            actionController.messageCreator.sendLoginSuccess(
+                    player, playerHandler);
             broadcastPlayersList();
         }
     }
@@ -55,7 +56,7 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
-        System.out.println("-----\n<<@ServerActionHandler->handleRegister, Data: " + data.toString());
+        System.out.println("-----\n<<@ActionHandler->handleRegister, Data: " + data.toString());
 
         boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), data.get("avatar"));
         if (player) {
@@ -129,7 +130,7 @@ public class ActionHandler {
      * @param playerHandler the handler that received the data
      */
     public void handleMove(HashMap<String, String> data, PlayerHandler playerHandler) {
-        System.out.println("-----\n<<@ServerActionHandler->handleMove, Data: " + data.toString());
+        System.out.println("-----\n<<@ActionHandler->handleMove, Data: " + data.toString());
 
         String gameId = data.get("gameId");
         String movesIndex = data.get("index");

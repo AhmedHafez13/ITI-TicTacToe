@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -16,21 +15,27 @@ import java.util.LinkedList;
  */
 public class AppManager {
 
+    private final String IP = "127.0.0.1";
+    private final int PORT = 5005;
+
     private Socket socket;
     private BufferedReader bufferedReader;
     private PrintStream printStream;
 
     ActionController actionController;
 
+    Player playerData;
+
     LinkedList<Player> players = new LinkedList<>();
     String gameId = null;
+    String opponentName = null;
 
     private boolean isConnected;
 
     public AppManager() {
         actionController = new ActionController(this);
         try {
-            socket = new Socket("127.0.0.1", 5005);
+            socket = new Socket(IP, PORT);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             printStream = new PrintStream(socket.getOutputStream());
             isConnected = true;
@@ -45,7 +50,7 @@ public class AppManager {
             while (isConnected) {
                 try {
                     String message = bufferedReader.readLine();
-                    System.out.println("Client just recieved this > " + message);
+                    System.out.println("<<< Client just recieved this > " + message);
                     //{"data":{"registerResult":"success"},"action":"REGISTER"}
                     actionController.handleAction(message);
                 } catch (IOException e) {
@@ -58,7 +63,7 @@ public class AppManager {
     }
 
     public void sendMessage(String jsonMessage) {
-        System.out.println("Message before leaving the client:" + jsonMessage);
+        System.out.println(">>> Message before leaving the client:" + jsonMessage);
         if (isConnected) {
             printStream.println(jsonMessage);
         } else {
@@ -70,8 +75,20 @@ public class AppManager {
         return gameId;
     }
 
+    public void setPlayerData(Player playerData) {
+        this.playerData = playerData;
+    }
+
+    public Player getPlayerData() {
+        return playerData;
+    }
+
     public void setGameId(String gameId) {
         this.gameId = gameId;
+    }
+
+    public void setOpponentName(String opponentName) {
+        this.opponentName = opponentName;
     }
 
     public void setPlayersList(LinkedList<Player> players) {

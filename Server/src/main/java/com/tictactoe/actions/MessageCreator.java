@@ -1,5 +1,6 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.models.Player;
 import com.tictactoe.server.PlayerHandler;
 import java.util.HashMap;
 
@@ -27,11 +28,15 @@ public class MessageCreator {
         playerHandler.sendAction(Message.LOGIN, data);
     }
 
-    public void sendLoginSuccess(PlayerHandler playerHandler) {
+    public void sendLoginSuccess(Player player, PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendLoginSuccess");
         playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {
                 put("loginResult", "success");
+                put("handlerId", playerHandler.getHandlerId());
+                put("playerName", player.getName());
+                put("playerScore", String.valueOf(player.getTotalScore()));
+                put("playerAvatar", player.getAvatar());
             }
         });
     }
@@ -92,12 +97,14 @@ public class MessageCreator {
             {
                 put("gameId", gameId);
                 put("opponentName", player2.getPlayer().getName());
+                put("startTheGame", "true");
             }
         });
         player2.sendAction(Message.GAME_START, new HashMap<String, String>() {
             {
                 put("gameId", gameId);
                 put("opponentName", player1.getPlayer().getName());
+                put("startTheGame", "false");
             }
         });
     }

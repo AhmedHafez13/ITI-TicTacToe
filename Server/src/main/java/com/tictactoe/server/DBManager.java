@@ -163,18 +163,18 @@ public class DBManager {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) //if the data is found
             {
-                int playerId = rs.getInt("id"); // playerId is set to db playerId
-                String playerName = rs.getString("name");
-                int score = rs.getInt("total_score");
-                int id = rs.getInt("id");
                 boolean isOnline = rs.getBoolean("is_online");
-                String avatar = rs.getString("avatar");
-                //===================================
-                player = new Player(id, playerName, score, avatar, isOnline);
-                //===================================
-                System.out.println("before query" + id);
-                PreparedStatement updateStatus = connection.prepareStatement("update player set is_online = 1 where id =" + id);
-                updateStatus.executeUpdate();
+                if (!isOnline) {
+                    String playerName = rs.getString("name");
+                    int score = rs.getInt("total_score");
+                    int id = rs.getInt("id");
+                    String avatar = rs.getString("avatar");
+                    //===================================
+                    player = new Player(id, playerName, score, avatar, isOnline);
+                    //===================================
+                    PreparedStatement updateStatus = connection.prepareStatement("update player set is_online = 1 where id =" + id);
+                    updateStatus.executeUpdate();
+                }
             }
             pst.close();
         } catch (SQLException e) {

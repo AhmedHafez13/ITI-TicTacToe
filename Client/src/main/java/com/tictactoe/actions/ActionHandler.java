@@ -3,7 +3,6 @@ package com.tictactoe.actions;
 import com.tictactoe.client.App;
 import com.tictactoe.client.AppManager;
 import com.tictactoe.models.Player;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -26,11 +25,20 @@ public class ActionHandler {
      * @param data
      */
     public void handleLogin(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleLogin, Data:"
+        System.out.println("-----\n<<@ActionHandler->handleLogin, Data:"
                 + data.toString());
         String loginResult = data.get("loginResult");
         if (loginResult.equalsIgnoreCase("success")) {
-            App.getSceneManager().showMainMenu();
+            String handlerId = data.get("handlerId");
+            String playerName = data.get("playerName");
+            int playerScore = Integer.parseInt(data.get("playerScore"));
+            String playerAvatar = data.get("playerAvatar");
+
+            Player playerData = new Player(handlerId, playerName,
+                    playerScore, playerAvatar);
+
+            appManager.setPlayerData(playerData);
+            App.getSceneManager().showMainMenu(playerData);
         } else {
             App.getSceneManager().showLoginFailed("Login failed");
         }
@@ -41,21 +49,15 @@ public class ActionHandler {
      * @param data
      */
     public void handleRegister(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleRegister, Data:"
+        System.out.println("-----\n<<@ActionHandler->handleRegister, Data:"
                 + data.toString());
 
         String registerResult = data.get("registerResult");
         App.getSceneManager().registerMessageToUI(registerResult);
-        /*TODO:
-         * if can register =>
-         * • (the same as handleLogin)
-         * if can't regisgter =>
-         * • Show error message
-         */
     }
 
     public void handlePlayersList(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handlePlayersList, Data:"
+        System.out.println("-----\n<<@ActionHandler->handlePlayersList, Data:"
                 + data.toString());
         String allPlayersStr = data.get("players");
         String separator = ":";
@@ -72,8 +74,9 @@ public class ActionHandler {
             int totalScore = Integer.parseInt(parts[2]);
             String avatar = parts[3];
             //boolean isOnline = Boolean.valueOf(parts[4]);
-
-            players.add(new Player(handlerId, name, totalScore, avatar));
+            if (!handlerId.equalsIgnoreCase(appManager.getPlayerData().getHandlerId())) {
+                players.add(new Player(handlerId, name, totalScore, avatar));
+            }
         }
 
         // DATA
@@ -87,6 +90,8 @@ public class ActionHandler {
      * @param data
      */
     public void handleMove(HashMap<String, String> data) {
+        System.out.println("-----\n<<@ActionHandler->handleMove, Data:"
+                + data.toString());
 
         actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
             {
@@ -102,7 +107,8 @@ public class ActionHandler {
     }
 
     public void handleGameInvitation(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameInvitation, Data:" + Arrays.toString(data.values().toArray()));
+        System.out.println("-----\n<<@ActionHandler->handleGameInvitation, Data:"
+                + data.toString());
         String playerId = data.get("playerId");
         String playerName = data.get("playerName");
         App.getSceneManager().showInvitationPopUp(playerName, playerId);
@@ -110,7 +116,7 @@ public class ActionHandler {
     }
 
     public void handleGameInvitationResponse(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameInvitationResponse, Data:"
+        System.out.println("-----\n<<@ActionHandler->handleGameInvitationResponse, Data:"
                 + data.toString());
         String Response = data.get("response");
         if (Response.equalsIgnoreCase("accept")) {
@@ -127,16 +133,17 @@ public class ActionHandler {
      * @param data
      */
     public void handleGameStart(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameStart, Data:"
+        System.out.println("-----\n<<@ActionHandler->handleGameStart, Data:"
                 + data.toString());
 
         String gameId = data.get("gameId");
         String opponentName = data.get("opponentName");
+        boolean startTheGame = Boolean.getBoolean(data.get("startTheGame"));
 
-        /*TODO:
-         * • Set game id
-         * • show game scene and set opponentName
-         */
+        appManager.setGameId(gameId);
+
+        App.sceneManager.showGameScene(appManager.getPlayerData().getName(),
+                opponentName, startTheGame);
     }
 
     /**
@@ -145,7 +152,7 @@ public class ActionHandler {
      * "5,6,4,8,7")
      */
     public void handleGameMove(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameMove, Data:"
+        System.out.println("-----\n<<@ActionHandler->handleGameMove, Data:"
                 + data.toString());
 
         String gameMoves[] = data.get("gameMoves").split(",");
@@ -162,7 +169,7 @@ public class ActionHandler {
      * @param data
      */
     public void handleGameEnd(HashMap<String, String> data) {
-        System.out.println("-----\n@ActionHandler->handleGameEnd, Data:"
+        System.out.println("-----\n<<@ActionHandler->handleGameEnd, Data:"
                 + data.toString());
 
         /*TODO:
