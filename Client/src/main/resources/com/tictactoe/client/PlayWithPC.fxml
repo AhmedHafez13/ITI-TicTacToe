@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right , #C33764,#1D2671);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.PlayWithPCController">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right , #C33764,#1D2671);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.PlayWithPCController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false"  prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: none;" textFill="#895f99">
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: none;" textFill="#895f99">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
-                  <ImageView fitHeight="38.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/arrow.png" />
+                        <Image url="@../../../images/left.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -33,9 +33,9 @@
                   <Insets left="30.0" right="30.0" />
                </HBox.margin>
             </Button>
-            <Label fx:id="userNameField" style="-fx-text-fill: white; -fx-font-size: 30;" text="Player Name">
+            <Label style="-fx-text-fill: white; -fx-font-size: 30;" text="Play with PC - Choose Level">
                <HBox.margin>
-                  <Insets left="50.0" />
+                  <Insets />
                </HBox.margin>
             </Label>
          </children>

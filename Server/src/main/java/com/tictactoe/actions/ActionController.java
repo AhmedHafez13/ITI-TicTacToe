@@ -1,5 +1,7 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.models.LogAction;
+import com.tictactoe.server.App;
 import com.tictactoe.server.DBManager;
 import com.tictactoe.server.PlayerHandler;
 import com.tictactoe.server.ServerManager;
@@ -33,6 +35,8 @@ public class ActionController {
         HashMap<String, String> data = message.data;
 
         System.out.println("@ActionController->handleAction, action: " + action);
+        App.appendActionToLog(new LogAction("ActionController", "Handling comming action: "
+                + action, playerHandler.getPlayer()));
 
         if (action.equalsIgnoreCase(Message.LOGIN)) {
             actionHandler.handleLogin(data, playerHandler);

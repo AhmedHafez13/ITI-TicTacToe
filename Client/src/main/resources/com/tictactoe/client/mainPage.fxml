@@ -61,7 +61,7 @@
                         <Insets />
                      </VBox.margin>
                   </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #8c522b; -fx-font-size: 15;" text="        Play With PC" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS" onAction="#switchToPlayWithPCOptions" >
+                  <Button mnemonicParsing="false" onAction="#switchToPlayWithPCOptions" prefHeight="50.0" prefWidth="172.0" style="-fx-background-color: #8c522b; -fx-font-size: 15;" text="        Play With PC" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
                      <font>
                         <Font name="Aldhabi" size="27.0" />
                      </font>
@@ -129,7 +129,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label fx:id="invitationLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-text-fill: red; -fx-font-size: 20;" text="Your invitation rejected :(" visible="false" VBox.vgrow="ALWAYS">
+                  <Label fx:id="invitationLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-text-fill: red; -fx-font-size: 20;" wrapText="true" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding></Label>

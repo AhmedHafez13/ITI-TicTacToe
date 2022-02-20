@@ -1,6 +1,8 @@
 package com.tictactoe.actions;
 
+import com.tictactoe.models.LogAction;
 import com.tictactoe.models.Player;
+import com.tictactoe.server.App;
 import com.tictactoe.server.PlayerHandler;
 import java.util.HashMap;
 
@@ -19,6 +21,8 @@ public class MessageCreator {
     public void sendLoginFailed(String message, PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendLoginFailed, message:" + message);
 
+        App.appendActionToLog(new LogAction(">>>Sending Message", "Login failed"));
+
         HashMap data = new HashMap<String, String>() {
             {
                 put("loginResult", "failed");
@@ -30,6 +34,10 @@ public class MessageCreator {
 
     public void sendLoginSuccess(Player player, PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendLoginSuccess");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message", "Login success",
+                player));
+
         playerHandler.sendAction(Message.LOGIN, new HashMap<String, String>() {
             {
                 put("loginResult", "success");
@@ -43,6 +51,10 @@ public class MessageCreator {
 
     public void sendRegisterSuccess(PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendRegisterSuccess");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Registration success"));
+
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
                 put("registerResult", "success");
@@ -52,6 +64,9 @@ public class MessageCreator {
 
     public void sendRegisterFailed(String message, PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendRegisterFailed");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Registration failed"));
 
         playerHandler.sendAction(Message.REGISTER, new HashMap<String, String>() {
             {
@@ -64,6 +79,9 @@ public class MessageCreator {
         //
         System.out.println("-----\n>>@MessageCreator->sendPlayersList");
 
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending the players list", playerHandler.getPlayer()));
+
         playerHandler.sendAction(Message.PLAYERS_LIST, new HashMap<String, String>() {
             {
                 put("players", players);
@@ -73,6 +91,10 @@ public class MessageCreator {
 
     public void sendInvitation(String playerName, String handlerId, PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendInvitation");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending invitation", playerHandler.getPlayer()));
+
         playerHandler.sendAction(Message.GAME_INVITATION, new HashMap<String, String>() {
             {
                 put("playerName", playerName);
@@ -83,6 +105,10 @@ public class MessageCreator {
 
     public void sendRefuseInvitation(PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendRefuseInvitation");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending invitation refuse", playerHandler.getPlayer()));
+
         playerHandler.sendAction(Message.GAME_INVITATION_RESPONSE,
                 new HashMap<String, String>() {
             {
@@ -93,6 +119,10 @@ public class MessageCreator {
 
     public void sendAcceptInvitation(String gameId, PlayerHandler player1, PlayerHandler player2) {
         System.out.println("-----\n>>@MessageCreator->sendAcceptInvitation");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending invitation accept", player1.getPlayer()));
+
         player1.sendAction(Message.GAME_START, new HashMap<String, String>() {
             {
                 put("gameId", gameId);
@@ -111,6 +141,10 @@ public class MessageCreator {
 
     public void sendGameMoves(String moves, boolean isMyTurn, PlayerHandler player) {
         System.out.println("-----\n>>@MessageCreator->sendGameMoves");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending game move", player.getPlayer()));
+
         HashMap<String, String> messageMap = new HashMap<String, String>() {
             {
                 put("gameMoves", moves);
@@ -122,6 +156,10 @@ public class MessageCreator {
 
     public void sendGameEnd(String winnerId, PlayerHandler player1, PlayerHandler player2) {
         System.out.println("-----\n>>@MessageCreator->sendGameEnd, winnerId: " + winnerId);
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending game end", player1.getPlayer()));
+
         HashMap<String, String> messageMap = new HashMap<String, String>() {
             {
                 put("winnerId", winnerId);

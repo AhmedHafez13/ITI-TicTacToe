@@ -1,6 +1,7 @@
 package com.tictactoe.client;
 
 import com.tictactoe.actions.MessageCreator;
+import static com.tictactoe.client.AppManager.GAME_TYPE_PC;
 import com.tictactoe.models.Player;
 import java.io.File;
 import java.io.IOException;
@@ -33,16 +34,6 @@ public class MainPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //playersVBox.getChildren().get(0).setVisible(false);
-        //ArrayList<Player> players = App.appManager.getPlayersList();
-        //ArrayList<Player> players = new ArrayList<>();
-        //players.add(new Player("pppppp-oooooo", "name1", 123, "avatar1.png"));
-        //players.add(new Player("aaaccc-rrrttt", "name2", 123, "avatar2.png"));
-        //players
-        //for (int i = 0; i < players.size(); i++) {
-        //    createPlayerPane(players.get(i));
-        //}
         App.sceneManager.listPlayers(App.appManager.getPlayersList());
     }
 
@@ -53,15 +44,16 @@ public class MainPageController implements Initializable {
 
     @FXML
     private void switchToLeaderBoard() throws IOException {
+        System.out.println("switchToLeaderBoard");
         App.setRoot("leaderBoard");
     }
 
-     @FXML
+    @FXML
     private void switchToPlayWithPCOptions() throws IOException {
-        AppManager.GameType="WithPC";
+        AppManager.GameType = GAME_TYPE_PC;
         App.setRoot("playWithPC");
-    }   
-    
+    }
+
     @FXML
     private void Refresh() throws IOException {
         /*

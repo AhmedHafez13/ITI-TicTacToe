@@ -1,6 +1,7 @@
 package com.tictactoe.server;
 
 import com.tictactoe.actions.ActionController;
+import com.tictactoe.models.LogAction;
 import com.tictactoe.models.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,8 +62,11 @@ public class PlayerHandler extends Thread {
                 serverManager.actionController.handleAction(message, this);
             } catch (IOException e) {
                 e.printStackTrace();
+                int playerId = player.getId();
+                App.appendActionToLog(new LogAction("Player Handler",
+                        "Player disconnected", player));
                 serverManager.removePlayerHandler(this);
-                serverManager.actionController.onPlayerDisconnect(player.getId());
+                serverManager.actionController.onPlayerDisconnect(playerId);
                 isConnected = false;
             }
         }

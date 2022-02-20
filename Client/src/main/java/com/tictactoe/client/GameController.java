@@ -1,6 +1,7 @@
 package com.tictactoe.client;
 
 import com.tictactoe.actions.MessageCreator;
+import static com.tictactoe.client.AppManager.GAME_TYPE_PC;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,14 +12,14 @@ import javafx.scene.control.Label;
 public class GameController {
 
     ArrayList<Button> boardButtons = new ArrayList<>(); //()constructor  <>templet
-    
-    String currentPlayerSymbol; 
+
+    String currentPlayerSymbol;
     boolean isGameOver = false;
 
     @FXML
-    private Label player1Name ;
+    private Label player1Name, player2Name;
     @FXML
-    private Label player2Name ;
+    private Label gameResultLable;
     @FXML
     private Button btn0, btn2, btn1, btn3, btn4, btn5, btn6, btn7, btn8;
 
@@ -32,28 +33,28 @@ public class GameController {
         boardButtons.add(btn6);
         boardButtons.add(btn7);
         boardButtons.add(btn8);
-        
+
         currentPlayerSymbol = "X";
     }
 
-    
     private void handleButton(int position) throws IOException {
-        if("WithPC".equals(AppManager.GameType)) { // Play with PC
-            if(isGameOver || checkWin() != null) {
+        if (GAME_TYPE_PC.equals(AppManager.GameType)) { // Play with PC
+            if (isGameOver || checkWin() != null) {
                 return;
             }
-            
+
             Boolean playerMove = placeMove(position, currentPlayerSymbol);
-           if(checkWin() != null) {
-               isGameOver = true;
-               gameResult();
-           } else if(playerMove && !isGameOver) {
-               computerTurn();
-           }
+            if (checkWin() != null) {
+                isGameOver = true;
+                gameResult();
+            } else if (playerMove && !isGameOver) {
+                computerTurn();
+            }
         } else {// Play with someone
             gameMove(position);
         }
     }
+
     /*  ------------------Send Data-----------------*/
     private void gameMove(int index) throws IOException {
         System.out.println("@GameController.gameMove is called!");
@@ -107,61 +108,75 @@ public class GameController {
     private void clickBtn8() throws IOException {
         handleButton(8);
     }
-    
+
+    @FXML
+    private void gameBackBtn() throws IOException {
+        // TODO: show confirm alert
+        // Send close game to the server
+        App.appManager.closeCurrentGame();
+
+        // Show main menu
+        App.sceneManager.showMainMenu(App.appManager.getPlayerData());
+        // List the latest players list
+        App.sceneManager.listPlayers(App.appManager.getPlayersList());
+    }
+
     /* ------------------- Game With PC ---------------------------- */
     private boolean placeMove(int position, String symbol) {
-        
+
         // TODO: check for valid move.
-        if(isValidMove(position)) {
+        if (isValidMove(position)) {
             boardButtons.get(position).setText(symbol);
             return true;
         }
         return false;
     }
-    
+
     private boolean isValidMove(int position) {
         return boardButtons.get(position).getText().equals("");
     }
-   
+
     private void computerTurn() {
-        if("easy".equals(AppManager.GameLevel)) {
+        if ("easy".equals(AppManager.GameLevel)) {
             RandomMode();
-        } else if("hard".equals(AppManager.GameLevel)) {
+        } else if ("hard".equals(AppManager.GameLevel)) {
             bestMove();
-            if(checkWin() != null)
+            if (checkWin() != null) {
                 isGameOver = true;
+            }
         }
     }
-    
+
     private void RandomMode() {
         // Random Move
         Random rand = new Random();
         int computerMove;
-        while(true) {
+        while (true) {
             computerMove = rand.nextInt(9);
-            if(isValidMove(computerMove)) {
+            if (isValidMove(computerMove)) {
                 computerFinalMove(computerMove);
                 break;
             }
         }
     }
-    
+
     private void computerFinalMove(int computerMove) {
         placeMove(computerMove, "O");
-        if(checkWin() != null)
+        if (checkWin() != null) {
             gameResult();
+        }
     }
-     
+
     // AI Functionality
     private void bestMove() {
         int bestScore = -100;
         int move = -1;
-        for(int i = 0; i < boardButtons.size(); i++) {
-            if(isValidMove(i)) {
+        for (int i = 0; i < boardButtons.size(); i++) {
+            if (isValidMove(i)) {
                 boardButtons.get(i).setText("O");
-                int score = minimax(boardButtons,0, false);
+                int score = minimax(boardButtons, 0, false);
                 boardButtons.get(i).setText("");
-                if(score > bestScore) {
+                if (score > bestScore) {
                     bestScore = score;
                     move = i;
                 }
@@ -170,8 +185,8 @@ public class GameController {
 //        boardButtons.get(move).setText("O");
         computerFinalMove(move);
     }
-    
-    private int minimax(ArrayList<Button>board, int depth, boolean isMaximizing) {
+
+    private int minimax(ArrayList<Button> board, int depth, boolean isMaximizing) {
         String result = checkWin();
         if (result != null) {
             if (result.equalsIgnoreCase("X")) {
@@ -182,13 +197,13 @@ public class GameController {
                 return 0;
             }
         }
-        
-        if(isMaximizing) {
+
+        if (isMaximizing) {
             int bestScore = -100;
-            for(int i = 0; i < board.size(); i++) {
-                if("".equals(board.get(i).getText())) {
+            for (int i = 0; i < board.size(); i++) {
+                if ("".equals(board.get(i).getText())) {
                     board.get(i).setText("O");
-                    int score = minimax(board, depth+1, false);
+                    int score = minimax(board, depth + 1, false);
                     board.get(i).setText("");
                     bestScore = Math.max(score, bestScore);
                 }
@@ -196,70 +211,78 @@ public class GameController {
             return bestScore;
         } else {
             int bestScore = 100;
-            for(int i = 0; i < board.size(); i++) {
-                if("".equals(board.get(i).getText())) {
+            for (int i = 0; i < board.size(); i++) {
+                if ("".equals(board.get(i).getText())) {
                     board.get(i).setText("X");
                     int score = minimax(board, depth + 1, true);
                     board.get(i).setText("");
                     bestScore = Math.min(score, bestScore);
                 }
             }
-         return bestScore;
+            return bestScore;
         }
     }
-    
+
     private boolean isGameOver() {
-        for(int i = 0; i < boardButtons.size(); i++)
-            if(boardButtons.get(i).getText().equals(""))
+        for (int i = 0; i < boardButtons.size(); i++) {
+            if (boardButtons.get(i).getText().equals("")) {
                 return false;
+            }
+        }
         return true;
     }
-    
-    
+
     private String checkWin() {
         String winner = null;
-        if(handleCheckWin(0, 1, 2)) {
+        if (handleCheckWin(0, 1, 2)) {
             winner = boardButtons.get(0).getText();
-        } else if(handleCheckWin(3, 4, 5)) {
+        } else if (handleCheckWin(3, 4, 5)) {
             winner = boardButtons.get(3).getText();
-        } else if(handleCheckWin(6, 7, 8)) {
+        } else if (handleCheckWin(6, 7, 8)) {
             winner = boardButtons.get(6).getText();
-        } else if(handleCheckWin(0, 3, 6)) {
+        } else if (handleCheckWin(0, 3, 6)) {
             winner = boardButtons.get(0).getText();
-        } else if(handleCheckWin(1, 4, 7)) {
+        } else if (handleCheckWin(1, 4, 7)) {
             winner = boardButtons.get(1).getText();
-        } else if(handleCheckWin(2, 5, 8)) {
+        } else if (handleCheckWin(2, 5, 8)) {
             winner = boardButtons.get(2).getText();
-        } else if(handleCheckWin(0, 4, 8)) {
+        } else if (handleCheckWin(0, 4, 8)) {
             winner = boardButtons.get(0).getText();
-        } else if(handleCheckWin(2, 4, 6)) {
+        } else if (handleCheckWin(2, 4, 6)) {
             winner = boardButtons.get(2).getText();
         }
-        
-        if(isGameOver() && winner == null)
+
+        if (isGameOver() && winner == null) {
             return "Tie";
-        
+        }
+
         return winner;
     }
+
     private boolean handleCheckWin(int position1, int position2, int position3) {
-            if(
-                    boardButtons.get(position1).getText().equals(boardButtons.get(position2).getText())
-                 && boardButtons.get(position2).getText().equals(boardButtons.get(position3).getText())
-                 && !"".equals(boardButtons.get(position1).getText())
-              ) {
-                return true;
-            }
-            return false;
+        if (boardButtons.get(position1).getText().equals(boardButtons.get(position2).getText())
+                && boardButtons.get(position2).getText().equals(boardButtons.get(position3).getText())
+                && !"".equals(boardButtons.get(position1).getText())) {
+            return true;
         }
+        return false;
+    }
 
     private void gameResult() {
-        if(checkWin().equalsIgnoreCase("X")) {
+        String result = checkWin();
+        if (result.equalsIgnoreCase("X")) {
             System.out.println("Player X wins!");
-        } else if(checkWin().equalsIgnoreCase("O")) {
+            endTheGame("Player X wins!");
+        } else if (result.equalsIgnoreCase("O")) {
             System.out.println("Player O Wins");
-        } else if(isGameOver() && checkWin().equalsIgnoreCase("Tie")) {
+            endTheGame("Player O wins!");
+        } else if (isGameOver() && result.equalsIgnoreCase("Tie")) {
             System.out.println("Tie");
+            endTheGame("It's a draw!");
         }
     }
 
+    private void endTheGame(String winner) {
+        gameResultLable.setText(winner);
+    }
 }

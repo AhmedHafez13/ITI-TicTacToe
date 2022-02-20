@@ -1,5 +1,6 @@
 package com.tictactoe.server;
 
+import com.tictactoe.models.LogAction;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 /**
  *
@@ -26,9 +29,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        DBManager.setAllPlayersOffline();
-
-        serverManager.initializePlayersTables();
+        serverManager.setAllPlayersOffline();
 
         // [START] DEV
         App.serverManager.toggleServer();
@@ -58,4 +59,13 @@ public class App extends Application {
         launch();
     }
 
+    public static void appendActionToLog(LogAction logAction) {
+        Platform.runLater(() -> {
+            TableView onlinePlayersTable = (TableView) scene.lookup("#actionsLogTable");
+            if (onlinePlayersTable != null) {
+                onlinePlayersTable.getItems().add(logAction);
+                onlinePlayersTable.scrollTo(logAction);
+            }
+        });
+    }
 }

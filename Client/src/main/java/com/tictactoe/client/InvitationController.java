@@ -25,14 +25,15 @@ public class InvitationController implements Initializable {
 
     @FXML
     private void Refused_invetation(ActionEvent event) {
-        System.out.println("@MainPageController.invite Refused called!");
+        System.out.println("-----\n@MainPageController->Refused_invetation is clicked!");
         MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
         messageCreator.sendInvitationResponse("refuse");
+        App.sceneManager.showMainMenu(App.appManager.getPlayerData());
     }
 
     @FXML
     private void Accept_invetation(ActionEvent event) {
-        System.out.println("@MainPageController.invite Accepted is called!");
+        System.out.println("-----\n@MainPageController->Accept_invetation is clicked!");
         MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
         messageCreator.sendInvitationResponse("accept");
     }

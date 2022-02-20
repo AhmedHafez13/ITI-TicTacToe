@@ -3,6 +3,7 @@ package com.tictactoe.server;
 import com.tictactoe.actions.ActionController;
 import com.tictactoe.models.Game;
 import com.tictactoe.models.Player;
+import static com.tictactoe.server.App.serverManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -117,8 +118,8 @@ public class ServerManager {
         while (iterator.hasNext()) {
             iterator.next().closeConnection();
         }
-        onlinePlayers = new HashMap<>();
-        currentGames = new HashMap<>();
+
+        setAllPlayersOffline();
     }
 
     private synchronized void startServerThread() {
@@ -154,14 +155,22 @@ public class ServerManager {
         serverThread.start();
     }
 
-    void initializePlayersTables() {
+    void setAllPlayersOffline() {
+        DBManager.setAllPlayersOffline();
+        refreshPlayersTables(DBManager.getPlayersSortedByStatus());
+        onlinePlayers = new HashMap<>();
+        currentGames = new HashMap<>();
+    }
+
+    public void refreshPlayersTables(LinkedList<Player> allPlayers) {
         System.out.println("-----\n@ServerManager->initializePlayersTables, listing players...");
 
         Scene serverScene = App.getScene();
         TableView onlinePlayersTable = (TableView) serverScene.lookup("#onlinePlayersTable");
         TableView offlinePlayersTable = (TableView) serverScene.lookup("#offlinePlayersTable");
 
-        LinkedList<Player> allPlayers = DBManager.getPlayersSortedByStatus();
+        onlinePlayersTable.getItems().clear();
+        offlinePlayersTable.getItems().clear();
 
         for (Player player : allPlayers) {
             if (player.isOnline()) {

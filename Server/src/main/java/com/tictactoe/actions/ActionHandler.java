@@ -1,9 +1,12 @@
 package com.tictactoe.actions;
 
 import com.tictactoe.models.Game;
+import com.tictactoe.models.LogAction;
 import com.tictactoe.models.Player;
+import com.tictactoe.server.App;
 import com.tictactoe.server.DBManager;
 import com.tictactoe.server.PlayerHandler;
+import com.tictactoe.server.ServerManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,14 +35,18 @@ public class ActionHandler {
     public void handleLogin(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("-----\n<<@ActionHandler->handleLogin, player:"
                 + playerHandler.getId() + ", Data:");
-        System.out.println(Arrays.toString(data.values().toArray()));
+        App.appendActionToLog(new LogAction("<<<Action Handler", "Handling login"));
 
         String username = data.get("username");
         String password = data.get("password");
         Player player = DBManager.signInPlayer(username, password);
         if (player == null) {
+            App.appendActionToLog(new LogAction("<<Action Handler", "Login fail"));
+
             actionController.messageCreator.sendLoginFailed("No username, please try again!", playerHandler);
         } else {
+            App.appendActionToLog(new LogAction("<<Action Handler", "Login success", player));
+
             playerHandler.setPlayer(player);
             // Notify all players
             actionController.messageCreator.sendLoginSuccess(
@@ -57,11 +64,16 @@ public class ActionHandler {
      */
     public void handleRegister(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("-----\n<<@ActionHandler->handleRegister, Data: " + data.toString());
+        App.appendActionToLog(new LogAction("<<Action Handler", "Handling register"));
 
         boolean player = DBManager.registerNewPlayer(data.get("username"), data.get("password"), data.get("avatar"));
         if (player) {
+            App.appendActionToLog(new LogAction("<<Action Handler", "Register failed"));
+
             actionController.messageCreator.sendRegisterSuccess(playerHandler);
         } else {
+            App.appendActionToLog(new LogAction("<<Action Handler", "Register success"));
+
             actionController.messageCreator.sendRegisterFailed("Failed to Register your data!", playerHandler);
         }
     }
@@ -69,15 +81,21 @@ public class ActionHandler {
     public void handlePlayersList(HashMap<String, String> data, PlayerHandler playerHandler) {
         //      id,   Handler id
         HashMap<Integer, String> idsMap = getIdsMap();
-        String allPlayersStr = getPlayersStr(idsMap);
+        LinkedList<Player> players = DBManager.getPlayersSortedByStatus();
+        String allPlayersStr = getPlayersStr(idsMap, players);
         actionController.messageCreator.sendPlayersList(
                 allPlayersStr, playerHandler);
     }
 
     public void broadcastPlayersList() {
+        App.appendActionToLog(new LogAction("Action Handler", "Broadcasting Players List"));
         //      id,   Handler id
         HashMap<Integer, String> idsMap = getIdsMap();
-        String allPlayersStr = getPlayersStr(idsMap);
+        LinkedList<Player> players = DBManager.getPlayersSortedByStatus();
+
+        actionController.serverManager.refreshPlayersTables(players);
+
+        String allPlayersStr = getPlayersStr(idsMap, players);
         HashMap<String, PlayerHandler> playersHandler
                 = actionController.serverManager.getOnlinePlayersHandlers();
         Iterator<PlayerHandler> iterator = playersHandler.values().iterator();
@@ -106,8 +124,7 @@ public class ActionHandler {
         return idsMap;
     }
 
-    private String getPlayersStr(HashMap<Integer, String> idsMap) {
-        LinkedList<Player> players = DBManager.getPlayersSortedByStatus();
+    private String getPlayersStr(HashMap<Integer, String> idsMap, LinkedList<Player> players) {
         char separator = ':';
         StringBuilder allPlayersStr = new StringBuilder();
         for (int i = 0; i < players.size(); i++) {
@@ -131,6 +148,9 @@ public class ActionHandler {
      */
     public void handleMove(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("-----\n<<@ActionHandler->handleMove, Data: " + data.toString());
+
+        App.appendActionToLog(new LogAction("<<<Action Handler", "Handling move",
+                playerHandler.getPlayer()));
 
         String gameId = data.get("gameId");
         String movesIndex = data.get("index");
@@ -177,6 +197,9 @@ public class ActionHandler {
     public void handleGameInvitation(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("-----\n<<@ActionHandler->handleGameInvitation, Data: " + data.toString());
 
+        App.appendActionToLog(new LogAction("<<<Action Handler", "Handling game invitation",
+                playerHandler.getPlayer()));
+
         String opponentHandlerId = data.get("opponentId");
 
         PlayerHandler opponentHandler = actionController.serverManager.getPlayerHandler(opponentHandlerId);
@@ -201,6 +224,9 @@ public class ActionHandler {
      */
     public void handleGameInvitationResponse(HashMap<String, String> data, PlayerHandler playerHandler) {
         System.out.println("-----\n<<@ActionHandler->handleGameInvitationResponse, Data: " + data.toString());
+
+        App.appendActionToLog(new LogAction("<<<Action Handler", "Handling invitation response",
+                playerHandler.getPlayer()));
 
         String response = data.get("response");
         String opponentId = playerHandler.invitationFrom;

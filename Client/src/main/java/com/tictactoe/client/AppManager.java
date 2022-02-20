@@ -1,6 +1,7 @@
 package com.tictactoe.client;
 
 import com.tictactoe.actions.ActionController;
+import com.tictactoe.actions.MessageCreator;
 import com.tictactoe.models.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.LinkedList;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
 
 /**
  *
@@ -21,7 +24,10 @@ public class AppManager {
     private Socket socket;
     private BufferedReader bufferedReader;
     private PrintStream printStream;
-    
+
+    public static final String GAME_TYPE_PC = "GAME_TYPE_PC";
+    public static final String GAME_TYPE_MP = "GAME_TYPE_MULTIPLAYER";
+
     public static String GameLevel;
     public static String GameType;
 
@@ -38,6 +44,10 @@ public class AppManager {
 
     public AppManager() {
         actionController = new ActionController(this);
+        openConnection();
+    }
+
+    void openConnection() {
         try {
             socket = new Socket(IP, PORT);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -55,15 +65,16 @@ public class AppManager {
                 try {
                     String message = bufferedReader.readLine();
                     System.out.println("<<< Client just recieved this > " + message);
-                    //{"data":{"registerResult":"success"},"action":"REGISTER"}
-                    actionController.handleAction(message);
+                    if (message != null && !message.isEmpty()) {
+                        actionController.handleAction(message);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     isConnected = false;
+                    onDisconnect();
                 }
             }
         }).start();
-        // TODO: try to reconnect
     }
 
     public void sendMessage(String jsonMessage) {
@@ -71,8 +82,39 @@ public class AppManager {
         if (isConnected) {
             printStream.println(jsonMessage);
         } else {
-            System.out.println("@sendMessage, trying to send messag... No Connection!");
+            // Try to reconnect
+            openConnection();
+            System.out.println("@sendMessage, No Connection! trying to reconnect...");
+            if (isConnected) {
+                printStream.println(jsonMessage);
+            } else {
+                System.out.println("@sendMessage, No Connection! Couldn't send the message");
+            }
         }
+    }
+
+    private void onDisconnect() {
+        Platform.runLater(() -> {
+            try {
+                App.setRoot("LoginScene");
+                Label messageLabel = (Label) App.getScene().lookup("#registerMsgLogin");
+                if (messageLabel != null) {
+                    messageLabel.setText("Disconnected!!! :(");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        resetGameData();
+    }
+
+    public void closeCurrentGame() {
+        // Send close game to the server
+        MessageCreator messageCreator = actionController.getMessageCreator();
+        messageCreator.sendGameClose();
+
+        // Reset the game data
+        resetGameData();
     }
 
     public String getGameId() {
@@ -90,6 +132,13 @@ public class AppManager {
     public void setGameData(String gameId, String playWith) {
         this.gameId = gameId;
         this.playWith = playWith;
+        AppManager.GameType = GAME_TYPE_MP;
+    }
+
+    public void resetGameData() {
+        gameId = null;
+        playWith = null;
+        opponentName = null;
     }
 
     public String getPlayWith() {

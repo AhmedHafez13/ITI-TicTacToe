@@ -1,200 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="606.0" prefWidth="622.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <stylesheets>
-        <URL value="@/styles/leaderboard.css" />
-    </stylesheets>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right , #C33764,#1D2671);" stylesheets="@../../../styles/leaderboard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tictactoe.client.LeaderBoardController">
    <children>
-      <AnchorPane layoutX="28.0" layoutY="37.0" prefHeight="94.0" prefWidth="562.0" style="-fx-background-color: #f5f5f5; -fx-background-radius: 20px;">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="56.0" fitWidth="52.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="70.0" onMouseClicked="#backClick" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/back.png" />
+                  <Image url="@../../../images/left.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
             </ImageView>
-            <Text fill="#d35400" layoutX="205.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LeaderBoard">
+            <Text fill="#6dede1" strokeType="OUTSIDE" strokeWidth="0.0" text="Leader Board">
                <font>
-                  <Font size="36.0" />
+                  <Font name="Bauhaus 93" size="48.0" />
                </font>
             </Text>
          </children>
-      </AnchorPane>
-      <AnchorPane layoutX="23.0" layoutY="164.0" prefHeight="415.0" prefWidth="572.0" style="-fx-background-color: #f5f5f5; -fx-background-radius: 20px;">
-         <children>
-            <AnchorPane layoutX="18.0" layoutY="14.0" prefHeight="52.0" prefWidth="535.0" style="-fx-background-color: #d5e8d4; -fx-background-radius: 10px;">
-               <children>
-                  <Text fill="#2c3e50" layoutX="22.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Rank">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Label layoutX="448.0" layoutY="13.0" style="-fx-border-color: #333; -fx-padding: 3px 15px; -fx-border-radius: 20px;" text="Score">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="18.0" layoutY="82.0" prefHeight="322.0" prefWidth="535.0" style="-fx-background-color: #d5e8d4; -fx-background-radius: 20px;">
-               <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="322.0" prefWidth="535.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="534.0" style="-fx-background-color: #d5e8d4; -fx-background-radius: 10px;">
-                           <children>
-                              <GridPane layoutX="4.0" layoutY="14.0" prefHeight="282.0" prefWidth="526.0" style="-fx-vgap: 15px;">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.199951171875" minWidth="10.0" prefWidth="65.39998779296874" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0000114440918" minWidth="10.0" prefWidth="461.4000122070312" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #2c3e50; -fx-border-radius: 10px;" GridPane.columnIndex="1">
-                                       <children>
-                                          <Label layoutX="64.0" layoutY="17.0" text="Player1">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="381.0" layoutY="16.0" style="-fx-border-color: #333; -fx-padding: 3px 15px; -fx-border-radius: 20px;" text="1005">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/avatar.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #2c3e50; -fx-border-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <children>
-                                          <Label layoutX="64.0" layoutY="17.0" text="Player2">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="381.0" layoutY="16.0" style="-fx-border-color: #333; -fx-padding: 3px 15px; -fx-border-radius: 20px;" text="900">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/avatar.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #2c3e50; -fx-border-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <children>
-                                          <Label layoutX="64.0" layoutY="17.0" text="Player3">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="381.0" layoutY="16.0" style="-fx-border-color: #333; -fx-padding: 3px 15px; -fx-border-radius: 20px;" text="750">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/avatar.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
-                                       <children>
-                                          <Label layoutX="11.0" layoutY="8.0" style="-fx-border-color: #333; -fx-padding: 5px 15px; -fx-border-radius: 50%;" text="4">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                       <children>
-                                          <ImageView fitHeight="62.0" fitWidth="53.0" layoutX="6.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/medal%20(2).png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                       <children>
-                                          <ImageView fitHeight="62.0" fitWidth="53.0" layoutX="6.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/bronze_medal.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="62.0" fitWidth="53.0" layoutX="6.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/gold_medal.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #2c3e50; -fx-border-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                       <children>
-                                          <Label layoutX="64.0" layoutY="17.0" text="Player4">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="381.0" layoutY="16.0" style="-fx-border-color: #333; -fx-padding: 3px 15px; -fx-border-radius: 20px;" text="100">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../images/avatar.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </HBox>
+      <TableView fx:id="leaderBoardTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn prefWidth="100.0" resizable="false" text="Rank" />
+          <TableColumn prefWidth="150.0" text="Player Name" />
+            <TableColumn prefWidth="75.0" text="Score" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

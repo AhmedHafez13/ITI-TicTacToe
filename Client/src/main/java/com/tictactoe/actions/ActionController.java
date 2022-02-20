@@ -27,6 +27,12 @@ public class ActionController {
 
     public void handleAction(String jsonMessage) {
         Message message = getActionData(jsonMessage);
+
+        if (message == null) {
+            System.out.println("-----\n@ActionController->handleAction, "
+                    + "can't handle the action: message error");
+            return;
+        }
         String action = message.action;
         HashMap<String, String> data = message.data;
 
@@ -37,13 +43,13 @@ public class ActionController {
 
         } else if (action.equalsIgnoreCase(Message.REGISTER)) {
             actionHandler.handleRegister(data);
-            
+
         } else if (action.equalsIgnoreCase(Message.PLAYERS_LIST)) {
             actionHandler.handlePlayersList(data);
-            
+
         } else if (action.equalsIgnoreCase(Message.GAME_INVITATION)) {
             actionHandler.handleGameInvitation(data);
-            
+
         } else if (action.equalsIgnoreCase(Message.GAME_INVITATION_RESPONSE)) {
             actionHandler.handleGameInvitationResponse(data);
 

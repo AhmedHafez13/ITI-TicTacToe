@@ -11,10 +11,10 @@ import java.util.LinkedList;
  *
  */
 public class ActionHandler {
-    
+
     private final ActionController actionController;
     private final AppManager appManager;
-    
+
     ActionHandler(ActionController actionController) {
         this.actionController = actionController;
         appManager = actionController.appManager;
@@ -33,10 +33,10 @@ public class ActionHandler {
             String playerName = data.get("playerName");
             int playerScore = Integer.parseInt(data.get("playerScore"));
             String playerAvatar = data.get("playerAvatar");
-            
+
             Player playerData = new Player(handlerId, playerName,
                     playerScore, playerAvatar);
-            
+
             appManager.setPlayerData(playerData);
             App.getSceneManager().showMainMenu(playerData);
         } else {
@@ -51,24 +51,24 @@ public class ActionHandler {
     public void handleRegister(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handleRegister, Data:"
                 + data.toString());
-        
+
         String registerResult = data.get("registerResult");
         App.getSceneManager().registerMessageToUI(registerResult);
     }
-    
+
     public void handlePlayersList(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handlePlayersList, Data:"
                 + data.toString());
         String allPlayersStr = data.get("players");
         String separator = ":";
-        
+
         LinkedList<Player> players = new LinkedList<>();
 
         //handlerId:name:totalScore:avatar:isOnline
         String[] playersStr = allPlayersStr.split("\n");
         for (String player : playersStr) {
             String[] parts = player.split(separator);
-            
+
             String handlerId = parts[0];
             String name = parts[1];
             int totalScore = Integer.parseInt(parts[2]);
@@ -92,7 +92,7 @@ public class ActionHandler {
     public void handleMove(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handleMove, Data:"
                 + data.toString());
-        
+
         actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
             {
                 put("gameId", data.get("gameId"));
@@ -105,26 +105,27 @@ public class ActionHandler {
          * • Apply the new move
          */
     }
-    
+
     public void handleGameInvitation(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handleGameInvitation, Data:"
                 + data.toString());
         String playerId = data.get("playerId");
         String playerName = data.get("playerName");
         App.getSceneManager().showInvitationPopUp(playerName, playerId);
-        
+
     }
-    
+
     public void handleGameInvitationResponse(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handleGameInvitationResponse, Data:"
                 + data.toString());
         String Response = data.get("response");
         if (Response.equalsIgnoreCase("accept")) {
             App.getSceneManager().InvitationMessageToUI("Accepted");
-            
+
         } else {
-            App.getSceneManager().InvitationMessageToUI("Refused");
-            
+            //App.getSceneManager().InvitationMessageToUI("Refused");
+            App.getSceneManager().showMainMenu(appManager.getPlayerData(),
+                    "You invitation has rejected!");
         }
     }
 
@@ -135,13 +136,13 @@ public class ActionHandler {
     public void handleGameStart(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handleGameStart, Data:"
                 + data.toString());
-        
+
         String gameId = data.get("gameId");
         String opponentName = data.get("opponentName");
         String playWith = data.get("playWith");
-        
+
         appManager.setGameData(gameId, playWith);
-        
+
         App.sceneManager.showGameScene(appManager.getPlayerData().getName(),
                 opponentName, playWith);
     }
@@ -154,11 +155,11 @@ public class ActionHandler {
     public void handleGameMove(HashMap<String, String> data) {
         System.out.println("-----\n<<@ActionHandler->handleGameMove, Data:"
                 + data.toString());
-        
+
         boolean isMyTurn = data.get("isMyTurn").equals("true");
         String[] gameMoves = data.get("gameMoves").split(",");
         int[] moves = new int[gameMoves.length];
-        
+
         for (int i = 0; i < gameMoves.length; i++) {
             moves[i] = Integer.parseInt(gameMoves[i]);
         }

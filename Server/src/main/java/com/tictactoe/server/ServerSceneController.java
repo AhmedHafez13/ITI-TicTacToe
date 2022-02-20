@@ -23,9 +23,9 @@ public class ServerSceneController implements Initializable {
     @FXML
     private Button startStopButton;
     @FXML
-    private TableView onlinePlayersTable;
+    private TableView onlinePlayersTable, offlinePlayersTable;
     @FXML
-    private TableView offlinePlayersTable;
+    private TableView actionsLogTable;
 
     /**
      * Initializes the controller class.
@@ -34,6 +34,7 @@ public class ServerSceneController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupTable(onlinePlayersTable);
         setupTable(offlinePlayersTable);
+        setupLogTable();
     }
 
     private void setupTable(TableView tableview) {
@@ -44,6 +45,16 @@ public class ServerSceneController implements Initializable {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("totalScore"));
+    }
+
+    private void setupLogTable() {
+        TableColumn idColumn = (TableColumn) actionsLogTable.getColumns().get(0);
+        TableColumn nameColumn = (TableColumn) actionsLogTable.getColumns().get(1);
+        TableColumn scoreColumn = (TableColumn) actionsLogTable.getColumns().get(2);
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
     }
 
     @FXML

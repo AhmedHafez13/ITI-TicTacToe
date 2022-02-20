@@ -28,14 +28,24 @@ import javafx.scene.paint.Color;
 public class SceneManager {
 
     public void showMainMenu(Player playerData) {
+        showMainMenu(playerData, null);
+    }
+
+    public void showMainMenu(Player playerData, String message) {
         System.out.println("-----\n@SceneManager->showMainMenu, "
                 + "switching to the main menu scene");
         Platform.runLater(() -> {
             try {
                 App.setRoot("mainPage");
-                Label userNameField = (Label) App.getScene().lookup("#userNameField");
-                userNameField.setText(playerData.getName() + " | Score: "
-                        + playerData.getTotalScore());
+                if (playerData != null) {
+                    Label userNameField = (Label) App.getScene().lookup("#userNameField");
+                    userNameField.setText(playerData.getName() + " | Score: "
+                            + playerData.getTotalScore());
+                }
+                if (message != null) {
+                    Label invitationLabel = (Label) App.getScene().lookup("#invitationLabel");
+                    invitationLabel.setText(message);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -142,7 +152,7 @@ public class SceneManager {
 
                 for (int i = 0; i < 9; i++) {
                     Button targetBtn = (Button) App.getScene().lookup("#btn" + i);
-                    targetBtn.setDisable(playWith.equalsIgnoreCase("X"));
+                    targetBtn.setDisable(playWith.equalsIgnoreCase("O"));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
