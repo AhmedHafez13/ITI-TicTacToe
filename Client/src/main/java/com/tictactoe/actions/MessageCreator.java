@@ -78,10 +78,12 @@ public class MessageCreator {
     public void sendGameMove(String index) {
         System.out.println("-----\n>>@MessageCreator->sendGameMove, index: " + index);
         String gameId = actionController.appManager.getGameId();
+        String playWith = actionController.appManager.getPlayWith();
         actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
             {
                 put("gameId", gameId);
                 put("index", index);
+                put("playWith", playWith);
             }
         });
     }

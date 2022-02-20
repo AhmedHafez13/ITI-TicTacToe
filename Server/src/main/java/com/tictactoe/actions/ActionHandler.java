@@ -134,6 +134,8 @@ public class ActionHandler {
 
         String gameId = data.get("gameId");
         String movesIndex = data.get("index");
+        String playWith = data.get("playWith");
+
         Game game = actionController.serverManager.getGame(gameId);
         if (game != null) {
             ArrayList<Integer> newMoves = game.setNextMove(movesIndex);
@@ -153,7 +155,11 @@ public class ActionHandler {
                 String gameMovesStr = newMoves.toString()
                         .replaceAll("[\\[\\]\\s]", "");
                 actionController.messageCreator.sendGameMoves(
-                        gameMovesStr, game.getPlayerX(), game.getPlayerO());
+                        gameMovesStr, playWith.equalsIgnoreCase("O"),
+                        game.getPlayerX());
+                actionController.messageCreator.sendGameMoves(
+                        gameMovesStr, playWith.equalsIgnoreCase("X"),
+                        game.getPlayerO());
             }
 
         } else {
@@ -210,7 +216,7 @@ public class ActionHandler {
             String gameId = actionController.serverManager
                     .startNewGame(opponentHandler, playerHandler);
             actionController.messageCreator.sendAcceptInvitation(
-                    gameId, playerHandler, opponentHandler);
+                    gameId, opponentHandler, playerHandler);
         }
     }
 }

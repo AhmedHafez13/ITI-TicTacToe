@@ -128,14 +128,21 @@ public class SceneManager {
 
     }
 
-    public void showGameScene(String playerName, String opponentName, boolean startGame) {
+    public void showGameScene(String playerName, String opponentName, String playWith) {
+        System.out.println("-----\n@SceneManager->showGameScene, playWith:"
+                + playWith);
+
         Platform.runLater(() -> {
             try {
                 App.setRoot("game");
+                Label player1NameLabel = (Label) App.getScene().lookup("#player1Name");
+                Label player2NameLabel = (Label) App.getScene().lookup("#player2Name");
+                player1NameLabel.setText(playerName);
+                player2NameLabel.setText(opponentName);
+
                 for (int i = 0; i < 9; i++) {
-                    String btnId = "#btn" + i;
-                    Button targetBtn = (Button) App.getScene().lookup(btnId);
-                    targetBtn.setDisable(!startGame);
+                    Button targetBtn = (Button) App.getScene().lookup("#btn" + i);
+                    targetBtn.setDisable(playWith.equalsIgnoreCase("X"));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -143,12 +150,19 @@ public class SceneManager {
         });
     }
 
-    public void gameMovesToUI(int[] moves) {
+    public void gameMovesToUI(int[] moves, boolean isMyTurn) {
         Platform.runLater(() -> {
+            // Enable all buttons
+            for (int i = 0; i < 9; i++) {
+                Button targetBtn = (Button) App.getScene().lookup("#btn" + i);
+                targetBtn.setDisable(!isMyTurn);
+            }
+
+            // Disable used buttons
             for (int i = 0; i < moves.length; i++) {
                 char text = i % 2 == 0 ? 'X' : 'O';
 
-                String btnId = "#btn" + i;
+                String btnId = "#btn" + moves[i];
                 Button targetBtn = (Button) App.getScene().lookup(btnId);
 
                 targetBtn.setDisable(true);
@@ -175,7 +189,7 @@ public class SceneManager {
     void createPlayerPane(Player player, VBox playersVBox) {
         HBox playerPane = new HBox();
         playerPane.setAlignment(Pos.CENTER);
-        playerPane.setPrefWidth(150);
+        playerPane.setPrefWidth(300);
 
         ImageView playerImage = new ImageView();
         //playerImage.getLayoutParams().height = 20;
@@ -186,15 +200,16 @@ public class SceneManager {
 
         Label playerName = new Label(player.getName());
         HBox.setHgrow(playerName, Priority.ALWAYS);
-        playerName.setMaxWidth(Double.MAX_VALUE);
-//************************************invite button********************************************************
+        playerName.setPrefWidth(100.0);
+
+        //*********************** invite button **************************//
         Button inviteButton = new Button("Invite");
 
         inviteButton.setOnAction((event) -> {
             handleInvite(player.getHandlerId());
         });
-        inviteButton.setPrefHeight(34.0);
-        inviteButton.setPrefWidth(53.0);
+        inviteButton.setPrefHeight(40.0);
+        inviteButton.setPrefWidth(60.0);
         inviteButton.setStyle("-fx-background-color: none; -fx-font-size: 12; -fx-text-fill: #dedc66; -fx-border-width: 2; -fx-border-color: #dedc66; -fx-border-radius: 15;");
         inviteButton.setText("Invite");
         inviteButton.setVisible(!player.getHandlerId().isEmpty());

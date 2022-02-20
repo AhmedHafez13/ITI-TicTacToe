@@ -28,6 +28,7 @@ public class AppManager {
 
     LinkedList<Player> players = new LinkedList<>();
     String gameId = null;
+    String playWith;
     String opponentName = null;
 
     private boolean isConnected;
@@ -83,8 +84,13 @@ public class AppManager {
         return playerData;
     }
 
-    public void setGameId(String gameId) {
+    public void setGameData(String gameId, String playWith) {
         this.gameId = gameId;
+        this.playWith = playWith;
+    }
+
+    public String getPlayWith() {
+        return playWith;
     }
 
     public void setOpponentName(String opponentName) {

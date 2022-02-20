@@ -23,21 +23,25 @@
                   <Image url="@../../../images/left.png" />
                </image>
             </ImageView>
-            <Label prefHeight="90.0" prefWidth="633.0" style="-fx-border-color: white; -fx-border-radius: 20 20 20 20; -fx-background-color: #00000025; -fx-background-radius: 20;" text="Player 1" textFill="WHITE">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="70.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/vs.png" />
-               </image>
-            </ImageView>
-            <Label prefHeight="90.0" prefWidth="633.0" style="-fx-border-color: white; -fx-border-radius: 20 20 20 20; -fx-background-color: #00000025; -fx-background-radius: 20;" text="Player 2" textFill="WHITE">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-radius: 20 20 20 20; -fx-background-color: #00000025; -fx-background-radius: 20;" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="player1Name" alignment="CENTER" prefHeight="90.0" prefWidth="633.0" text="Player 1" textFill="WHITE">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/vs.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="player2Name" alignment="CENTER" prefHeight="90.0" prefWidth="633.0" text="Player 2" textFill="WHITE">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -47,7 +51,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <GridPane id="gridButton" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="400.0" style="-fx-border-radius: 20 20 20 20; -fx-padding: 5 5 5 5; -fx-background-radius: 20; -fx-background-color: transparent;">
+                  <GridPane id="gridButton" alignment="CENTER" maxHeight="400.0" maxWidth="400.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="400.0" style="-fx-border-radius: 20 20 20 20; -fx-padding: 5 5 5 5; -fx-background-radius: 20; -fx-background-color: transparent;">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -59,7 +63,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="btn2" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn2" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text="O" textAlignment="CENTER" textFill="#dcd9d9">
+                        <Button fx:id="btn0" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn0" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -70,7 +74,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn1" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="-Infinity" mnemonicParsing="false" onAction="#clickBtn1" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1">
+                        <Button fx:id="btn1" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="-Infinity" mnemonicParsing="false" onAction="#clickBtn1" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -81,7 +85,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn5" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn5" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.rowIndex="1">
+                        <Button fx:id="btn2" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn2" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -92,7 +96,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn0" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn0" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2">
+                        <Button fx:id="btn3" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn3" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -103,7 +107,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn6" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn6" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text="X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Button fx:id="btn4" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn4" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -114,7 +118,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn7" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn7" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text=" X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="btn5" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn5" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -125,7 +129,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn8" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn8" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text="O" textAlignment="CENTER" textFill="#dcd9d9" GridPane.rowIndex="2">
+                        <Button fx:id="btn6" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn6" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -136,7 +140,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn3" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn3" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text=" O" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Button fx:id="btn7" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn7" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -147,7 +151,7 @@
                               <Insets left="3.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btn4" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn4" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" text=" X" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="btn8" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#clickBtn8" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: #00000025; -fx-background-radius: 20;" textAlignment="CENTER" textFill="#dcd9d9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -164,21 +168,30 @@
             </HBox>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" style="-fx-border-width: 2; -fx-border-color: white; -fx-border-radius: 20 20 20 20; -fx-effect: 30;">
                      <children>
-                        <ImageView fitHeight="44.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                            <image>
                               <Image url="@../../../images/stopwatch.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="162.0" style="-fx-border-width: 2; -fx-border-color: white; -fx-border-radius: 20 20 20 20; -fx-effect: 30;" text="           Timer    00:23" textFill="#f4f2f2" HBox.hgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="162.0" text="Timer    00:23" textFill="#f4f2f2" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Segoe UI Semibold" size="18.0" />
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </HBox>
-                  <GridPane alignment="CENTER" prefHeight="243.0" prefWidth="300.0">
+                  <GridPane alignment="CENTER" prefHeight="300.0" prefWidth="300.0" style="-fx-border-width: 2; -fx-border-color: white; -fx-border-radius: 20 20 20 20; -fx-effect: 30;" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -189,27 +202,30 @@
                       <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" prefHeight="90.0" prefWidth="150.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 20 20 20 20; -fx-padding: 10 10 10 10;" text="You" textFill="#faf6f6">
+                        <Label alignment="CENTER" prefHeight="90.0" prefWidth="150.0" text="You" textFill="#faf6f6">
                            <font>
                               <Font name="Segoe UI Semibold" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="38.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../../../images/no.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="90.0" prefWidth="150.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 20 20 20 20; -fx-padding: 10 10 10 10;" text="Player2" textFill="#faf6f6" GridPane.columnIndex="1">
+                        <Label alignment="CENTER" prefHeight="90.0" prefWidth="150.0" text="Player2" textFill="#faf6f6" GridPane.columnIndex="1">
                            <font>
                               <Font name="Segoe UI Semibold" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="38.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../../../images/letter-o.png" />
                            </image>
                         </ImageView>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </GridPane>
                </children>
             </VBox>

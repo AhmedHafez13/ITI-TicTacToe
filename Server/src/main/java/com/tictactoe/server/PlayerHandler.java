@@ -69,18 +69,16 @@ public class PlayerHandler extends Thread {
     }
 
     public void sendAction(String action, HashMap<String, String> data) {
-        System.out.println("@PlayerHandler->sendAction, data: "
-                + Arrays.toString(data.values().toArray()));
-
         String jsonMessage = ActionController.createActionJson(action, data);
 
         System.out.println("@PlayerHandler->sendAction, jsonMessage: "
                 + jsonMessage);
+
         if (isConnected) {
             printStream.println(jsonMessage);
 
         } else {
-            System.out.println("@PlayerHandler->sendMessage, trying to send messag... No Connection!");
+            System.out.println("@PlayerHandler->sendMessage, trying to send a message... No Connection!");
         }
     }
 

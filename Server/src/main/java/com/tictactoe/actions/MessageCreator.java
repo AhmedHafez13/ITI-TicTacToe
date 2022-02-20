@@ -97,28 +97,27 @@ public class MessageCreator {
             {
                 put("gameId", gameId);
                 put("opponentName", player2.getPlayer().getName());
-                put("startTheGame", "true");
+                put("playWith", "X");
             }
         });
         player2.sendAction(Message.GAME_START, new HashMap<String, String>() {
             {
                 put("gameId", gameId);
                 put("opponentName", player1.getPlayer().getName());
-                put("startTheGame", "false");
+                put("playWith", "O");
             }
         });
     }
 
-    public void sendGameMoves(String moves, PlayerHandler player1, PlayerHandler player2) {
+    public void sendGameMoves(String moves, boolean isMyTurn, PlayerHandler player) {
         System.out.println("-----\n>>@MessageCreator->sendGameMoves");
         HashMap<String, String> messageMap = new HashMap<String, String>() {
             {
-                put("response", "accept");
                 put("gameMoves", moves);
+                put("isMyTurn", Boolean.toString(isMyTurn));
             }
         };
-        player1.sendAction(Message.GAME_START, messageMap);
-        player2.sendAction(Message.GAME_START, messageMap);
+        player.sendAction(Message.GAME_MOVE, messageMap);
     }
 
     public void sendGameEnd(String winnerId, PlayerHandler player1, PlayerHandler player2) {

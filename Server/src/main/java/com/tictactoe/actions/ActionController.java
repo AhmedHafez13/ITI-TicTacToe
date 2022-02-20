@@ -50,11 +50,7 @@ public class ActionController {
             actionHandler.handleGameInvitationResponse(data, playerHandler);
 
         } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
-            String gameId = playerHandler.getGameId();
-            // Check if the player is in game
-            if (gameId != null) {
-                actionHandler.handleMove(data, playerHandler);
-            }
+            actionHandler.handleMove(data, playerHandler);
         }
     }
 
