@@ -56,6 +56,12 @@ public class MainPageController implements Initializable {
         App.setRoot("leaderBoard");
     }
 
+     @FXML
+    private void switchToPlayWithPCOptions() throws IOException {
+        AppManager.GameType="WithPC";
+        App.setRoot("playWithPC");
+    }   
+    
     @FXML
     private void Refresh() throws IOException {
         /*

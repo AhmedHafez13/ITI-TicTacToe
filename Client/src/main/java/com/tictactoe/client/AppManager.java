@@ -21,6 +21,9 @@ public class AppManager {
     private Socket socket;
     private BufferedReader bufferedReader;
     private PrintStream printStream;
+    
+    public static String GameLevel;
+    public static String GameType;
 
     ActionController actionController;
 
