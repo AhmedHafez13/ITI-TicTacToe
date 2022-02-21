@@ -139,35 +139,33 @@ public class MessageCreator {
         });
     }
 
-    public void sendGameMoves(String moves, boolean isMyTurn, PlayerHandler player) {
+    public void sendGameMoves(String gameMoves, char gameResult,
+            boolean isMyTurn, String message, PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendGameMoves");
 
         App.appendActionToLog(new LogAction(">>>Sending Message",
-                "Sending game move", player.getPlayer()));
+                "Sending game move", playerHandler.getPlayer()));
 
         HashMap<String, String> messageMap = new HashMap<String, String>() {
             {
-                put("gameMoves", moves);
+                put("gameMoves", gameMoves);
+                put("result", String.valueOf(gameResult));
                 put("isMyTurn", Boolean.toString(isMyTurn));
+                put("message", message);
             }
         };
-        player.sendAction(Message.GAME_MOVE, messageMap);
+        playerHandler.sendAction(Message.GAME_MOVE, messageMap);
     }
 
-    public void sendGameEnd(String winnerId, PlayerHandler player1, PlayerHandler player2) {
-        System.out.println("-----\n>>@MessageCreator->sendGameEnd, winnerId: " + winnerId);
+    /*public void sendGameEnd(String result, PlayerHandler playerHandler) {
+        System.out.println("-----\n>>@MessageCreator->sendGameEnd, result: " + result);
 
-        App.appendActionToLog(new LogAction(">>>Sending Message",
-                "Sending game end", player1.getPlayer()));
-
-        HashMap<String, String> messageMap = new HashMap<String, String>() {
+        playerHandler.sendAction(Message.GAME_END, new HashMap<String, String>() {
             {
-                put("winnerId", winnerId);
+                put("result", result);
             }
-        };
-        player1.sendAction(Message.GAME_END, messageMap);
-        player2.sendAction(Message.GAME_END, messageMap);
-    }
+        });
+    }*/
 
     public void sendGameClose(PlayerHandler playerHandler) {
         System.out.println("-----\n>>@MessageCreator->sendGameClose");

@@ -9,15 +9,17 @@ import java.util.ArrayList;
  */
 public class Game {
 
-    final char PLAYER_X = 'X';
-    final char PLAYER_O = 'O';
+    public final static char PLAYER_X = 'X';
+    public final static char PLAYER_O = 'O';
+    public final static char DRAW = 'D';
+    public final static char RUNNING = 'R';
 
     private final PlayerHandler playerX;
     private final PlayerHandler playerO;
     private final String gameId;
     private ArrayList<Integer> moves = new ArrayList<>();
     private boolean isGameOver = false;
-    private String winnerId;
+    private char winnerPlayer = RUNNING;
     private char started = PLAYER_X;
 
     public Game(PlayerHandler playerX, PlayerHandler playerO, String gameId) {
@@ -56,17 +58,16 @@ public class Game {
         return isGameOver;
     }
 
-    public String getWinnerId() {
-        return winnerId;
+    public PlayerHandler getWinnerPlayerHandler() {
+        return winnerPlayer == PLAYER_X ? playerX : playerO;
+    }
+
+    public PlayerHandler getLoserPlayerHandler() {
+        return winnerPlayer == PLAYER_O ? playerX : playerO;
     }
 
     public ArrayList<Integer> setNextMove(String index) {
         moves.add(Integer.parseInt(index));
-        /*
-         * TODO: Check if the game is over (isGameOver)
-         * set (winnerId) when the game is ended
-         */
-
         return moves;
     }
 
@@ -83,29 +84,49 @@ public class Game {
         }
     };
 
-    private String getGameResult() {
+    public char getGameResult() {
         if (moves.size() >= 5 && moves.size() % 2 != 0) {
             // X played the last and may win
-            ArrayList<Integer> xMoves = getXMoves();
-
+            if (isInWinningMoves(getPlayerMoves(PLAYER_X))) {
+                winnerPlayer = PLAYER_X;
+                return PLAYER_X;
+            }
         } else if (moves.size() >= 6 && moves.size() % 2 == 0) {
             // O played the last and may win
-            ArrayList<Integer> oMoves = getOMoves();
-
+            if (isInWinningMoves(getPlayerMoves(PLAYER_O))) {
+                winnerPlayer = PLAYER_O;
+                return PLAYER_O;
+            }
         }
-        return null;
+        if (moves.size() == 9) {
+            // End of the game with draw
+            winnerPlayer = DRAW;
+            return DRAW;
+        }
+        return RUNNING;
     }
 
-    private ArrayList<Integer> getXMoves() {
-        ArrayList<Integer> xMoves = new ArrayList<>();
-
-        return xMoves;
+    private ArrayList<Integer> getPlayerMoves(char player) {
+        ArrayList<Integer> playerMoves = new ArrayList<>();
+        int i = player == PLAYER_X ? 0 : 1;
+        for (; i < moves.size(); i = i + 2) {
+            playerMoves.add(moves.get(i));
+        }
+        return playerMoves;
     }
 
-    private ArrayList<Integer> getOMoves() {
-        ArrayList<Integer> oMoves = new ArrayList<>();
-
-        return oMoves;
+    private boolean isInWinningMoves(ArrayList<Integer> playerMoves) {
+        for (String winningMove : winningMoves) {
+            int counter = 0;
+            for (int playerMove : playerMoves) {
+                if (winningMove.contains(String.valueOf(playerMove))) {
+                    counter++;
+                }
+            }
+            if (counter == 3) {
+                return true;
+            }
+        }
+        return false;
     }
-
 }

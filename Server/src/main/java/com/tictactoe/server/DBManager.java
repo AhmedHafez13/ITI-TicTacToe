@@ -204,11 +204,11 @@ public class DBManager {
         }
     }
 
-    public static void updatePlayerScore(int winnerPlayerId, int newScore) {
+    public static void updatePlayerScore(int winnerPlayerId, int bonus) {
         try {
             //this will appened the new score to the old score! be careful!
-            PreparedStatement updatePlayerScore = connection.prepareStatement("update player set total_score = total_score + ? where id = ?");
-            updatePlayerScore.setInt(1, newScore);
+            PreparedStatement updatePlayerScore = connection.prepareStatement("update player set total_score = (total_score*1.05) + ? where id = ?");
+            updatePlayerScore.setInt(1, bonus);
             updatePlayerScore.setInt(2, winnerPlayerId);
             updatePlayerScore.executeUpdate();
             updatePlayerScore.close();

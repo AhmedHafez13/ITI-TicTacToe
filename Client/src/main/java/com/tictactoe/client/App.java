@@ -16,15 +16,15 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static String sceneName;
 
     static AppManager appManager;
     public static SceneManager sceneManager;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("LoginScene"));
-        //scene = new Scene(loadFXML("mainPage"));
-        //scene = new Scene(loadFXML("game"));
+        sceneName = "LoginScene";
+        scene = new Scene(loadFXML(sceneName));
 
         stage.setTitle("Tic Tac Toe!");
         stage.getIcons().add(new Image("https://files.softicons.com/download/game-icons/brain-games-icons-by-quizanswers/png/128x128/Tic-Tac-Toe-Game.png"));
@@ -35,7 +35,10 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        if (sceneName != fxml) {
+            sceneName = fxml;
+            scene.setRoot(loadFXML(fxml));
+        }
     }
 
     static Scene getScene() {

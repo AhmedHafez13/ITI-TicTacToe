@@ -120,14 +120,11 @@ public class ActionHandler {
                 + data.toString());
         String Response = data.get("response");
         if (Response.equalsIgnoreCase("accept")) {
-            App.getSceneManager().InvitationMessageToUI("Accepted");
+            //App.getSceneManager().InvitationMessageToUI("Accepted");
 
         } else {
-            //App.getSceneManager().InvitationMessageToUI("Refused");
             App.getSceneManager().showMainMenu(appManager.getPlayerData(),
-                    "You invitation has rejected!");
-            // List the latest players list
-            App.getSceneManager().listPlayers(appManager.getPlayersList());
+                    "You invitation has been rejected!");
         }
     }
 
@@ -158,6 +155,8 @@ public class ActionHandler {
         System.out.println("-----\n<<@ActionHandler->handleGameMove, Data:"
                 + data.toString());
 
+        String result = data.get("result");
+        String message = data.get("message");
         boolean isMyTurn = data.get("isMyTurn").equals("true");
         String[] gameMoves = data.get("gameMoves").split(",");
         int[] moves = new int[gameMoves.length];
@@ -166,20 +165,10 @@ public class ActionHandler {
             moves[i] = Integer.parseInt(gameMoves[i]);
         }
 
-        App.getSceneManager().gameMovesToUI(moves, isMyTurn);
-    }
+        App.getSceneManager().gameMovesToUI(moves, isMyTurn, message);
 
-    /**
-     *
-     * @param data
-     */
-    public void handleGameEnd(HashMap<String, String> data) {
-        System.out.println("-----\n<<@ActionHandler->handleGameEnd, Data:"
-                + data.toString());
-
-        /*TODO:
-         * • Show a message tells the winner, and (play again) button
-         */
-        // data -> winner, ...
+        if (result.equals("X") || result.equals("O")) {
+            appManager.resetGameData();
+        }
     }
 }

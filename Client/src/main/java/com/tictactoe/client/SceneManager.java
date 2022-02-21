@@ -1,18 +1,12 @@
 package com.tictactoe.client;
 
-import com.tictactoe.actions.MessageCreator;
 import com.tictactoe.models.Player;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -65,14 +59,8 @@ public class SceneManager {
         System.out.println("@registerMessageToUI> msg recieved is > " + uimessage);
         Platform.runLater(() -> {
             Label serverMsg = (Label) App.getScene().lookup("#serverMsg");
-//            PasswordField passwordRegister = (PasswordField) App.getScene().lookup("#passwordRegister");
-//            PasswordField passwordConfirmRegister = (PasswordField) App.getScene().lookup("#passwordConfirmRegister");
             TextField usernameRegister = (TextField) App.getScene().lookup("#usernameRegister");
             if (uimessage.equals("success")) {
-//                serverMsg.setText("Data registered successfully, you can login now!");
-//                passwordRegister.setText("");
-//                passwordConfirmRegister.setText("");
-//                usernameRegister.setText("");
                 try {
                     App.setRoot("LoginScene");
                     Label registerMsgLogin = (Label) App.getScene().lookup("#registerMsgLogin");
@@ -160,7 +148,7 @@ public class SceneManager {
         });
     }
 
-    public void gameMovesToUI(int[] moves, boolean isMyTurn) {
+    public void gameMovesToUI(int[] moves, boolean isMyTurn, String message) {
         Platform.runLater(() -> {
             // Enable all buttons
             for (int i = 0; i < 9; i++) {
@@ -178,6 +166,10 @@ public class SceneManager {
                 targetBtn.setDisable(true);
                 targetBtn.setText(text + "");
             }
+
+            // Show message
+            Label gameResultLable = (Label) App.getScene().lookup("#gameResultLable");
+            gameResultLable.setText(message);
         });
 
     }
@@ -217,7 +209,7 @@ public class SceneManager {
         Button inviteButton = new Button("Invite");
 
         inviteButton.setOnAction((event) -> {
-            handleInvite(player.getHandlerId());
+            App.appManager.handleInvite(player.getHandlerId());
         });
         inviteButton.setPrefHeight(40.0);
         inviteButton.setPrefWidth(80.0);
@@ -230,12 +222,6 @@ public class SceneManager {
         playerPane.getChildren().addAll(playerImage, playerName, inviteButton);
         playerPane.setPrefHeight(60);
         playersVBox.getChildren().add(playerPane);
-    }
-
-    void handleInvite(String playerId) {
-        System.out.println("-----\n@SceneManager->handleInivte, playerId:" + playerId);
-        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
-        messageCreator.sendInvitation(playerId);
     }
 
     String createAvatarPath(String avatarNo) {

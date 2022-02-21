@@ -157,31 +157,42 @@ public class ActionHandler {
         String playWith = data.get("playWith");
 
         Game game = actionController.serverManager.getGame(gameId);
-        if (game != null) {
-            ArrayList<Integer> newMoves = game.setNextMove(movesIndex);
-            boolean gameOver = game.isGameOver();
 
-            if (gameOver) {
-                game.getPlayerX().resetInivitationData();
-                game.getPlayerO().resetInivitationData();
-                actionController.messageCreator.sendGameEnd(game.getWinnerId(),
-                        playerHandler, playerHandler);
+        if (game != null) {
+            String gameMovesStr = game.setNextMove(movesIndex).toString()
+                    .replaceAll("[\\[\\]\\s]", "");
+            char gameResult = game.getGameResult();
+
+            if (gameResult != Game.RUNNING) { // The game still alive
+                PlayerHandler winnerHandler = game.getWinnerPlayerHandler(); // winner
+                PlayerHandler loserHandler = game.getLoserPlayerHandler();  // loser
+
+                winnerHandler.resetInivitationData();
+                loserHandler.resetInivitationData();
+
+                DBManager.updatePlayerScore(winnerHandler.getPlayer().getId(), 100);
+                DBManager.insertNewGame(game.getPlayerX().getPlayer().getId(),
+                        game.getPlayerO().getPlayer().getId(),
+                        gameResult, gameMovesStr);
+
                 actionController.serverManager.removeGame(gameId);
-                /*
-                 * TODO: give the winner bonus points
-                 * Record the game in the database
-                 */
-            } else {
-                String gameMovesStr = newMoves.toString()
-                        .replaceAll("[\\[\\]\\s]", "");
+
                 actionController.messageCreator.sendGameMoves(
-                        gameMovesStr, playWith.equalsIgnoreCase("O"),
+                        gameMovesStr, gameResult, false,
+                        "Congratulations, You win :)", winnerHandler);
+                actionController.messageCreator.sendGameMoves(gameMovesStr, gameResult, false,
+                        "Unfortunately, You lose :(", loserHandler);
+            } else {
+                String[] messages = {"Play, it's you turn", "Waiting the oppenent to play..."};
+                actionController.messageCreator.sendGameMoves(
+                        gameMovesStr, gameResult, playWith.equalsIgnoreCase("O"),
+                        playWith.equalsIgnoreCase("O") ? messages[0] : messages[1],
                         game.getPlayerX());
                 actionController.messageCreator.sendGameMoves(
-                        gameMovesStr, playWith.equalsIgnoreCase("X"),
+                        gameMovesStr, gameResult, playWith.equalsIgnoreCase("X"),
+                        playWith.equalsIgnoreCase("X") ? messages[0] : messages[1],
                         game.getPlayerO());
             }
-
         } else {
             System.out.println("-----\n@ActionHandler->handleMove, "
                     + "Try to get a non existing game");
@@ -197,6 +208,10 @@ public class ActionHandler {
 
         String opponentHandlerId = data.get("opponentId");
         String gameId = data.get("gameId");
+
+        if (opponentHandlerId == null || gameId == null) {
+            return;
+        }
 
         PlayerHandler opponentHandler = actionController.serverManager
                 .getPlayerHandler(opponentHandlerId);
@@ -229,13 +244,16 @@ public class ActionHandler {
 
         PlayerHandler opponentHandler = actionController.serverManager.getPlayerHandler(opponentHandlerId);
 
-        String playerName = playerHandler.getPlayer().getName();
-        String handlerId = playerHandler.getHandlerId();
+        if (playerHandler.invitationTo == null && playerHandler.invitationFrom == null
+                && opponentHandler.invitationTo == null && opponentHandler.invitationFrom == null) {
+            String playerName = playerHandler.getPlayer().getName();
+            String handlerId = playerHandler.getHandlerId();
 
-        playerHandler.invitationTo = opponentHandlerId;
-        opponentHandler.invitationFrom = handlerId;
+            playerHandler.invitationTo = opponentHandlerId;
+            opponentHandler.invitationFrom = handlerId;
 
-        actionController.messageCreator.sendInvitation(playerName, handlerId, opponentHandler);
+            actionController.messageCreator.sendInvitation(playerName, handlerId, opponentHandler);
+        }
     }
 
     /**

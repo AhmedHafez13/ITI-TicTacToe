@@ -53,8 +53,10 @@ public class AppManager {
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             printStream = new PrintStream(socket.getOutputStream());
             isConnected = true;
+            System.out.println("-----\n@AppManager->openConnection, Connected to the server");
         } catch (IOException ex) {
             isConnected = false;
+            System.out.println("-----\n@AppManager->openConnection, Connection lost!");
             ex.printStackTrace();
         }
     }
@@ -68,11 +70,13 @@ public class AppManager {
                     if (message != null) {
                         actionController.handleAction(message);
                     } else {
+                        System.out.println("<< Reseived null?!");
                         throw new IOException();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                     isConnected = false;
+                    System.out.println("-----\n@AppManager->listenToMessages, Connected to the server");
                     onDisconnect();
                 }
             }
@@ -80,14 +84,14 @@ public class AppManager {
     }
 
     public void sendMessage(String jsonMessage) {
-        System.out.println(">>> Message before leaving the client:" + jsonMessage);
         if (isConnected) {
             printStream.println(jsonMessage);
         } else {
             // Try to reconnect
-            openConnection();
             System.out.println("@sendMessage, No Connection! trying to reconnect...");
+            openConnection();
             if (isConnected) {
+                System.out.println(">>> Message before leaving the client:" + jsonMessage);
                 printStream.println(jsonMessage);
             } else {
                 System.out.println("@sendMessage, No Connection! Couldn't send the message");
@@ -110,13 +114,21 @@ public class AppManager {
         resetGameData();
     }
 
+    public void handleInvite(String playerId) {
+        System.out.println("-----\n@AppManager->handleInivte, playerId:" + playerId);
+        MessageCreator messageCreator = App.appManager.actionController.getMessageCreator();
+        messageCreator.sendInvitation(playerId);
+    }
+
     public void closeCurrentGame() {
         // Send close game to the server
-        MessageCreator messageCreator = actionController.getMessageCreator();
-        messageCreator.sendGameClose(gameId, playWith);
+        if (gameId != null) {
+            MessageCreator messageCreator = actionController.getMessageCreator();
+            messageCreator.sendGameClose(gameId, playWith);
 
-        // Reset the game data
-        resetGameData();
+            // Reset the game data
+            resetGameData();
+        }
     }
 
     public String getGameId() {
