@@ -199,10 +199,9 @@ public class SceneManager {
     void createPlayerPane(Player player, VBox playersVBox) {
         HBox playerPane = new HBox();
         playerPane.setAlignment(Pos.CENTER);
-        playerPane.setPrefWidth(300);
+        playerPane.setStyle("-fx-padding: 10;");
 
         ImageView playerImage = new ImageView();
-        //playerImage.getLayoutParams().height = 20;
         playerImage.setImage(new Image(getClass()
                 .getResource(createAvatarPath(player.getAvatar())).toExternalForm()));
         playerImage.setFitHeight(40);
@@ -210,7 +209,9 @@ public class SceneManager {
 
         Label playerName = new Label(player.getName());
         HBox.setHgrow(playerName, Priority.ALWAYS);
-        playerName.setPrefWidth(100.0);
+        playerName.setMaxWidth(1000);
+
+        playerName.setStyle("-fx-font-size: 1.2em; -fx-text-fill: white; -fx-padding: 10;");
 
         //*********************** invite button **************************//
         Button inviteButton = new Button("Invite");
@@ -219,13 +220,15 @@ public class SceneManager {
             handleInvite(player.getHandlerId());
         });
         inviteButton.setPrefHeight(40.0);
-        inviteButton.setPrefWidth(60.0);
-        inviteButton.setStyle("-fx-background-color: none; -fx-font-size: 12; -fx-text-fill: #dedc66; -fx-border-width: 2; -fx-border-color: #dedc66; -fx-border-radius: 15;");
+        inviteButton.setPrefWidth(80.0);
+        inviteButton.setStyle("-fx-font-size: 1.1em; -fx-background-color: none;"
+                + "-fx-cursor: hand;-fx-text-fill: #dedc66; -fx-border-width: 2;"
+                + "-fx-border-color: #dedc66; -fx-border-radius: 15;");
         inviteButton.setText("Invite");
         inviteButton.setVisible(!player.getHandlerId().isEmpty());
 
         playerPane.getChildren().addAll(playerImage, playerName, inviteButton);
-        playerPane.setPrefHeight(61);
+        playerPane.setPrefHeight(60);
         playersVBox.getChildren().add(playerPane);
     }
 

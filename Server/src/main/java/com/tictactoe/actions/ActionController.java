@@ -55,6 +55,10 @@ public class ActionController {
 
         } else if (action.equalsIgnoreCase(Message.GAME_MOVE)) {
             actionHandler.handleMove(data, playerHandler);
+
+        } else if (action.equalsIgnoreCase(Message.GAME_CLOSE)) {
+            actionHandler.handleCloseGame(data, playerHandler);
+
         }
     }
 

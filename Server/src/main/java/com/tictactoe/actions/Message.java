@@ -16,6 +16,7 @@ public class Message {
     public final static String GAME_MOVE = "GAME_MOVE";
     public final static String GAME_START = "GAME_START";
     public final static String GAME_END = "GAME_END";
+    public final static String GAME_CLOSE = "GAME_CLOSE";
 
     public String action;
     public HashMap<String, String> data;

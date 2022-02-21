@@ -188,6 +188,31 @@ public class ActionHandler {
         }
     }
 
+    public void handleCloseGame(HashMap<String, String> data, PlayerHandler playerHandler) {
+        System.out.println("-----\n<<@ActionHandler->handleCloseGame, Data: "
+                + data.toString());
+
+        App.appendActionToLog(new LogAction("<<<Action Handler", "Handling Close Game",
+                playerHandler.getPlayer()));
+
+        String opponentHandlerId = data.get("opponentId");
+        String gameId = data.get("gameId");
+
+        PlayerHandler opponentHandler = actionController.serverManager
+                .getPlayerHandler(opponentHandlerId);
+        /*
+         * TODO: 
+         * the opponent should win the game (opponentHandler)
+         * TODO: give the winner bonus points
+         * Record the game in the database
+         */
+        playerHandler.resetInivitationData();
+        opponentHandler.resetInivitationData();
+        actionController.serverManager.removeGame(gameId);
+
+        actionController.messageCreator.sendGameClose(opponentHandler);
+    }
+
     /**
      * Receive invitation from a player and send it to the opponent player
      *
@@ -245,4 +270,5 @@ public class ActionHandler {
                     gameId, opponentHandler, playerHandler);
         }
     }
+
 }

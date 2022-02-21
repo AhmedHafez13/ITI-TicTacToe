@@ -6,15 +6,12 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 public class LeaderBoardController implements Initializable {
 
@@ -30,10 +27,12 @@ public class LeaderBoardController implements Initializable {
         rankColumn.setCellValueFactory(player -> new ReadOnlyObjectWrapper(
                 leaderBoardTable.getItems().indexOf(((CellDataFeatures) player)
                         .getValue()) + 1 + ""));
+        rankColumn.setSortable(false);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("totalScore"));
 
         LinkedList<Player> players = (LinkedList) App.appManager.getPlayersList().clone();
+        players.add(App.appManager.getPlayerData());
 
         players.sort((player1, player2)
                 -> player1.getTotalScore() > player2.getTotalScore() ? -1 : 1);
@@ -49,28 +48,5 @@ public class LeaderBoardController implements Initializable {
         // List the latest players list
         App.sceneManager.listPlayers(App.appManager.getPlayersList());
 
-    }
-
-    public class LineNumbersCellFactory<T, E> implements
-            Callback<TableColumn<T, E>, TableCell<T, E>> {
-
-        public LineNumbersCellFactory() {
-        }
-
-        @Override
-        public TableCell<T, E> call(TableColumn<T, E> param) {
-            return new TableCell<T, E>() {
-                @Override
-                protected void updateItem(E item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (!empty) {
-                        setText(this.getTableRow().getIndex() + 1 + "");
-                    } else {
-                        setText("");
-                    }
-                }
-            };
-        }
     }
 }

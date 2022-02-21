@@ -88,12 +88,12 @@ public class MessageCreator {
         });
     }
 
-    public void sendGameClose() {
+    public void sendGameClose(String gameId, String playWith) {
         System.out.println("-----\n>>@MessageCreator->sendGameClose");
-        String gameId = actionController.appManager.getGameId();
-        actionController.sendAction(Message.GAME_MOVE, new HashMap<String, String>() {
+        actionController.sendAction(Message.GAME_CLOSE, new HashMap<String, String>() {
             {
                 put("gameId", gameId);
+                put("playWith", playWith);
             }
         });
     }

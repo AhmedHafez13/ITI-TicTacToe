@@ -37,7 +37,7 @@ public class AppManager {
 
     LinkedList<Player> players = new LinkedList<>();
     String gameId = null;
-    String playWith;
+    String playWith; // X | O
     String opponentName = null;
 
     private boolean isConnected;
@@ -65,8 +65,10 @@ public class AppManager {
                 try {
                     String message = bufferedReader.readLine();
                     System.out.println("<<< Client just recieved this > " + message);
-                    if (message != null && !message.isEmpty()) {
+                    if (message != null) {
                         actionController.handleAction(message);
+                    } else {
+                        throw new IOException();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -111,7 +113,7 @@ public class AppManager {
     public void closeCurrentGame() {
         // Send close game to the server
         MessageCreator messageCreator = actionController.getMessageCreator();
-        messageCreator.sendGameClose();
+        messageCreator.sendGameClose(gameId, playWith);
 
         // Reset the game data
         resetGameData();

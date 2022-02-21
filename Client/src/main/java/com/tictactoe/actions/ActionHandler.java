@@ -126,6 +126,8 @@ public class ActionHandler {
             //App.getSceneManager().InvitationMessageToUI("Refused");
             App.getSceneManager().showMainMenu(appManager.getPlayerData(),
                     "You invitation has rejected!");
+            // List the latest players list
+            App.getSceneManager().listPlayers(appManager.getPlayersList());
         }
     }
 

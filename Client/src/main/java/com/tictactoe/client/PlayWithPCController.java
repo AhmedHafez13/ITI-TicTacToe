@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tictactoe.client;
 
 import java.io.IOException;
@@ -30,5 +25,8 @@ public class PlayWithPCController {
                 "Hard PC", "X");
     }
 
-
+    @FXML
+    private void backClick() throws IOException {
+        App.sceneManager.showMainMenu(App.appManager.getPlayerData());
+    }
 }

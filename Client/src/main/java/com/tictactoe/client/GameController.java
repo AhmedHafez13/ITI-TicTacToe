@@ -1,6 +1,7 @@
 package com.tictactoe.client;
 
 import com.tictactoe.actions.MessageCreator;
+import static com.tictactoe.client.AppManager.GAME_TYPE_MP;
 import static com.tictactoe.client.AppManager.GAME_TYPE_PC;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,8 +113,11 @@ public class GameController {
     @FXML
     private void gameBackBtn() throws IOException {
         // TODO: show confirm alert
-        // Send close game to the server
-        App.appManager.closeCurrentGame();
+
+        if (GAME_TYPE_MP.equals(AppManager.GameType)) { // Play with PC
+            // Send close game to the server
+            App.appManager.closeCurrentGame();
+        }
 
         // Show main menu
         App.sceneManager.showMainMenu(App.appManager.getPlayerData());

@@ -168,4 +168,13 @@ public class MessageCreator {
         player1.sendAction(Message.GAME_END, messageMap);
         player2.sendAction(Message.GAME_END, messageMap);
     }
+
+    public void sendGameClose(PlayerHandler playerHandler) {
+        System.out.println("-----\n>>@MessageCreator->sendGameClose");
+
+        App.appendActionToLog(new LogAction(">>>Sending Message",
+                "Sending game close", playerHandler.getPlayer()));
+
+        playerHandler.sendAction(Message.GAME_END, new HashMap<>());
+    }
 }
