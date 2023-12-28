@@ -21,7 +21,7 @@ This project is a network-based Tic-Tac-Toe web application developed using Java
 
 ## Video
 
-https://github.com/AhmedHafez13/ITI-TicTacToe/blob/main/Tic-Tac-Toe_Java-Project-Demo.mp4
+https://github.com/AhmedHafez13/ITI-TicTacToe/assets/53107590/88c14440-aeb8-4b96-b760-8bb6966fab99
 
 ## License
 
